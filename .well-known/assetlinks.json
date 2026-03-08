@@ -1,0 +1,10 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+          "namespace": "android_app",
+          "package_name": "fit.thymos.app",
+          "sha256_cert_fingerprints": [
+                  "F9:8F:04:0C:29:80:CF:6A:3E:D6:12:8D:CC:28:E4:36:41:FA:8F:79:75:72:11:33:E2:AC:6F:33:14:BD:AD:DF"
+          ]
+    }
+}]
