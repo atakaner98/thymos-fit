@@ -1,41 +1,1229 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thymos</title>
-      <style>
-                body {
-                              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                              display: flex;
-                              justify-content: center;
-                              align-items: center;
-                              min-height: 100vh;
-                              margin: 0;
-                              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                              color: white;
-                }
-                .container {
-                              text-align: center;
-                              padding: 2rem;
-                }
-                h1 {
-                              font-size: 3rem;
-                              margin-bottom: 1rem;
-                }
-                p {
-                              font-size: 1.2rem;
-                              opacity: 0.9;
-                }
-            </style>
-  </head>
-  <body>
-        <div class="container">
-                  <h1>Thymos</h1>
-                <p>Welcome to Thymos</p>
-        </div>div>
-  </body>
-</html>html></p></h1>
-  </body>
-      </style></title>
-  </head>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THYMOS — Lift. Log. Own.</title>
+<meta name="description" content="A privacy-first workout companion for serious lifters. Offline-first. Zero ads. Your data, your rules.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0A0A0B;
+  --bg-secondary: #111113;
+  --bg-card: #161618;
+  --bg-card-hover: #1C1C1F;
+  --border: #2A2A2E;
+  --border-accent: #3A3A3F;
+  --text-primary: #F0EDE8;
+  --text-secondary: #8E8C87;
+  --text-muted: #5A5856;
+  --accent: #C8553D;
+  --accent-glow: rgba(200, 85, 61, 0.15);
+  --accent-hover: #D4634C;
+  --gold: #BFA36D;
+  --gold-dim: rgba(191, 163, 109, 0.1);
+  --success: #4A9E6D;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-display);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+section { position: relative; z-index: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+.anim {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.anim.visible { opacity: 1; transform: translateY(0); }
+.anim-delay-1 { transition-delay: 0.1s; }
+.anim-delay-2 { transition-delay: 0.2s; }
+.anim-delay-3 { transition-delay: 0.3s; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+nav.scrolled { border-bottom-color: var(--border); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo {
+  font-family: var(--font-mono);
+  font-size: 18px; font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.logo span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.lang-toggle {
+  display: flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.lang-btn {
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 1px;
+  border: none; background: transparent;
+  color: var(--text-muted); cursor: pointer;
+  transition: all 0.2s;
+}
+.lang-btn.active { background: var(--accent); color: white; }
+.nav-cta {
+  display: none;
+  padding: 8px 20px;
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 1px;
+  background: var(--accent); color: white;
+  border: none; border-radius: 8px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--accent-hover); }
+@media(min-width:768px) { .nav-cta { display: inline-flex; align-items: center; } }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 160px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  filter: blur(160px);
+  opacity: 0.06;
+  top: -150px; right: -250px;
+  background: var(--accent);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: center;
+}
+@media(min-width:900px) {
+  .hero-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
+}
+.hero-content { animation: fadeUp 0.8s ease both; }
+.hero-tag {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  padding: 6px 14px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(191,163,109,0.2);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  background: var(--gold); border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+.hero h1 {
+  font-size: clamp(38px, 6vw, 68px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero-desc {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+.hero-form {
+  display: flex; gap: 10px;
+  max-width: 440px;
+  margin-bottom: 16px;
+}
+.hero-input {
+  flex: 1;
+  padding: 14px 18px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.hero-input::placeholder { color: var(--text-muted); }
+.hero-input:focus { border-color: var(--accent); }
+.hero-submit {
+  padding: 14px 28px;
+  font-family: var(--font-mono);
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 1px;
+  background: var(--accent); color: white;
+  border: none; border-radius: 10px;
+  cursor: pointer; white-space: nowrap;
+  transition: all 0.2s;
+}
+.hero-submit:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.hero-note { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
+.hero-success {
+  display: none;
+  align-items: center; gap: 10px;
+  padding: 14px 20px;
+  background: rgba(74,158,109,0.1);
+  border: 1px solid rgba(74,158,109,0.2);
+  border-radius: 10px;
+  color: var(--success);
+  font-size: 14px; font-weight: 500;
+  max-width: 440px;
+}
+.hero-success.show { display: flex; }
+
+/* Hero phone */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  animation: fadeUp 0.8s ease 0.2s both;
+}
+.phone-hero {
+  width: 370px;
+  animation: float 5s ease-in-out infinite;
+  filter: drop-shadow(0 40px 60px rgba(0,0,0,0.55));
+}
+.phone-hero img { width: 100%; height: auto; display: block; border-radius: 36px; }
+@media(max-width:600px) { .phone-hero { width: 280px; } }
+
+/* ─── METRICS ─── */
+.metrics {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 20px;
+}
+@media(min-width:768px) { .metrics-grid { grid-template-columns: repeat(4,1fr); } }
+.metric-item { text-align: center; }
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: clamp(28px,4vw,42px);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+}
+.metric-value .unit { font-size: 0.5em; color: var(--accent); font-weight: 500; }
+.metric-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+}
+
+/* ─── PRIVACY STATEMENT ─── */
+.privacy-statement {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.privacy-statement::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(200,85,61,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.privacy-statement-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+.privacy-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(200,85,61,0.08);
+  border: 1px solid rgba(200,85,61,0.2);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.privacy-kicker-icon { font-size: 13px; }
+.privacy-headline {
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.privacy-headline em {
+  font-style: normal;
+  color: var(--accent);
+}
+.privacy-lead {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 48px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.privacy-lead strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.privacy-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  text-align: left;
+}
+@media(min-width:640px) {
+  .privacy-pillars { grid-template-columns: repeat(4, 1fr); }
+}
+.privacy-pillar {
+  padding: 20px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.privacy-pillar:hover {
+  border-color: rgba(200,85,61,0.3);
+  transform: translateY(-2px);
+}
+.privacy-pillar-icon {
+  font-size: 22px;
+  margin-bottom: 10px;
+  display: block;
+}
+.privacy-pillar-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+.privacy-pillar-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ─── SECTION SHARED ─── */
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 3px; color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(28px,4vw,44px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.section-desc {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 56px;
+}
+
+/* ─── FEATURES (top cards) ─── */
+.features { padding: 100px 0; }
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media(min-width:600px) { .features-grid { grid-template-columns: repeat(2,1fr); } }
+@media(min-width:900px) { .features-grid { grid-template-columns: repeat(3,1fr); } }
+.feature-card {
+  padding: 30px 26px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.feature-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); transform: translateY(-2px); }
+.feature-card:hover::before { opacity: 1; }
+.feature-icon {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--accent-glow);
+  border: 1px solid rgba(200,85,61,0.15);
+  border-radius: 12px;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+.feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+
+/* ─── SHOWCASE rows ─── */
+.showcase { padding: 60px 0; }
+.showcase + .showcase { padding-top: 0; }
+
+.showcase-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 72px 0;
+  border-top: 1px solid var(--border);
+}
+.showcase-row:last-child { border-bottom: 1px solid var(--border); }
+
+@media(min-width:860px) {
+  .showcase-row { grid-template-columns: 1fr 410px; gap: 64px; }
+  .showcase-row.reverse { grid-template-columns: 410px 1fr; }
+  .showcase-row.reverse .showcase-text { order: 2; }
+  .showcase-row.reverse .showcase-visual { order: 1; }
+}
+
+.showcase-text {}
+.showcase-eyebrow {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.showcase-eyebrow-dot {
+  width: 5px; height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.showcase-title {
+  font-size: clamp(24px,3.5vw,36px);
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+.showcase-body {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+.showcase-pills {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.pill {
+  padding: 5px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+.pill.accent {
+  background: var(--accent-glow);
+  border-color: rgba(200,85,61,0.25);
+  color: var(--accent);
+}
+
+.showcase-visual {
+  display: flex;
+  justify-content: center;
+}
+.showcase-phone {
+  width: 100%;
+  max-width: 370px;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.5));
+  transition: transform 0.4s ease;
+}
+.showcase-phone:hover { transform: translateY(-6px) scale(1.01); }
+.showcase-phone img { width: 100%; height: auto; display: block; border-radius: 28px; }
+
+/* ─── PHILOSOPHY ─── */
+.philosophy {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+}
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+@media(min-width:800px) { .philosophy-grid { grid-template-columns: 1fr 1fr; gap: 80px; } }
+.philosophy-points { display: flex; flex-direction: column; gap: 28px; }
+.phil-point { display: flex; gap: 16px; align-items: flex-start; }
+.phil-marker {
+  width: 36px; height: 36px; min-width: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 600;
+  color: var(--accent);
+  margin-top: 2px;
+}
+.phil-text-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.phil-text-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ─── CTA ─── */
+.cta-section { padding: 100px 0; text-align: center; }
+.cta-box {
+  padding: 64px 40px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-box::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: 20%; right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.cta-title { font-size: clamp(26px,4vw,40px); font-weight: 700; letter-spacing: -1px; margin-bottom: 16px; }
+.cta-desc {
+  font-size: 16px; color: var(--text-secondary);
+  margin-bottom: 40px;
+  max-width: 480px; margin-left: auto; margin-right: auto;
+  line-height: 1.7;
+}
+.cta-form {
+  display: flex; gap: 10px;
+  max-width: 440px;
+  margin: 0 auto 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cta-input {
+  flex: 1; min-width: 220px;
+  padding: 14px 18px;
+  font-family: var(--font-display); font-size: 15px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.cta-input::placeholder { color: var(--text-muted); }
+.cta-input:focus { border-color: var(--accent); }
+.cta-submit {
+  padding: 14px 32px;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  letter-spacing: 1px;
+  background: var(--accent); color: white;
+  border: none; border-radius: 10px;
+  cursor: pointer; transition: all 0.2s;
+}
+.cta-submit:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.cta-success {
+  display: none;
+  align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 20px;
+  background: rgba(74,158,109,0.1);
+  border: 1px solid rgba(74,158,109,0.2);
+  border-radius: 10px;
+  color: var(--success); font-size: 14px; font-weight: 500;
+  max-width: 440px; margin: 0 auto;
+}
+.cta-success.show { display: flex; }
+.cta-note { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 12px; }
+.store-badges {
+  display: flex; gap: 12px;
+  justify-content: center;
+  margin-top: 32px; flex-wrap: wrap;
+}
+.store-badge {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-secondary); font-size: 13px; font-weight: 500;
+  transition: border-color 0.2s; cursor: default;
+}
+.store-badge:hover { border-color: var(--border-accent); }
+.store-badge svg { width: 20px; height: 20px; fill: var(--text-secondary); }
+
+/* ─── FOOTER ─── */
+footer { padding: 40px 0; border-top: 1px solid var(--border); }
+.footer-inner {
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.footer-left { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-muted); text-decoration: none;
+  letter-spacing: 1px; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text-primary); }
+
+@media(max-width:600px) {
+  .hero-form, .cta-form { flex-direction: column; }
+  .hero-submit, .cta-submit { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">THYMOS<span>.</span></a>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+      </div>
+      <a href="#waitlist" class="nav-cta" data-i18n="nav_cta">Join Waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="hero-tag-dot"></span>
+        <span data-i18n="hero_tag">PRE-LAUNCH 2026</span>
+      </div>
+      <h1>
+        <span data-i18n="hero_title_1">Lift.</span>
+        <span data-i18n="hero_title_2">Log.</span>
+        <span class="accent" data-i18n="hero_title_3">Own.</span>
+      </h1>
+      <p class="hero-desc" data-i18n="hero_desc">
+        A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just iron and data.
+      </p>
+      <form class="hero-form" id="heroForm" onsubmit="return handleWaitlist(event,'hero')">
+        <input type="email" class="hero-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
+        <button type="submit" class="hero-submit" data-i18n="form_button">JOIN</button>
+      </form>
+      <div class="hero-success" id="heroSuccess">
+        <span>✓</span>
+        <span data-i18n="form_success">You're on the list. We'll be in touch.</span>
+      </div>
+      <p class="hero-note" data-i18n="form_note">No spam. Unsubscribe anytime.</p>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-hero">
+        <img src="assets/images/screen-workout.png" alt="THYMOS active workout screen" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics">
+  <div class="container">
+    <div class="metrics-grid">
+      <div class="metric-item anim">
+        <div class="metric-value">&lt;0.5<span class="unit">s</span></div>
+        <div class="metric-label" data-i18n="metric_1">SET LOGGING</div>
+      </div>
+      <div class="metric-item anim anim-delay-1">
+        <div class="metric-value">100<span class="unit">%</span></div>
+        <div class="metric-label" data-i18n="metric_2">OFFLINE</div>
+      </div>
+      <div class="metric-item anim anim-delay-2">
+        <div class="metric-value">0</div>
+        <div class="metric-label" data-i18n="metric_3">ADS & TRACKERS</div>
+      </div>
+      <div class="metric-item anim anim-delay-3">
+        <div class="metric-value">284</div>
+        <div class="metric-label" data-i18n="metric_4">EXERCISES</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY STATEMENT -->
+<section class="privacy-statement">
+  <div class="container">
+    <div class="privacy-statement-inner">
+      <div class="privacy-kicker anim">
+        <span class="privacy-kicker-icon">🔒</span>
+        <span data-i18n="privacy_kicker">DATA PRIVACY</span>
+      </div>
+      <h2 class="privacy-headline anim" data-i18n="privacy_headline">
+        Your fitness data can identify you<br>among <em>100 million people</em> in 6 days.<br>Here's what we do about it.
+      </h2>
+      <p class="privacy-lead anim" data-i18n="privacy_lead">
+        Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.
+      </p>
+      <div class="privacy-pillars">
+        <div class="privacy-pillar anim">
+          <span class="privacy-pillar-icon">📱</span>
+          <div class="privacy-pillar-title" data-i18n="pp1_title">On-Device First</div>
+          <div class="privacy-pillar-desc" data-i18n="pp1_desc">Your data lives on your device. The cloud is a sync option — not the source of truth.</div>
+        </div>
+        <div class="privacy-pillar anim anim-delay-1">
+          <span class="privacy-pillar-icon">🚫</span>
+          <div class="privacy-pillar-title" data-i18n="pp2_title">Zero Tracking</div>
+          <div class="privacy-pillar-desc" data-i18n="pp2_desc">No behavioral analytics, no ad SDKs, no third-party data brokers. Nothing watching you lift.</div>
+        </div>
+        <div class="privacy-pillar anim anim-delay-2">
+          <span class="privacy-pillar-icon">🔐</span>
+          <div class="privacy-pillar-title" data-i18n="pp3_title">Sensitive Data Stays Local</div>
+          <div class="privacy-pillar-desc" data-i18n="pp3_desc">Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.</div>
+        </div>
+        <div class="privacy-pillar anim anim-delay-3">
+          <span class="privacy-pillar-icon">📤</span>
+          <div class="privacy-pillar-title" data-i18n="pp4_title">Full Export, Anytime</div>
+          <div class="privacy-pillar-desc" data-i18n="pp4_desc">Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE CARDS (overview) -->
+<section class="features">
+  <div class="container">
+    <div class="section-tag anim" data-i18n="features_tag">FEATURES</div>
+    <h2 class="section-title anim" data-i18n="features_title">Built Different.</h2>
+    <p class="section-desc anim" data-i18n="features_desc">
+      Not another fitness app with a social feed. THYMOS is a precision instrument for people who take training seriously.
+    </p>
+    <div class="features-grid">
+      <div class="feature-card anim">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title" data-i18n="f1_title">Ultra-Fast Logging</h3>
+        <p class="feature-desc" data-i18n="f1_desc">Instant workout starts, custom templates, and progressive programs. Go from idea to action in seconds.</p>
+      </div>
+      <div class="feature-card anim anim-delay-1">
+        <div class="feature-icon">🔒</div>
+        <h3 class="feature-title" data-i18n="f2_title">Privacy First</h3>
+        <p class="feature-desc" data-i18n="f2_desc">Your data lives on-device. No account required. Export everything as CSV or JSON anytime. No lock-in.</p>
+      </div>
+      <div class="feature-card anim anim-delay-2">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title" data-i18n="f3_title">Honest Analytics</h3>
+        <p class="feature-desc" data-i18n="f3_desc">Trends, estimated 1RM, set volume, and muscle heatmaps. Measured data and estimates are always clearly separated.</p>
+      </div>
+      <div class="feature-card anim">
+        <div class="feature-icon">📡</div>
+        <h3 class="feature-title" data-i18n="f4_title">Offline-First</h3>
+        <p class="feature-desc" data-i18n="f4_desc">Works without internet, always. Cloud is optional sync — never the source of truth.</p>
+      </div>
+      <div class="feature-card anim anim-delay-1">
+        <div class="feature-icon">👤</div>
+        <h3 class="feature-title" data-i18n="f5_title">Anonymous by Default</h3>
+        <p class="feature-desc" data-i18n="f5_desc">Open the app and start lifting. No email, no account, no internet required. Link an account only when you want multi-device sync.</p>
+      </div>
+      <div class="feature-card anim anim-delay-2">
+        <div class="feature-icon">🔄</div>
+        <h3 class="feature-title" data-i18n="f6_title">Easy Migration</h3>
+        <p class="feature-desc" data-i18n="f6_desc">Import from Strong, Hevy, FitNotes, or Excel. Export anytime as CSV or JSON. Your history, always yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE ROWS -->
+<section class="showcase">
+  <div class="container">
+
+    <!-- RPE / RIR Smart Suggestion -->
+    <div class="showcase-row">
+      <div class="showcase-text anim">
+        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s1_eyebrow">SMART COACHING</span></div>
+        <h2 class="showcase-title" data-i18n="s1_title">Lift Smarter.<br>Not Just Heavier.</h2>
+        <p class="showcase-body" data-i18n="s1_body">THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow.</p>
+        <div class="showcase-pills">
+          <span class="pill accent">RPE</span>
+          <span class="pill accent">RIR</span>
+          <span class="pill" data-i18n="pill_auto_suggest">Auto Weight Suggestion</span>
+          <span class="pill" data-i18n="pill_progressive">Progressive Overload</span>
+        </div>
+      </div>
+      <div class="showcase-visual anim anim-delay-1">
+        <div class="showcase-phone">
+          <img src="assets/images/screen-rpe-recommendation.png" alt="RPE and RIR based weight suggestion">
+        </div>
+      </div>
+    </div>
+
+    <!-- Warm-up -->
+    <div class="showcase-row reverse">
+      <div class="showcase-visual anim">
+        <div class="showcase-phone">
+          <img src="assets/images/screen-warm-up.png" alt="Science-based automatic warm-up sets">
+        </div>
+      </div>
+      <div class="showcase-text anim anim-delay-1">
+        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s2_eyebrow">READINESS</span></div>
+        <h2 class="showcase-title" data-i18n="s2_title">Prime Every Session.<br>Scientifically.</h2>
+        <p class="showcase-body" data-i18n="s2_body">Evidence-based warm-up prescriptions, built automatically from your working weight. THYMOS ramps you up with the right loads at the right intensities — so you walk into every working set fully prepared.</p>
+        <div class="showcase-pills">
+          <span class="pill" data-i18n="pill_warmup_auto">Auto Warm-Up Builder</span>
+          <span class="pill" data-i18n="pill_evidence">Evidence-Based</span>
+          <span class="pill" data-i18n="pill_fatigue">Minimizes Fatigue</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plate Calculator -->
+    <div class="showcase-row">
+      <div class="showcase-text anim">
+        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s3_eyebrow">PRECISION LOADING</span></div>
+        <h2 class="showcase-title" data-i18n="s3_title">Load Smarter,<br>Faster.</h2>
+        <p class="showcase-body" data-i18n="s3_body">Enter your target weight and get an instant, balanced plate setup — no mental math, no guesswork, just bar-ready precision. Log what you actually lift by selecting the plates on the bar. The app calculates total load automatically for cleaner tracking.</p>
+        <div class="showcase-pills">
+          <span class="pill" data-i18n="pill_plate_calc">Plate Calculator</span>
+          <span class="pill" data-i18n="pill_plate_log">Plate-Based Logging</span>
+          <span class="pill" data-i18n="pill_bar_ready">Bar-Ready Precision</span>
+        </div>
+      </div>
+      <div class="showcase-visual anim anim-delay-1">
+        <div class="showcase-phone">
+          <img src="assets/images/screen-plate-calculator.png" alt="Advanced plate calculator">
+        </div>
+      </div>
+    </div>
+
+    <!-- Muscle Heatmap -->
+    <div class="showcase-row reverse">
+      <div class="showcase-visual anim">
+        <div class="showcase-phone">
+          <img src="assets/images/screen-heatmap.png" alt="Muscle group heatmap analysis">
+        </div>
+      </div>
+      <div class="showcase-text anim anim-delay-1">
+        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s4_eyebrow">BODY ANALYSIS</span></div>
+        <h2 class="showcase-title" data-i18n="s4_title">See What<br>You're Building.</h2>
+        <p class="showcase-body" data-i18n="s4_body">Muscle distribution heatmaps show you exactly which muscles you've trained, how intensely, and what's been neglected. Turn your sessions into a clear map of your training balance — and guide what to push next.</p>
+        <div class="showcase-pills">
+          <span class="pill" data-i18n="pill_heatmap">Muscle Heatmap</span>
+          <span class="pill" data-i18n="pill_balance">Training Balance</span>
+          <span class="pill" data-i18n="pill_weekly">7 / 30 / 90 Day View</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Summary -->
+    <div class="showcase-row">
+      <div class="showcase-text anim">
+        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s5_eyebrow">PROGRESS TRACKING</span></div>
+        <h2 class="showcase-title" data-i18n="s5_title">Real Data.<br>Clear Trends.</h2>
+        <p class="showcase-body" data-i18n="s5_body">Trends, estimated 1RM, set volume, and full workout history — all in one place. Measured data stays measured. Estimated data is clearly marked. We never mix the two to make numbers look better than they are.</p>
+        <div class="showcase-pills">
+          <span class="pill" data-i18n="pill_1rm">Estimated 1RM</span>
+          <span class="pill" data-i18n="pill_volume">Volume Tracking</span>
+          <span class="pill" data-i18n="pill_trends">Long-Term Trends</span>
+        </div>
+      </div>
+      <div class="showcase-visual anim anim-delay-1">
+        <div class="showcase-phone">
+          <img src="assets/images/screen-workout-analytics-summary.png" alt="Workout analytics and progress summary">
+        </div>
+      </div>
+    </div>
+
+    <!-- CSV Import -->
+    <div class="showcase-row reverse">
+      <div class="showcase-visual anim">
+        <div class="showcase-phone">
+          <img src="assets/images/screen-csv-import.png" alt="Import from Strong, Hevy, FitNotes or Excel">
+        </div>
+      </div>
+      <div class="showcase-text anim anim-delay-1">
+        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s6_eyebrow">MIGRATION</span></div>
+        <h2 class="showcase-title" data-i18n="s6_title">Bring Your<br>History With You.</h2>
+        <p class="showcase-body" data-i18n="s6_body">Import from Strong, Hevy, FitNotes, or Excel — all your previous training data comes with you. And when you want to leave, export everything as CSV or JSON. Your data is always portable. Always yours.</p>
+        <div class="showcase-pills">
+          <span class="pill">Strong</span>
+          <span class="pill">Hevy</span>
+          <span class="pill">FitNotes</span>
+          <span class="pill">Excel</span>
+          <span class="pill accent" data-i18n="pill_export">CSV / JSON Export</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="container">
+    <div class="philosophy-grid">
+      <div class="anim">
+        <div class="section-tag" data-i18n="phil_tag">PHILOSOPHY</div>
+        <h2 class="section-title" data-i18n="phil_title">Anti-Bullshit<br>By Design.</h2>
+        <p class="section-desc" data-i18n="phil_desc" style="margin-bottom:0">
+          Most fitness apps are built to keep you scrolling. THYMOS is built to get out of your way.
+        </p>
+      </div>
+      <div class="philosophy-points">
+        <div class="phil-point anim">
+          <div class="phil-marker">01</div>
+          <div>
+            <div class="phil-text-title" data-i18n="p1_title">No Social Feed</div>
+            <div class="phil-text-desc" data-i18n="p1_desc">No likes, no followers, no comparison anxiety. This is your training log, not a performance.</div>
+          </div>
+        </div>
+        <div class="phil-point anim anim-delay-1">
+          <div class="phil-marker">02</div>
+          <div>
+            <div class="phil-text-title" data-i18n="p2_title">No Gamification</div>
+            <div class="phil-text-desc" data-i18n="p2_desc">No streaks, no badges, no fake motivation. Your progress is the reward.</div>
+          </div>
+        </div>
+        <div class="phil-point anim anim-delay-2">
+          <div class="phil-marker">03</div>
+          <div>
+            <div class="phil-text-title" data-i18n="p3_title">No Dark Patterns</div>
+            <div class="phil-text-desc" data-i18n="p3_desc">No push notifications begging you to come back. No premium upsell popups during your workout.</div>
+          </div>
+        </div>
+        <div class="phil-point anim anim-delay-3">
+          <div class="phil-marker">04</div>
+          <div>
+            <div class="phil-text-title" data-i18n="p4_title">No Vendor Lock-in</div>
+            <div class="phil-text-desc" data-i18n="p4_desc">Export everything, anytime. Your data is yours — we just help you organize it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / WAITLIST -->
+<section class="cta-section" id="waitlist">
+  <div class="container">
+    <div class="cta-box anim">
+      <h2 class="cta-title" data-i18n="cta_title">Get Early Access</h2>
+      <p class="cta-desc" data-i18n="cta_desc">
+        Be the first to try THYMOS when it launches. Join the waitlist and get notified the moment it's ready.
+      </p>
+      <form class="cta-form" id="ctaForm" onsubmit="return handleWaitlist(event,'cta')">
+        <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
+        <button type="submit" class="cta-submit" data-i18n="form_button">JOIN</button>
+      </form>
+      <div class="cta-success" id="ctaSuccess">
+        <span>✓</span>
+        <span data-i18n="form_success">You're on the list. We'll be in touch.</span>
+      </div>
+      <p class="cta-note" data-i18n="form_note">No spam. Unsubscribe anytime.</p>
+      <div class="store-badges">
+        <div class="store-badge">
+          <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          <span data-i18n="store_ios">iOS — Coming Soon</span>
+        </div>
+        <div class="store-badge">
+          <svg viewBox="0 0 24 24"><path d="M3.18 23.77L14.25 12.7 3.18.23a1.16 1.16 0 0 0-.18.62v22.3c0 .23.06.44.18.62zm1.74 1.08L16.88 13.9l-2.64-2.64L4.92 24.85zM21.17 10.7l-3.2-1.83-2.96 2.96 2.96 2.96 3.2-1.83c.6-.34.96-.96.96-1.63s-.36-1.29-.96-1.63zM4.92-.85L16.24 10.5l2.64-2.64L4.92-.85z"/></svg>
+          <span data-i18n="store_android">Android — Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-left">© 2026 THYMOS</div>
+    <div class="footer-links">
+      <a href="mailto:hello@thymos.fit">hello@thymos.fit</a>
+      <a href="https://instagram.com/thymos.fit" target="_blank">Instagram</a>
+      <a href="https://youtube.com/@CalisthenicsStudent" target="_blank">YouTube</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  en: {
+    nav_cta: "Join Waitlist",
+    hero_tag: "PRE-LAUNCH 2026",
+    hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
+    hero_desc: "A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just iron and data.",
+    form_placeholder: "your@email.com",
+    form_button: "JOIN",
+    form_success: "You're on the list. We'll be in touch.",
+    form_note: "No spam. Unsubscribe anytime.",
+    metric_1: "SET LOGGING", metric_2: "OFFLINE", metric_3: "ADS & TRACKERS", metric_4: "EXERCISES",
+    features_tag: "FEATURES",
+    features_title: "Built Different.",
+    features_desc: "Not another fitness app with a social feed. THYMOS is a precision instrument for people who take training seriously.",
+    f1_title: "Ultra-Fast Logging",
+    f1_desc: "Instant workout starts, custom templates, and progressive programs. Go from idea to action in seconds.",
+    f2_title: "Privacy First",
+    f2_desc: "Your data lives on-device. No account required. Export everything as CSV or JSON anytime. No lock-in.",
+    f3_title: "Honest Analytics",
+    f3_desc: "Trends, estimated 1RM, set volume, and muscle heatmaps. Measured data and estimates are always clearly separated.",
+    f4_title: "Offline-First",
+    f4_desc: "Works without internet, always. Cloud is optional sync — never the source of truth.",
+    f5_title: "Anonymous by Default",
+    f5_desc: "Open the app and start lifting. No email, no account, no internet required. Link an account only when you want multi-device sync.",
+    f6_title: "Easy Migration",
+    f6_desc: "Import from Strong, Hevy, FitNotes, or Excel. Export anytime as CSV or JSON. Your history, always yours.",
+    s1_eyebrow: "SMART COACHING",
+    s1_title: "Lift Smarter.<br>Not Just Heavier.",
+    s1_body: "THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow.",
+    pill_auto_suggest: "Auto Weight Suggestion", pill_progressive: "Progressive Overload",
+    s2_eyebrow: "READINESS",
+    s2_title: "Prime Every Session.<br>Scientifically.",
+    s2_body: "Evidence-based warm-up prescriptions, built automatically from your working weight. THYMOS ramps you up with the right loads at the right intensities — so you walk into every working set fully prepared.",
+    pill_warmup_auto: "Auto Warm-Up Builder", pill_evidence: "Evidence-Based", pill_fatigue: "Minimizes Fatigue",
+    s3_eyebrow: "PRECISION LOADING",
+    s3_title: "Load Smarter,<br>Faster.",
+    s3_body: "Enter your target weight and get an instant, balanced plate setup — no mental math, no guesswork, just bar-ready precision. Log what you actually lift by selecting the plates on the bar. The app calculates total load automatically for cleaner tracking.",
+    pill_plate_calc: "Plate Calculator", pill_plate_log: "Plate-Based Logging", pill_bar_ready: "Bar-Ready Precision",
+    s4_eyebrow: "BODY ANALYSIS",
+    s4_title: "See What<br>You're Building.",
+    s4_body: "Muscle distribution heatmaps show you exactly which muscles you've trained, how intensely, and what's been neglected. Turn your sessions into a clear map of your training balance — and guide what to push next.",
+    pill_heatmap: "Muscle Heatmap", pill_balance: "Training Balance", pill_weekly: "7 / 30 / 90 Day View",
+    s5_eyebrow: "PROGRESS TRACKING",
+    s5_title: "Real Data.<br>Clear Trends.",
+    s5_body: "Trends, estimated 1RM, set volume, and full workout history — all in one place. Measured data stays measured. Estimated data is clearly marked. We never mix the two to make numbers look better than they are.",
+    pill_1rm: "Estimated 1RM", pill_volume: "Volume Tracking", pill_trends: "Long-Term Trends",
+    s6_eyebrow: "MIGRATION",
+    s6_title: "Bring Your<br>History With You.",
+    s6_body: "Import from Strong, Hevy, FitNotes, or Excel — all your previous training data comes with you. And when you want to leave, export everything as CSV or JSON. Your data is always portable. Always yours.",
+    pill_export: "CSV / JSON Export",
+    phil_tag: "PHILOSOPHY",
+    phil_title: "Anti-Bullshit<br>By Design.",
+    phil_desc: "Most fitness apps are built to keep you scrolling. THYMOS is built to get out of your way.",
+    p1_title: "No Social Feed", p1_desc: "No likes, no followers, no comparison anxiety. This is your training log, not a performance.",
+    p2_title: "No Gamification", p2_desc: "No streaks, no badges, no fake motivation. Your progress is the reward.",
+    p3_title: "No Dark Patterns", p3_desc: "No push notifications begging you to come back. No premium upsell popups during your workout.",
+    p4_title: "No Vendor Lock-in", p4_desc: "Export everything, anytime. Your data is yours — we just help you organize it.",
+    cta_title: "Get Early Access",
+    cta_desc: "Be the first to try THYMOS when it launches. Join the waitlist and get notified the moment it's ready.",
+    store_ios: "iOS — Coming Soon", store_android: "Android — Coming Soon",
+    privacy_kicker: "DATA PRIVACY",
+    privacy_headline: "Your fitness data can identify you<br>among <em>100 million people</em> in 6 days.<br>Here's what we do about it.",
+    privacy_lead: "Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.",
+    pp1_title: "On-Device First",
+    pp1_desc: "Your data lives on your device. The cloud is a sync option — not the source of truth.",
+    pp2_title: "Zero Tracking",
+    pp2_desc: "No behavioral analytics, no ad SDKs, no third-party data brokers. Nothing watching you lift.",
+    pp3_title: "Sensitive Data Stays Local",
+    pp3_desc: "Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.",
+    pp4_title: "Full Export, Anytime",
+    pp4_desc: "Export everything as CSV or JSON whenever you want. No lock-in. No asking permission."
+  },
+  tr: {
+    nav_cta: "Listeye Katıl",
+    hero_tag: "LANSMAN ÖNCESİ 2026",
+    hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Sahip Ol.",
+    hero_desc: "Daha akıllı antrenman yapmanı, tutarlı kalmanı ve gerçek ilerlemeyi görmen için tasarlanmış, gizliliği ön planda tutan bir antrenman arkadaşı. Önce çevrimdışı. Sosyal akış yok. Reklam yok.",
+    form_placeholder: "email@adresin.com",
+    form_button: "KATIL",
+    form_success: "Listedesin. Seninle iletişime geçeceğiz.",
+    form_note: "Spam yok. İstediğin zaman çık.",
+    metric_1: "SET KAYDI", metric_2: "ÇEVRİMDIŞI", metric_3: "REKLAM & TAKİP", metric_4: "EGZERSİZ",
+    features_tag: "ÖZELLİKLER",
+    features_title: "Farklı Tasarlandı.",
+    features_desc: "Sosyal akışlı bir fitness uygulaması daha değil. THYMOS, antrenmanı ciddiye alanlar için hassas bir araç.",
+    f1_title: "Ultra-Hızlı Kayıt",
+    f1_desc: "Anında antrenman başlatma, özel şablonlar ve progresif programlar. Fikirden aksiyona saniyeler içinde.",
+    f2_title: "Gizlilik Önce",
+    f2_desc: "Verin cihazında saklanır. Hesap gerekmez. İstediğin zaman CSV veya JSON olarak dışa aktar.",
+    f3_title: "Dürüst Analitik",
+    f3_desc: "Trendler, tahmini 1RM, set hacmi ve kas haritaları. Ölçülenler ve tahminler her zaman ayrı gösterilir.",
+    f4_title: "Önce Çevrimdışı",
+    f4_desc: "İnternet olmadan çalışır. Her zaman. Bulut isteğe bağlı senkron içindir, asla gerçeğin kaynağı değil.",
+    f5_title: "Varsayılan Anonim",
+    f5_desc: "Uygulamayı aç ve kaldırmaya başla. Email, hesap veya internet gerekmez. Hesabı yalnızca çok cihaz senkronu için bağla.",
+    f6_title: "Kolay Geçiş",
+    f6_desc: "Strong, Hevy, FitNotes veya Excel'den içe aktar. CSV veya JSON olarak dışa aktar. Geçmişin her zaman seninle.",
+    s1_eyebrow: "AKILLI ANTRENMAN",
+    s1_title: "Daha Akıllı Antren Et.<br>Sadece Daha Ağır Değil.",
+    s1_body: "THYMOS, her sette kaydettiğin RPE ve RIR değerlerini okuyarak bir sonraki çalışma ağırlığını otomatik olarak önerir. Tahmin yok, hesap tablosu yok — iş akışına yerleşik, veriye dayalı ilerleme.",
+    pill_auto_suggest: "Otomatik Ağırlık Önerisi", pill_progressive: "Progresif Aşırı Yükleme",
+    s2_eyebrow: "HAZIRLIK",
+    s2_title: "Her Seansı<br>Bilimsel Hazırla.",
+    s2_body: "Çalışma ağırlığından otomatik oluşturulan, kanıta dayalı ısınma programı. THYMOS seni doğru yoğunluklarda rampa yaparak her çalışma setine tam hazır girmen için sıralıyor.",
+    pill_warmup_auto: "Otomatik Isınma Oluşturucu", pill_evidence: "Kanıta Dayalı", pill_fatigue: "Yorgunluğu Minimize Eder",
+    s3_eyebrow: "HASSAS YÜKLEME",
+    s3_title: "Daha Akıllı,<br>Daha Hızlı Yükle.",
+    s3_body: "Hedef ağırlığını gir, anında dengeli plaka dizilimi al — zihinsel hesap yok, tahmin yok, sadece bar'a hazır hassasiyet. Bara koyduğun plakaları seçerek kaydet, uygulama toplam yükü otomatik hesaplar.",
+    pill_plate_calc: "Plaka Hesaplayıcı", pill_plate_log: "Plaka Bazlı Kayıt", pill_bar_ready: "Bar'a Hazır Hassasiyet",
+    s4_eyebrow: "VÜCUT ANALİZİ",
+    s4_title: "Ne İnşa Ettiğini<br>Gör.",
+    s4_body: "Kas dağılımı haritaları hangi kasları, ne yoğunlukta çalıştırdığını ve neleri ihmal ettiğini tam olarak gösterir. Seanslarını net bir antrenman dengesi haritasına dönüştür.",
+    pill_heatmap: "Kas Isı Haritası", pill_balance: "Antrenman Dengesi", pill_weekly: "7 / 30 / 90 Gün Görünümü",
+    s5_eyebrow: "İLERLEME TAKİBİ",
+    s5_title: "Gerçek Veri.<br>Net Trendler.",
+    s5_body: "Trendler, tahmini 1RM, set hacmi ve tam antrenman geçmişi — tek bir yerde. Ölçülen veri ölçülen kalır. Tahmini veri açıkça işaretlenir. Sayıları daha iyi göstermek için ikisini asla karıştırmayız.",
+    pill_1rm: "Tahmini 1RM", pill_volume: "Hacim Takibi", pill_trends: "Uzun Vadeli Trendler",
+    s6_eyebrow: "GEÇİŞ",
+    s6_title: "Geçmişini<br>Beraber Getir.",
+    s6_body: "Strong, Hevy, FitNotes veya Excel'den içe aktar — tüm önceki antrenman verilerin seninle gelir. Ayrılmak istediğinde her şeyi CSV veya JSON olarak dışa aktar. Verin her zaman taşınabilir.",
+    pill_export: "CSV / JSON Dışa Aktarım",
+    phil_tag: "FELSEFEMİZ",
+    phil_title: "Tasarımda<br>Saçmalık Yok.",
+    phil_desc: "Çoğu fitness uygulaması seni kaydırmaya devam ettirmek için yapıldı. THYMOS yolundan çekilmek için.",
+    p1_title: "Sosyal Akış Yok", p1_desc: "Beğeni yok, takipçi yok, kıyaslama stresi yok. Bu senin antrenman günlüğün, bir performans değil.",
+    p2_title: "Oyunlaştırma Yok", p2_desc: "Seri yok, rozet yok, sahte motivasyon yok. İlerlemenin kendisi ödül.",
+    p3_title: "Karanlık Desen Yok", p3_desc: "\"Geri dön\" diye yalvaran bildirimler yok. Antrenman sırasında premium satış popup'ları yok.",
+    p4_title: "Bağımlılık Yok", p4_desc: "Her şeyi istediğin zaman dışa aktar. Verin senin — biz sadece düzenlemene yardım ediyoruz.",
+    cta_title: "Erken Erişim Al",
+    cta_desc: "THYMOS yayınlandığında ilk bildirim alan sen ol. Bekleme listesine katıl, hazır olunca haber verelim.",
+    store_ios: "iOS — Yakında", store_android: "Android — Yakında",
+    privacy_kicker: "VERİ GİZLİLİĞİ",
+    privacy_headline: "Fitness verilerin seni 100 milyon kişi arasından<br>6 günde tanımlayabilir.<br><em>Biz ne yapıyoruz?</em>",
+    privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu senin malın olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Hazırlık skorları ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
+    pp1_title: "Önce Cihaz",
+    pp1_desc: "Verin cihazında yaşar. Bulut bir senkron seçeneğidir — gerçeğin kaynağı değil.",
+    pp2_title: "Sıfır Takip",
+    pp2_desc: "Davranışsal analitik yok, reklam SDK'sı yok, veri aracısı yok. Kimse antrenmanını izlemiyor.",
+    pp3_title: "Hassas Veri Yerel Kalır",
+    pp3_desc: "Hazırlık skorları, sağlık bağlamı ve RPE sinyalleri hassas olarak işaretlenir ve asla buluta senkronize edilmez.",
+    pp4_title: "Tam Dışa Aktarım, Her Zaman",
+    pp4_desc: "İstediğin zaman CSV veya JSON olarak her şeyi dışa aktar. Kilit yok. İzin istemek yok."
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.innerHTML = t[k];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const k = el.getAttribute('data-i18n-placeholder');
+    if (t[k] !== undefined) el.placeholder = t[k];
+  });
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+async function handleWaitlist(e, source) {
+  e.preventDefault();
+  const form = e.target;
+  const email = form.querySelector('input[type="email"]').value.trim();
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  const SUPABASE_URL = 'https://fxdlscqifuicpawdzcdg.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZGxzY3FpZnVpY3Bhd2R6Y2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTY2MDcsImV4cCI6MjA4ODEzMjYwN30.X_LCrL2i1FVNVMdrO7hIYa33vtJCHjxmDT8Xf-GM5DE';
+
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email, source, signed_up_at: new Date().toISOString() })
+    });
+  } catch {}
+
+  form.style.display = 'none';
+  document.getElementById(source + 'Success').classList.add('show');
+  const note = document.querySelector(`.${source === 'hero' ? 'hero' : 'cta'}-note`);
+  if (note) note.style.display = 'none';
+  return false;
+}
+</script>
+</body>
+</html>
