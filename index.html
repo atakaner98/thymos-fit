@@ -261,7 +261,7 @@ nav.scrolled { border-bottom-color: var(--border); }
   grid-template-columns: repeat(2,1fr);
   gap: 20px;
 }
-@media(min-width:768px) { .metrics-grid { grid-template-columns: repeat(4,1fr); } }
+@media(min-width:768px) { .metrics-grid { grid-template-columns: repeat(3,1fr); } }
 .metric-item { text-align: center; }
 .metric-value {
   font-family: var(--font-mono);
@@ -683,7 +683,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <span class="accent" data-i18n="hero_title_3">Own.</span>
       </h1>
       <p class="hero-desc" data-i18n="hero_desc">
-        A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just iron and data.
+        A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just training and data.
       </p>
       <form class="hero-form" id="heroForm" onsubmit="return handleWaitlist(event,'hero')">
         <input type="email" class="hero-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
@@ -719,10 +719,6 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <div class="metric-value">0</div>
         <div class="metric-label" data-i18n="metric_3">ADS & TRACKERS</div>
       </div>
-      <div class="metric-item anim anim-delay-3">
-        <div class="metric-value">284</div>
-        <div class="metric-label" data-i18n="metric_4">EXERCISES</div>
-      </div>
     </div>
   </div>
 </section>
@@ -745,7 +741,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <div class="privacy-pillar anim">
           <span class="privacy-pillar-icon">📱</span>
           <div class="privacy-pillar-title" data-i18n="pp1_title">On-Device First</div>
-          <div class="privacy-pillar-desc" data-i18n="pp1_desc">Your data lives on your device. The cloud is a sync option — not the source of truth.</div>
+          <div class="privacy-pillar-desc" data-i18n="pp1_desc">Your data lives on your device. Cloud backup is optional — your phone always stays in control.</div>
         </div>
         <div class="privacy-pillar anim anim-delay-1">
           <span class="privacy-pillar-icon">🚫</span>
@@ -794,7 +790,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="feature-card anim">
         <div class="feature-icon">📡</div>
         <h3 class="feature-title" data-i18n="f4_title">Offline-First</h3>
-        <p class="feature-desc" data-i18n="f4_desc">Works without internet, always. Cloud is optional sync — never the source of truth.</p>
+        <p class="feature-desc" data-i18n="f4_desc">Works completely offline — always. Cloud sync is optional and only used for backup, never required.</p>
       </div>
       <div class="feature-card anim anim-delay-1">
         <div class="feature-icon">👤</div>
@@ -819,7 +815,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="showcase-text anim">
         <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s1_eyebrow">SMART COACHING</span></div>
         <h2 class="showcase-title" data-i18n="s1_title">Lift Smarter.<br>Not Just Heavier.</h2>
-        <p class="showcase-body" data-i18n="s1_body">THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow.</p>
+        <p class="showcase-body" data-i18n="s1_body">THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow. Don't want a suggestion? Dismiss it with one tap and enter your own weight.</p>
         <div class="showcase-pills">
           <span class="pill accent">RPE</span>
           <span class="pill accent">RIR</span>
@@ -950,7 +946,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
           <div class="phil-marker">01</div>
           <div>
             <div class="phil-text-title" data-i18n="p1_title">No Social Feed</div>
-            <div class="phil-text-desc" data-i18n="p1_desc">No likes, no followers, no comparison anxiety. This is your training log, not a performance.</div>
+            <div class="phil-text-desc" data-i18n="p1_desc">No likes, no followers, no comparison anxiety. This is your training log, not a competition.</div>
           </div>
         </div>
         <div class="phil-point anim anim-delay-1">
@@ -963,7 +959,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <div class="phil-point anim anim-delay-2">
           <div class="phil-marker">03</div>
           <div>
-            <div class="phil-text-title" data-i18n="p3_title">No Dark Patterns</div>
+            <div class="phil-text-title" data-i18n="p3_title">No Pushy Tactics</div>
             <div class="phil-text-desc" data-i18n="p3_desc">No push notifications begging you to come back. No premium upsell popups during your workout.</div>
           </div>
         </div>
@@ -1028,12 +1024,12 @@ const translations = {
     nav_cta: "Join Waitlist",
     hero_tag: "PRE-LAUNCH 2026",
     hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
-    hero_desc: "A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just iron and data.",
+    hero_desc: "A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just training and data.",
     form_placeholder: "your@email.com",
     form_button: "JOIN",
     form_success: "You're on the list. We'll be in touch.",
     form_note: "No spam. Unsubscribe anytime.",
-    metric_1: "SET LOGGING", metric_2: "OFFLINE", metric_3: "ADS & TRACKERS", metric_4: "EXERCISES",
+    metric_1: "SET LOGGING", metric_2: "OFFLINE", metric_3: "ADS & TRACKERS",
     features_tag: "FEATURES",
     features_title: "Built Different.",
     features_desc: "Not another fitness app with a social feed. THYMOS is a precision instrument for people who take training seriously.",
@@ -1044,14 +1040,14 @@ const translations = {
     f3_title: "Honest Analytics",
     f3_desc: "Trends, estimated 1RM, set volume, and muscle heatmaps. Measured data and estimates are always clearly separated.",
     f4_title: "Offline-First",
-    f4_desc: "Works without internet, always. Cloud is optional sync — never the source of truth.",
+    f4_desc: "Works completely offline — always. Cloud sync is optional and only used for backup, never required.",
     f5_title: "Anonymous by Default",
     f5_desc: "Open the app and start lifting. No email, no account, no internet required. Link an account only when you want multi-device sync.",
     f6_title: "Easy Migration",
     f6_desc: "Import from Strong, Hevy, FitNotes, or Excel. Export anytime as CSV or JSON. Your history, always yours.",
     s1_eyebrow: "SMART COACHING",
     s1_title: "Lift Smarter.<br>Not Just Heavier.",
-    s1_body: "THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow.",
+    s1_body: "THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow. Don't want a suggestion? Dismiss it with one tap and enter your own weight.",
     pill_auto_suggest: "Auto Weight Suggestion", pill_progressive: "Progressive Overload",
     s2_eyebrow: "READINESS",
     s2_title: "Prime Every Session.<br>Scientifically.",
@@ -1076,9 +1072,9 @@ const translations = {
     phil_tag: "PHILOSOPHY",
     phil_title: "Anti-Bullshit<br>By Design.",
     phil_desc: "Most fitness apps are built to keep you scrolling. THYMOS is built to get out of your way.",
-    p1_title: "No Social Feed", p1_desc: "No likes, no followers, no comparison anxiety. This is your training log, not a performance.",
+    p1_title: "No Social Feed", p1_desc: "No likes, no followers, no comparison anxiety. This is your training log, not a competition.",
     p2_title: "No Gamification", p2_desc: "No streaks, no badges, no fake motivation. Your progress is the reward.",
-    p3_title: "No Dark Patterns", p3_desc: "No push notifications begging you to come back. No premium upsell popups during your workout.",
+    p3_title: "No Pushy Tactics", p3_desc: "No push notifications begging you to come back. No premium upsell popups during your workout.",
     p4_title: "No Vendor Lock-in", p4_desc: "Export everything, anytime. Your data is yours — we just help you organize it.",
     cta_title: "Get Early Access",
     cta_desc: "Be the first to try THYMOS when it launches. Join the waitlist and get notified the moment it's ready.",
@@ -1087,7 +1083,7 @@ const translations = {
     privacy_headline: "Your fitness data can identify you<br>among <em>100 million people</em> in 6 days.<br>Here's what we do about it.",
     privacy_lead: "Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.",
     pp1_title: "On-Device First",
-    pp1_desc: "Your data lives on your device. The cloud is a sync option — not the source of truth.",
+    pp1_desc: "Your data lives on your device. Cloud backup is optional — your phone always stays in control.",
     pp2_title: "Zero Tracking",
     pp2_desc: "No behavioral analytics, no ad SDKs, no third-party data brokers. Nothing watching you lift.",
     pp3_title: "Sensitive Data Stays Local",
@@ -1099,35 +1095,35 @@ const translations = {
     nav_cta: "Listeye Katıl",
     hero_tag: "LANSMAN ÖNCESİ 2026",
     hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Sahip Ol.",
-    hero_desc: "Daha akıllı antrenman yapmanı, tutarlı kalmanı ve gerçek ilerlemeyi görmen için tasarlanmış, gizliliği ön planda tutan bir antrenman arkadaşı. Önce çevrimdışı. Sosyal akış yok. Reklam yok.",
+    hero_desc: "Daha akıllı antrenman yapman, tutarlı kalman ve gerçek ilerlemeyi görmeni sağlayan gizlilik odaklı antrenman uygulaması. Her zaman çevrimdışı çalışır. Sosyal akış yok. Reklam yok. Sadece antrenman ve veri.",
     form_placeholder: "email@adresin.com",
     form_button: "KATIL",
     form_success: "Listedesin. Seninle iletişime geçeceğiz.",
     form_note: "Spam yok. İstediğin zaman çık.",
-    metric_1: "SET KAYDI", metric_2: "ÇEVRİMDIŞI", metric_3: "REKLAM & TAKİP", metric_4: "EGZERSİZ",
+    metric_1: "SET KAYDI", metric_2: "ÇEVRİMDIŞI", metric_3: "REKLAM & TAKİP",
     features_tag: "ÖZELLİKLER",
     features_title: "Farklı Tasarlandı.",
     features_desc: "Sosyal akışlı bir fitness uygulaması daha değil. THYMOS, antrenmanı ciddiye alanlar için hassas bir araç.",
     f1_title: "Ultra-Hızlı Kayıt",
     f1_desc: "Anında antrenman başlatma, özel şablonlar ve progresif programlar. Fikirden aksiyona saniyeler içinde.",
-    f2_title: "Gizlilik Önce",
-    f2_desc: "Verin cihazında saklanır. Hesap gerekmez. İstediğin zaman CSV veya JSON olarak dışa aktar.",
+    f2_title: "Önce Gizlilik",
+    f2_desc: "Tüm verilerin cihazında kalır. Hesap açmana gerek yok. İstediğin zaman CSV veya JSON olarak dışa aktar.",
     f3_title: "Dürüst Analitik",
     f3_desc: "Trendler, tahmini 1RM, set hacmi ve kas haritaları. Ölçülenler ve tahminler her zaman ayrı gösterilir.",
     f4_title: "Önce Çevrimdışı",
-    f4_desc: "İnternet olmadan çalışır. Her zaman. Bulut isteğe bağlı senkron içindir, asla gerçeğin kaynağı değil.",
-    f5_title: "Varsayılan Anonim",
-    f5_desc: "Uygulamayı aç ve kaldırmaya başla. Email, hesap veya internet gerekmez. Hesabı yalnızca çok cihaz senkronu için bağla.",
+    f4_desc: "Her zaman çevrimdışı çalışır. Bulut yedekleme isteğe bağlıdır, asla zorunlu değil.",
+    f5_title: "Anonim Giriş",
+    f5_desc: "Uygulamayı aç, hemen başla. E-posta, hesap veya internet istemez. Hesabı sadece çoklu cihaz senkronu istediğinde bağla.",
     f6_title: "Kolay Geçiş",
     f6_desc: "Strong, Hevy, FitNotes veya Excel'den içe aktar. CSV veya JSON olarak dışa aktar. Geçmişin her zaman seninle.",
     s1_eyebrow: "AKILLI ANTRENMAN",
     s1_title: "Daha Akıllı Antren Et.<br>Sadece Daha Ağır Değil.",
-    s1_body: "THYMOS, her sette kaydettiğin RPE ve RIR değerlerini okuyarak bir sonraki çalışma ağırlığını otomatik olarak önerir. Tahmin yok, hesap tablosu yok — iş akışına yerleşik, veriye dayalı ilerleme.",
+    s1_body: "THYMOS, her sette kaydettiğin RPE ve RIR değerlerini okuyarak bir sonraki çalışma ağırlığını otomatik önerir. Tahmin yok, hesap tablosu yok — iş akışına yerleşik, veriye dayalı ilerleme. Öneriyi beğenmedin mi? Tek dokunuşla kapat, kendi ağırlığını gir.",
     pill_auto_suggest: "Otomatik Ağırlık Önerisi", pill_progressive: "Progresif Aşırı Yükleme",
     s2_eyebrow: "HAZIRLIK",
     s2_title: "Her Seansı<br>Bilimsel Hazırla.",
-    s2_body: "Çalışma ağırlığından otomatik oluşturulan, kanıta dayalı ısınma programı. THYMOS seni doğru yoğunluklarda rampa yaparak her çalışma setine tam hazır girmen için sıralıyor.",
-    pill_warmup_auto: "Otomatik Isınma Oluşturucu", pill_evidence: "Kanıta Dayalı", pill_fatigue: "Yorgunluğu Minimize Eder",
+    s2_body: "Çalışma ağırlığından otomatik oluşan, bilimsel ısınma planı. THYMOS seni doğru yükler ve yoğunluklarla ısıtarak her çalışma setine tam hazır girmen için yönlendirir.",
+    pill_warmup_auto: "Otomatik Isınma Planı", pill_evidence: "Bilimsel Temelli", pill_fatigue: "Yorgunluğu Azaltır",
     s3_eyebrow: "HASSAS YÜKLEME",
     s3_title: "Daha Akıllı,<br>Daha Hızlı Yükle.",
     s3_body: "Hedef ağırlığını gir, anında dengeli plaka dizilimi al — zihinsel hesap yok, tahmin yok, sadece bar'a hazır hassasiyet. Bara koyduğun plakaları seçerek kaydet, uygulama toplam yükü otomatik hesaplar.",
@@ -1147,18 +1143,18 @@ const translations = {
     phil_tag: "FELSEFEMİZ",
     phil_title: "Tasarımda<br>Saçmalık Yok.",
     phil_desc: "Çoğu fitness uygulaması seni kaydırmaya devam ettirmek için yapıldı. THYMOS yolundan çekilmek için.",
-    p1_title: "Sosyal Akış Yok", p1_desc: "Beğeni yok, takipçi yok, kıyaslama stresi yok. Bu senin antrenman günlüğün, bir performans değil.",
+    p1_title: "Sosyal Akış Yok", p1_desc: "Beğeni yok, takipçi yok, kıyaslama stresi yok. Bu senin antrenman günlüğün, bir yarışma değil.",
     p2_title: "Oyunlaştırma Yok", p2_desc: "Seri yok, rozet yok, sahte motivasyon yok. İlerlemenin kendisi ödül.",
-    p3_title: "Karanlık Desen Yok", p3_desc: "\"Geri dön\" diye yalvaran bildirimler yok. Antrenman sırasında premium satış popup'ları yok.",
+    p3_title: "Baskı Taktiği Yok", p3_desc: "\"Geri dön\" diye zorlayan bildirimler yok. Antrenman sırasında seni durduran premium satış ekranları yok.",
     p4_title: "Bağımlılık Yok", p4_desc: "Her şeyi istediğin zaman dışa aktar. Verin senin — biz sadece düzenlemene yardım ediyoruz.",
     cta_title: "Erken Erişim Al",
     cta_desc: "THYMOS yayınlandığında ilk bildirim alan sen ol. Bekleme listesine katıl, hazır olunca haber verelim.",
     store_ios: "iOS — Yakında", store_android: "Android — Yakında",
     privacy_kicker: "VERİ GİZLİLİĞİ",
     privacy_headline: "Fitness verilerin seni 100 milyon kişi arasından<br>6 günde tanımlayabilir.<br><em>Biz ne yapıyoruz?</em>",
-    privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu senin malın olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Hazırlık skorları ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
+    privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu sana ait olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Hazırlık skorları ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
     pp1_title: "Önce Cihaz",
-    pp1_desc: "Verin cihazında yaşar. Bulut bir senkron seçeneğidir — gerçeğin kaynağı değil.",
+    pp1_desc: "Verin cihazında yaşar. Bulut yedekleme isteğe bağlı — her zaman sen kontroldesin.",
     pp2_title: "Sıfır Takip",
     pp2_desc: "Davranışsal analitik yok, reklam SDK'sı yok, veri aracısı yok. Kimse antrenmanını izlemiyor.",
     pp3_title: "Hassas Veri Yerel Kalır",
