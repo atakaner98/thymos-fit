@@ -261,7 +261,7 @@ nav.scrolled { border-bottom-color: var(--border); }
   grid-template-columns: repeat(2,1fr);
   gap: 20px;
 }
-@media(min-width:768px) { .metrics-grid { grid-template-columns: repeat(3,1fr); } }
+@media(min-width:768px) { .metrics-grid { grid-template-columns: repeat(4,1fr); } }
 .metric-item { text-align: center; }
 .metric-value {
   font-family: var(--font-mono);
@@ -718,6 +718,10 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <div class="metric-value">0</div>
         <div class="metric-label" data-i18n="metric_3">ADS & TRACKERS</div>
       </div>
+      <div class="metric-item anim anim-delay-3">
+        <div class="metric-value">10<span class="unit">+</span></div>
+        <div class="metric-label" data-i18n="metric_4">SET TYPES</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1028,7 +1032,7 @@ const translations = {
     form_button: "JOIN",
     form_success: "You're on the list. We'll be in touch.",
     form_note: "No spam. Unsubscribe anytime.",
-    metric_1: "SET LOGGING", metric_2: "OFFLINE", metric_3: "ADS & TRACKERS",
+    metric_1: "SET LOGGING", metric_2: "OFFLINE", metric_3: "ADS & TRACKERS", metric_4: "SET TYPES",
     features_tag: "FEATURES",
     features_title: "Built Different.",
     features_desc: "Not another fitness app with a social feed. THYMOS is a precision instrument for people who take training seriously.",
@@ -1093,71 +1097,71 @@ const translations = {
   tr: {
     nav_cta: "Listeye Katıl",
     hero_tag: "LANSMAN ÖNCESİ 2026",
-    hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Sahip Ol.",
+    hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
     hero_desc: "Daha akıllı antrenman yapman, tutarlı kalman ve gerçek ilerlemeyi görmeni sağlayan gizlilik odaklı antrenman uygulaması. Her zaman çevrimdışı çalışır. Sosyal akış yok. Reklam yok. Sadece antrenman ve veri.",
     form_placeholder: "email@adresin.com",
     form_button: "KATIL",
     form_success: "Listedesin. Seninle iletişime geçeceğiz.",
     form_note: "Spam yok. İstediğin zaman çık.",
-    metric_1: "SET KAYDI", metric_2: "ÇEVRİMDIŞI", metric_3: "REKLAM & TAKİP",
+    metric_1: "SET KAYDI", metric_2: "ÇEVRİMDIŞI", metric_3: "REKLAM & TAKİP", metric_4: "SET TİPİ",
     features_tag: "ÖZELLİKLER",
     features_title: "Farklı Tasarlandı.",
-    features_desc: "Sosyal akışlı bir fitness uygulaması daha değil. THYMOS, antrenmanı ciddiye alanlar için hassas bir araç.",
+    features_desc: "Sosyal akışlı bir fitness uygulaması değil. THYMOS, antrenmanı ciddiye alanlar için hassas bir araç.",
     f1_title: "Ultra-Hızlı Kayıt",
-    f1_desc: "Anında antrenman başlatma, özel şablonlar ve progresif programlar. Fikirden aksiyona saniyeler içinde.",
+    f1_desc: "Anında antrenman başlatma, özel şablonlar ve progresif programlar. Saniyeler içinde fikirden aksiyona.",
     f2_title: "Önce Gizlilik",
     f2_desc: "Tüm verilerin cihazında kalır. Hesap açmana gerek yok. İstediğin zaman CSV veya JSON olarak dışa aktar.",
-    f3_title: "Dürüst Analitik",
-    f3_desc: "Trendler, tahmini 1RM, set hacmi ve kas haritaları. Ölçülenler ve tahminler her zaman ayrı gösterilir.",
-    f4_title: "Önce Çevrimdışı",
+    f3_title: "Dürüst Analiz",
+    f3_desc: "Trendler, tahmini 1RM, set hacmi ve kas haritaları. Ölçülenler ve tahmini istatistikler her zaman ayrı gösterilir.",
+    f4_title: "Her Zaman Çevrimdışı",
     f4_desc: "Her zaman çevrimdışı çalışır. Bulut yedekleme isteğe bağlıdır, asla zorunlu değil.",
     f5_title: "Anonim Giriş",
     f5_desc: "Uygulamayı aç, hemen başla. E-posta, hesap veya internet istemez. Hesabı sadece çoklu cihaz senkronu istediğinde bağla.",
     f6_title: "Kolay Geçiş",
     f6_desc: "Strong, Hevy, FitNotes veya Excel'den içe aktar. CSV veya JSON olarak dışa aktar. Geçmişin her zaman seninle.",
     s1_eyebrow: "AKILLI ANTRENMAN",
-    s1_title: "Daha Akıllı Antren Et.<br>Sadece Daha Ağır Değil.",
-    s1_body: "THYMOS, her sette kaydettiğin RPE ve RIR değerlerini okuyarak bir sonraki çalışma ağırlığını otomatik önerir. Tahmin yok, hesap tablosu yok — iş akışına yerleşik, veriye dayalı ilerleme. Öneriyi beğenmedin mi? Tek dokunuşla kapat, kendi ağırlığını gir.",
-    pill_auto_suggest: "Otomatik Ağırlık Önerisi", pill_progressive: "Progresif Aşırı Yükleme",
+    s1_title: "Daha Akıllı Antrenman Yap.<br>Sadece Daha Ağır Kaldırma.",
+    s1_body: "THYMOS, her sette kaydettiğin RPE ve RIR değerlerini okuyarak bir sonraki çalışma ağırlığını otomatik önerir. Tahmin yok, hesap tablosu yok — iş akışına yerleşik, veriye dayalı ilerleme. Öneriyi beğenmedin mi? Tek dokunuşla kapat, kendi ağırlığın ile devam et.",
+    pill_auto_suggest: "Otomatik Ağırlık Önerisi", pill_progressive: "Progresif Yükleme",
     s2_eyebrow: "HAZIRLIK",
-    s2_title: "Her Seansı<br>Bilimsel Hazırla.",
-    s2_body: "Çalışma ağırlığından otomatik oluşan, bilimsel ısınma planı. THYMOS seni doğru yükler ve yoğunluklarla ısıtarak her çalışma setine tam hazır girmen için yönlendirir.",
-    pill_warmup_auto: "Otomatik Isınma Planı", pill_evidence: "Bilimsel Temelli", pill_fatigue: "Yorgunluğu Azaltır",
+    s2_title: "Her Antrenmana<br>Bilimsel Hazırlan.",
+    s2_body: "Çalışma ağırlığından otomatik oluşan, otomatik, bilimsel ısınma setleri. THYMOS seni doğru yük ve yoğunlukla ile ısıtarak her çalışma setine tam hazır girmen için yönlendirir.",
+    pill_warmup_auto: "Otomatik Isınma Setleri", pill_evidence: "Bilimsel Temelli", pill_fatigue: "Yorgunluğu Azaltır",
     s3_eyebrow: "HASSAS YÜKLEME",
     s3_title: "Daha Akıllı,<br>Daha Hızlı Yükle.",
-    s3_body: "Hedef ağırlığını gir, anında dengeli plaka dizilimi al — zihinsel hesap yok, tahmin yok, sadece bar'a hazır hassasiyet. Bara koyduğun plakaları seçerek kaydet, uygulama toplam yükü otomatik hesaplar.",
-    pill_plate_calc: "Plaka Hesaplayıcı", pill_plate_log: "Plaka Bazlı Kayıt", pill_bar_ready: "Bar'a Hazır Hassasiyet",
+    s3_body: "Hedef ağırlığını gir, anında dengeli plaka dizilimi al — zihinsel hesap yok, tahmin yok, sadece barını hazırla ve setini tamamla. Bara koyduğun plakaları seçerek set ağırlığını kaydet, THYMOS toplam yükü otomatik hesaplar.",
+    pill_plate_calc: "Plaka Hesaplayıcı", pill_plate_log: "Plaka Bazlı Kayıt", pill_bar_ready: "Barın anında hazır",
     s4_eyebrow: "VÜCUT ANALİZİ",
     s4_title: "Ne İnşa Ettiğini<br>Gör.",
-    s4_body: "Kas dağılımı haritaları hangi kasları, ne yoğunlukta çalıştırdığını ve neleri ihmal ettiğini tam olarak gösterir. Seanslarını net bir antrenman dengesi haritasına dönüştür.",
-    pill_heatmap: "Kas Isı Haritası", pill_balance: "Antrenman Dengesi", pill_weekly: "7 / 30 / 90 Gün Görünümü",
+    s4_body: "Kas dağılımı haritaları hangi kasları, ne yoğunlukta çalıştırdığını ve neleri ihmal ettiğini tam olarak gösterir. Kas haritası ile antrenmanlarını net bir şekilde dengele.",
+    pill_heatmap: "Kas Haritası", pill_balance: "Dengeli Antrenman", pill_weekly: "7 / 30 / 90 Gün Görünümü",
     s5_eyebrow: "İLERLEME TAKİBİ",
     s5_title: "Gerçek Veri.<br>Net Trendler.",
-    s5_body: "Trendler, tahmini 1RM, set hacmi ve tam antrenman geçmişi — tek bir yerde. Ölçülen veri ölçülen kalır. Tahmini veri açıkça işaretlenir. Sayıları daha iyi göstermek için ikisini asla karıştırmayız.",
+    s5_body: "Trendler, tahmini 1RM, set hacmi ve tam antrenman geçmişi — tek bir yerde. Ölçülen veri ölçülen olarak kalır. Tahmini veri açıkça işaretlenir. Sayıları daha iyi göstermek için ikisini asla karıştırmayız.",
     pill_1rm: "Tahmini 1RM", pill_volume: "Hacim Takibi", pill_trends: "Uzun Vadeli Trendler",
     s6_eyebrow: "GEÇİŞ",
-    s6_title: "Geçmişini<br>Beraber Getir.",
-    s6_body: "Strong, Hevy, FitNotes veya Excel'den içe aktar — tüm önceki antrenman verilerin seninle gelir. Ayrılmak istediğinde her şeyi CSV veya JSON olarak dışa aktar. Verin her zaman taşınabilir.",
+    s6_title: "Antrenman<br>Geçmişini Getir.",
+    s6_body: "Strong, Hevy, FitNotes veya Excel'den içe aktar — önceki tüm antrenman verilerin seninle gelir. Ayrılmak istediğinde her şeyi CSV veya JSON olarak dışa aktar. Verin her zaman taşınabilir.",
     pill_export: "CSV / JSON Dışa Aktarım",
     phil_tag: "FELSEFEMİZ",
     phil_title: "Tasarımda<br>Saçmalık Yok.",
     phil_desc: "Çoğu fitness uygulaması seni kaydırmaya devam ettirmek için yapıldı. THYMOS yolundan çekilmek için.",
     p1_title: "Sosyal Akış Yok", p1_desc: "Beğeni yok, takipçi yok, kıyaslama stresi yok. Bu senin antrenman günlüğün, bir yarışma değil.",
-    p2_title: "Oyunlaştırma Yok", p2_desc: "Seri yok, rozet yok, sahte motivasyon yok. İlerlemenin kendisi ödül.",
+    p2_title: "Oyunlaştırma Yok", p2_desc: "Seri yok, rozet yok, sahte motivasyon yok. Asıl ödül, ilerlemek.",
     p3_title: "Baskı Taktiği Yok", p3_desc: "\"Geri dön\" diye zorlayan bildirimler yok. Antrenman sırasında seni durduran premium satış ekranları yok.",
-    p4_title: "Bağımlılık Yok", p4_desc: "Her şeyi istediğin zaman dışa aktar. Verin senin — biz sadece düzenlemene yardım ediyoruz.",
+    p4_title: "Zorunlu Bağlılık Yok", p4_desc: "Her şeyi istediğin zaman dışa aktar. Verin senin — biz sadece düzenlemene yardım ediyoruz.",
     cta_title: "Erken Erişim Al",
     cta_desc: "THYMOS yayınlandığında ilk bildirim alan sen ol. Bekleme listesine katıl, hazır olunca haber verelim.",
     store_ios: "iOS — Yakında", store_android: "Android — Yakında",
     privacy_kicker: "VERİ GİZLİLİĞİ",
     privacy_headline: "Fitness verilerin seni 100 milyon kişi arasından<br>6 günde tanımlayabilir.<br><em>Biz ne yapıyoruz?</em>",
-    privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu sana ait olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Hazırlık skorları ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
-    pp1_title: "Önce Cihaz",
+    privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu sana ait olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Yorgunluk verileri ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
+    pp1_title: "Önce Cihazda",
     pp1_desc: "Verin cihazında yaşar. Bulut yedekleme isteğe bağlı — her zaman sen kontroldesin.",
     pp2_title: "Sıfır Takip",
-    pp2_desc: "Davranışsal analitik yok, reklam SDK'sı yok, veri aracısı yok. Kimse antrenmanını izlemiyor.",
-    pp3_title: "Hassas Veri Yerel Kalır",
-    pp3_desc: "Hazırlık skorları, sağlık bağlamı ve RPE sinyalleri hassas olarak işaretlenir ve asla buluta senkronize edilmez.",
+    pp2_desc: "Davranışsal analitik yok, reklam paketleri yok, veri aracısı yok. Kimse antrenmanını izlemiyor.",
+    pp3_title: "Hassas Veri Cihazında Kalır",
+    pp3_desc: "Yorgunluk verileri, sağlık bağlamı ve RPE verileri hassas olarak işaretlenir ve asla buluta senkronize edilmez.",
     pp4_title: "Tam Dışa Aktarım, Her Zaman",
     pp4_desc: "İstediğin zaman CSV veya JSON olarak her şeyi dışa aktar. Kilit yok. İzin istemek yok."
   }
