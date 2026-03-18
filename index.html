@@ -294,10 +294,34 @@ nav.scrolled { border-bottom-color: var(--border); }
   pointer-events: none;
 }
 .privacy-statement-inner {
-  max-width: 780px;
-  margin: 0 auto;
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 56px;
+  align-items: center;
 }
+@media(min-width: 860px) {
+  .privacy-statement-inner { grid-template-columns: 1fr 380px; }
+}
+.privacy-content { text-align: center; }
+@media(min-width: 860px) {
+  .privacy-content { text-align: left; }
+}
+.privacy-visual-col {
+  display: flex;
+  justify-content: center;
+  order: -1;
+}
+@media(min-width: 860px) {
+  .privacy-visual-col { order: 0; }
+}
+.privacy-screen {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 28px;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.5));
+  transition: transform 0.4s ease;
+}
+.privacy-screen:hover { transform: translateY(-6px) scale(1.01); }
 .privacy-kicker {
   display: inline-flex;
   align-items: center;
@@ -730,37 +754,42 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 <section class="privacy-statement">
   <div class="container">
     <div class="privacy-statement-inner">
-      <div class="privacy-kicker anim">
-        <span class="privacy-kicker-icon">🔒</span>
-        <span data-i18n="privacy_kicker">DATA PRIVACY</span>
+      <div class="privacy-content">
+        <div class="privacy-kicker anim">
+          <span class="privacy-kicker-icon">🔒</span>
+          <span data-i18n="privacy_kicker">DATA PRIVACY</span>
+        </div>
+        <h2 class="privacy-headline anim" data-i18n="privacy_headline">
+          Your fitness data can identify you<br>among <em>100 million people</em> in 6 days.<br>Here's what we do about it.
+        </h2>
+        <p class="privacy-lead anim" data-i18n="privacy_lead">
+          Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.
+        </p>
+        <div class="privacy-pillars">
+          <div class="privacy-pillar anim">
+            <span class="privacy-pillar-icon">📱</span>
+            <div class="privacy-pillar-title" data-i18n="pp1_title">On-Device First</div>
+            <div class="privacy-pillar-desc" data-i18n="pp1_desc">Your data lives on your device. Cloud backup is optional — your phone always stays in control.</div>
+          </div>
+          <div class="privacy-pillar anim anim-delay-1">
+            <span class="privacy-pillar-icon">🚫</span>
+            <div class="privacy-pillar-title" data-i18n="pp2_title">Zero Tracking</div>
+            <div class="privacy-pillar-desc" data-i18n="pp2_desc">No behavioral analytics, no ad SDKs, no third-party data brokers. Nothing watching you lift.</div>
+          </div>
+          <div class="privacy-pillar anim anim-delay-2">
+            <span class="privacy-pillar-icon">🔐</span>
+            <div class="privacy-pillar-title" data-i18n="pp3_title">Sensitive Data Stays Local</div>
+            <div class="privacy-pillar-desc" data-i18n="pp3_desc">Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.</div>
+          </div>
+          <div class="privacy-pillar anim anim-delay-3">
+            <span class="privacy-pillar-icon">📤</span>
+            <div class="privacy-pillar-title" data-i18n="pp4_title">Full Export, Anytime</div>
+            <div class="privacy-pillar-desc" data-i18n="pp4_desc">Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.</div>
+          </div>
+        </div>
       </div>
-      <h2 class="privacy-headline anim" data-i18n="privacy_headline">
-        Your fitness data can identify you<br>among <em>100 million people</em> in 6 days.<br>Here's what we do about it.
-      </h2>
-      <p class="privacy-lead anim" data-i18n="privacy_lead">
-        Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.
-      </p>
-      <div class="privacy-pillars">
-        <div class="privacy-pillar anim">
-          <span class="privacy-pillar-icon">📱</span>
-          <div class="privacy-pillar-title" data-i18n="pp1_title">On-Device First</div>
-          <div class="privacy-pillar-desc" data-i18n="pp1_desc">Your data lives on your device. Cloud backup is optional — your phone always stays in control.</div>
-        </div>
-        <div class="privacy-pillar anim anim-delay-1">
-          <span class="privacy-pillar-icon">🚫</span>
-          <div class="privacy-pillar-title" data-i18n="pp2_title">Zero Tracking</div>
-          <div class="privacy-pillar-desc" data-i18n="pp2_desc">No behavioral analytics, no ad SDKs, no third-party data brokers. Nothing watching you lift.</div>
-        </div>
-        <div class="privacy-pillar anim anim-delay-2">
-          <span class="privacy-pillar-icon">🔐</span>
-          <div class="privacy-pillar-title" data-i18n="pp3_title">Sensitive Data Stays Local</div>
-          <div class="privacy-pillar-desc" data-i18n="pp3_desc">Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.</div>
-        </div>
-        <div class="privacy-pillar anim anim-delay-3">
-          <span class="privacy-pillar-icon">📤</span>
-          <div class="privacy-pillar-title" data-i18n="pp4_title">Full Export, Anytime</div>
-          <div class="privacy-pillar-desc" data-i18n="pp4_desc">Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.</div>
-        </div>
+      <div class="privacy-visual-col anim anim-delay-1">
+        <img class="privacy-screen" src="assets/images/screen-data-privacy.png" alt="THYMOS data privacy — on-device storage">
       </div>
     </div>
   </div>
@@ -904,7 +933,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </div>
       <div class="showcase-visual anim anim-delay-1">
         <div class="showcase-phone">
-          <img src="assets/images/screen-workout-analytics-summary.png" alt="Workout analytics and progress summary">
+          <img src="assets/images/screen-trends.png" alt="Long-term trends and progress tracking">
         </div>
       </div>
     </div>
@@ -1016,7 +1045,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="footer-links">
       <a href="mailto:hello@thymos.fit">hello@thymos.fit</a>
       <a href="https://instagram.com/thymos.fit" target="_blank">Instagram</a>
-      <a href="https://youtube.com/@CalisthenicsStudent" target="_blank">YouTube</a>
+      <a href="https://x.com/thymos_fit" target="_blank">X</a>
     </div>
   </div>
 </footer>
@@ -1120,7 +1149,7 @@ const translations = {
     f6_title: "Kolay Geçiş",
     f6_desc: "Strong, Hevy, FitNotes veya Excel'den içe aktar. CSV veya JSON olarak dışa aktar. Geçmişin her zaman seninle.",
     s1_eyebrow: "AKILLI ANTRENMAN",
-    s1_title: "Daha Akıllı Antrenman Yap.<br>Sadece Daha Ağır Kaldırma.",
+    s1_title: "Sadece Daha Ağır Kaldırma.<br>Daha Akıllı Antrenman Yap.",
     s1_body: "THYMOS, her sette kaydettiğin RPE ve RIR değerlerini okuyarak bir sonraki çalışma ağırlığını otomatik önerir. Tahmin yok, hesap tablosu yok — iş akışına yerleşik, veriye dayalı ilerleme. Öneriyi beğenmedin mi? Tek dokunuşla kapat, kendi ağırlığın ile devam et.",
     pill_auto_suggest: "Otomatik Ağırlık Önerisi", pill_progressive: "Progresif Yükleme",
     s2_eyebrow: "HAZIRLIK",
