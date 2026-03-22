@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="a1f4c123-dfae-448b-bce1-f8b4e8e5f8fa"></script>
 <style>
 :root {
   --bg-primary: #0A0A0B;
@@ -768,6 +769,16 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   letter-spacing: 1px; transition: color 0.2s;
 }
 .footer-links a:hover { color: var(--text-primary); }
+.footer-note {
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.3px;
+}
 
 @media(max-width:600px) {
   .hero-form, .cta-form { flex-direction: column; }
@@ -1157,6 +1168,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <a href="https://instagram.com/thymos.fit" target="_blank">Instagram</a>
       <a href="https://x.com/thymos_fit" target="_blank">X</a>
     </div>
+    <p class="footer-note" data-i18n="footer_note">Proudly tracking nothing. This site uses privacy-first, cookie-less analytics just to see how many of you drop by. (To figure out if our marketing sucks.) Your data is yours.</p>
   </div>
 </footer>
 
@@ -1233,6 +1245,7 @@ const translations = {
     pp3_desc: "Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.",
     pp4_title: "Full Export, Anytime",
     pp4_desc: "Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.",
+    footer_note: "Proudly tracking nothing. This site uses privacy-first, cookie-less analytics just to see how many of you drop by. (To figure out if our marketing sucks.) Your data is yours.",
     founder_tag: "FROM THE MAKER",
     founder_text: "I am building THYMOS because I am tired of fitness apps that treat your workout data as their product. Apps that distract you with social feed and seek your attention with noisy notifications for you to \u201Cuse\u201D their app. As a lifter and a developer, I wanted a tool that respects both the craft and the person behind it. Just an honest tool for honest training. If we are on the same page, welcome aboard.",
     founder_role: "Founder & Developer"
@@ -1308,6 +1321,7 @@ const translations = {
     pp3_desc: "Yorgunluk verileri, sağlık bağlamı ve RPE verileri hassas olarak işaretlenir ve asla buluta senkronize edilmez.",
     pp4_title: "Tam Dışa Aktarım, Her Zaman",
     pp4_desc: "İstediğin zaman CSV veya JSON olarak her şeyi dışa aktar. Kilit yok. İzin istemek yok.",
+    footer_note: "Gururla hiçbir şey takip etmiyoruz. Bu site sadece kaç kişinin uğradığını görmek için gizlilik odaklı, çerezsiz analitik kullanıyor. (Pazarlamamızın ne kadar kötü olduğunu anlamak için.) Verin senin.",
     founder_tag: "GELİŞTİRİCİDEN",
     founder_text: "THYMOS\u2019u, antrenman verilerini \u00FCr\u00FCn olarak g\u00F6ren fitness uygulamalar\u0131ndan b\u0131kt\u0131\u011F\u0131m i\u00E7in yap\u0131yorum. Sosyal ak\u0131\u015Fla dikkatini da\u011F\u0131tan, g\u00FCr\u00FClt\u00FCl\u00FC bildirimlerle \u201Ckullan\u201D diye ba\u015F\u0131na \u00E7\u00F6ken uygulamalardan. Hem spor yapan hem de yaz\u0131l\u0131m geli\u015Ftiren biri olarak, hem i\u015Fi hem de arkas\u0131ndaki ki\u015Fiyi ciddiye alan bir ara\u00E7 istedim. D\u00FCr\u00FCst antrenman i\u00E7in d\u00FCr\u00FCst bir ara\u00E7. Ayn\u0131 kafadaysak, ho\u015F geldin.",
     founder_role: "Kurucu & Geliştirici"
