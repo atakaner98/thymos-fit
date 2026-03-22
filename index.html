@@ -602,14 +602,15 @@ nav.scrolled { border-bottom-color: var(--border); }
   line-height: 1.65;
   padding: 11px 16px 11px 14px;
   margin-bottom: 20px;
-  max-width: 480px;
+  width: 100%;
+  box-sizing: border-box;
   background: rgba(200, 85, 61, 0.06);
   border: 1px solid rgba(200, 85, 61, 0.15);
   border-left: 3px solid var(--accent);
   border-radius: 8px;
 }
-.fomo-line strong { color: var(--text-primary); font-weight: 600; }
-.cta-box .fomo-line { margin-left: auto; margin-right: auto; }
+.fomo-line strong { color: var(--accent-hover); font-weight: 700; }
+.cta-box .fomo-line { max-width: 480px; margin-left: auto; margin-right: auto; }
 .cta-form {
   display: flex; gap: 10px;
   max-width: 440px;
@@ -722,7 +723,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <p class="hero-desc" data-i18n="hero_desc">
         A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just training and data.
       </p>
-      <p class="fomo-line" data-i18n="fomo_cta">Get early beta access <strong>before spots run out</strong> and unlock <strong>every Pro feature free for life.</strong></p>
+      <p class="fomo-line" data-i18n="fomo_cta">Get early beta access before spots run out and <strong>unlock every Pro feature free for life.</strong></p>
       <form class="hero-form" id="heroForm" onsubmit="return handleWaitlist(event,'hero')">
         <input type="email" class="hero-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
         <button type="submit" class="hero-submit" data-i18n="form_button">JOIN</button>
@@ -1030,7 +1031,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <p class="cta-desc" data-i18n="cta_desc">
         Be the first to try THYMOS when it launches. Join the waitlist and get notified the moment it's ready.
       </p>
-      <p class="fomo-line" data-i18n="fomo_cta">Get early beta access <strong>before spots run out</strong> and unlock <strong>every Pro feature free for life.</strong></p>
+      <p class="fomo-line" data-i18n="fomo_cta">Get early beta access before spots run out and <strong>unlock every Pro feature free for life.</strong></p>
       <form class="cta-form" id="ctaForm" onsubmit="return handleWaitlist(event,'cta')">
         <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
         <button type="submit" class="cta-submit" data-i18n="form_button">JOIN</button>
@@ -1077,7 +1078,7 @@ const translations = {
     form_button: "JOIN",
     form_success: "You're on the list. We'll be in touch.",
     form_note: "No spam. Unsubscribe anytime.",
-    fomo_cta: "Get early beta access <strong>before spots run out</strong> and unlock <strong>every Pro feature free for life.</strong>",
+    fomo_cta: "Get early beta access before spots run out and <strong>unlock every Pro feature free for life.</strong>",
     metric_1: "SET LOGGING", metric_2: "OFFLINE", metric_3: "ADS & TRACKERS", metric_4: "SET TYPES",
     features_tag: "FEATURES",
     features_title: "Built Different.",
@@ -1149,7 +1150,7 @@ const translations = {
     form_button: "KATIL",
     form_success: "Listedesin. Seninle iletişime geçeceğiz.",
     form_note: "Spam yok. İstediğin zaman çık.",
-    fomo_cta: "<strong>Yerler dolmadan</strong> erken beta erişimini al ve <strong>tüm Pro özelliklerin kilidini ömür boyu ücretsiz aç.</strong>",
+    fomo_cta: "Yerler dolmadan erken beta erişimini al ve <strong>tüm Pro özelliklerin kilidini ömür boyu ücretsiz aç.</strong>",
     metric_1: "SET KAYDI", metric_2: "ÇEVRİMDIŞI", metric_3: "REKLAM & TAKİP", metric_4: "SET TİPİ",
     features_tag: "ÖZELLİKLER",
     features_title: "Farklı Tasarlandı.",
