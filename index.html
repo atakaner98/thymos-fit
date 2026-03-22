@@ -655,7 +655,10 @@ nav.scrolled { border-bottom-color: var(--border); }
   font-weight: 700;
   font-size: 15px;
   color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s;
 }
+.founder-name:hover { color: var(--accent); }
 .founder-role {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -900,7 +903,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <div class="section-tag" data-i18n="founder_tag">FROM THE MAKER</div>
         <blockquote data-i18n="founder_text">I am building THYMOS because I am tired of fitness apps that treat your workout data as their product. Apps that distract you with social feed and seek your attention with noisy notifications for you to "use" their app. As a lifter and a developer, I wanted a tool that respects both the craft and the person behind it. Just an honest tool for honest training. If we are on the same page, welcome aboard.</blockquote>
         <div class="founder-sig">
-          <span class="founder-name">— redglovez</span>
+          <a class="founder-name" href="https://www.instagram.com/redglovez/" target="_blank">— redglovez</a>
           <span class="founder-divider"></span>
           <span class="founder-role" data-i18n="founder_role">Founder & Developer</span>
         </div>
@@ -1127,7 +1130,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="cta-box anim">
       <h2 class="cta-title" data-i18n="cta_title">Get Early Access</h2>
       <p class="cta-desc" data-i18n="cta_desc">
-        Be the first to try THYMOS when it launches. Join the waitlist and get notified the moment it's ready.
+        Join the waitlist and get notified the moment it's ready.
       </p>
       <p class="fomo-line" data-i18n="fomo_cta">Be one of the first 100 beta testers and <strong>unlock every Pro feature free for life.</strong></p>
       <form class="cta-form" id="ctaForm" onsubmit="return handleWaitlist(event,'cta')">
@@ -1216,7 +1219,7 @@ const translations = {
     p3_title: "No Pushy Tactics", p3_desc: "No push notifications begging you to come back. No premium upsell popups during your workout.",
     p4_title: "No Vendor Lock-in", p4_desc: "Export everything, anytime. Your data is yours — we just help you organize it.",
     cta_title: "Get Early Access",
-    cta_desc: "Be the first to try THYMOS when it launches. Join the waitlist and get notified the moment it's ready.",
+    cta_desc: "Join the waitlist and get notified the moment it's ready.",
     privacy_kicker: "DATA PRIVACY",
     privacy_headline: "Your fitness data can identify you<br>among <em>100&nbsp;million&nbsp;people</em> in&nbsp;6&nbsp;days.<br>Here's what we do about it.",
     privacy_lead: "Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.",
@@ -1291,7 +1294,7 @@ const translations = {
     p3_title: "Baskı Taktiği Yok", p3_desc: "\"Geri dön\" diye zorlayan bildirimler yok. Antrenman sırasında seni durduran premium satış ekranları yok.",
     p4_title: "Zorunlu Bağlılık Yok", p4_desc: "Her şeyi istediğin zaman dışa aktar. Verin senin — biz sadece düzenlemene yardım ediyoruz.",
     cta_title: "Erken Erişim Al",
-    cta_desc: "THYMOS yayınlandığında ilk bildirim alan sen ol. Bekleme listesine katıl, hazır olunca haber verelim.",
+    cta_desc: "Bekleme listesine katıl, hazır olunca haber verelim.",
     privacy_kicker: "VERİ GİZLİLİĞİ",
     privacy_headline: "Fitness verilerin seni 100 milyon kişi arasından<br>6 günde tanımlayabilir.<br><em>Biz ne yapıyoruz?</em>",
     privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu sana ait olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Yorgunluk verileri ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
