@@ -182,10 +182,14 @@ nav.scrolled { border-bottom-color: var(--border); }
   margin-bottom: 28px;
 }
 .hero-tag-dot {
-  width: 8px; height: 8px;
+  width: 9px; height: 9px;
   background: var(--gold); border-radius: 50%;
-  animation: pulse 2s ease infinite;
-  box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(191,163,109,0.3);
+  animation: dotGlow 2s ease infinite;
+  box-shadow: 0 0 8px var(--gold), 0 0 16px rgba(191,163,109,0.5), 0 0 24px rgba(191,163,109,0.2);
+}
+@keyframes dotGlow {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--gold), 0 0 16px rgba(191,163,109,0.5), 0 0 24px rgba(191,163,109,0.2); }
+  50%      { opacity: 0.6; box-shadow: 0 0 4px var(--gold), 0 0 8px rgba(191,163,109,0.3); }
 }
 .hero h1 {
   font-size: clamp(38px, 6vw, 68px);
@@ -809,8 +813,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   <div class="container hero-grid">
     <div class="hero-content">
       <div class="hero-tag">
-        <span class="hero-tag-dot"></span>
         <span data-i18n="hero_tag">BETA · LIMITED TO 100 · CLOSING SOON</span>
+        <span class="hero-tag-dot"></span>
       </div>
       <h1>
         <span data-i18n="hero_title_1">Lift.</span>
