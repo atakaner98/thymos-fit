@@ -172,24 +172,24 @@ nav.scrolled { border-bottom-color: var(--border); }
   display: inline-flex;
   align-items: center; gap: 8px;
   padding: 6px 14px;
-  background: var(--gold);
-  border: 1px solid var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid rgba(191,163,109,0.2);
   border-radius: 100px;
   font-family: var(--font-mono);
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 2px; color: #0A0A0B;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; color: var(--gold);
   text-transform: uppercase;
   margin-bottom: 28px;
 }
 .hero-tag-dot {
   width: 9px; height: 9px;
-  background: #0A0A0B; border-radius: 50%;
+  background: var(--gold); border-radius: 50%;
   animation: dotGlow 2s ease infinite;
-  box-shadow: 0 0 6px rgba(10,10,11,0.5);
+  box-shadow: 0 0 8px var(--gold), 0 0 16px rgba(191,163,109,0.5), 0 0 24px rgba(191,163,109,0.2);
 }
 @keyframes dotGlow {
-  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(10,10,11,0.5); }
-  50%      { opacity: 0.4; box-shadow: 0 0 3px rgba(10,10,11,0.3); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--gold), 0 0 16px rgba(191,163,109,0.5), 0 0 24px rgba(191,163,109,0.2); }
+  50%      { opacity: 0.6; box-shadow: 0 0 4px var(--gold), 0 0 8px rgba(191,163,109,0.3); }
 }
 .hero h1 {
   font-size: clamp(38px, 6vw, 68px);
