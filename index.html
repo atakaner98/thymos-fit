@@ -121,18 +121,25 @@ nav.scrolled { border-bottom-color: var(--border); }
 .lang-btn:hover { color: var(--text-secondary); }
 .lang-btn.active { background: rgba(240,237,232,0.07); color: var(--text-primary); }
 .nav-cta {
-  display: none;
-  padding: 8px 20px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
   font-family: var(--font-mono);
-  font-size: 12px; font-weight: 500;
+  font-size: 11px; font-weight: 500;
   letter-spacing: 1px;
   background: var(--accent); color: white;
   border: none; border-radius: 8px;
   cursor: pointer; text-decoration: none;
-  transition: background 0.2s;
+  transition: background 0.2s, opacity 0.3s;
+  opacity: 0;
+  pointer-events: none;
+}
+.nav-cta.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 .nav-cta:hover { background: var(--accent-hover); }
-@media(min-width:768px) { .nav-cta { display: inline-flex; align-items: center; } }
+@media(min-width:768px) { .nav-cta { padding: 8px 20px; font-size: 12px; } }
 
 /* ─── HERO ─── */
 .hero {
@@ -288,11 +295,12 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 .metric-value .unit { font-size: 0.5em; color: var(--accent); font-weight: 500; }
 .metric-label {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
   font-family: var(--font-mono);
   letter-spacing: 1px;
+  font-weight: 500;
 }
 
 /* ─── PRIVACY STATEMENT ─── */
@@ -588,6 +596,60 @@ nav.scrolled { border-bottom-color: var(--border); }
 .phil-text-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
 .phil-text-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
 
+/* ─── FOUNDER ─── */
+.founder { padding: 0 0 20px; }
+.founder-box {
+  padding: 48px 40px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  border-left: 3px solid var(--accent);
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+}
+.founder-box::before {
+  content: '\201C';
+  position: absolute;
+  top: 16px; left: 28px;
+  font-size: 72px;
+  color: var(--accent);
+  opacity: 0.12;
+  font-family: Georgia, serif;
+  line-height: 1;
+  pointer-events: none;
+}
+.founder-quote blockquote {
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 20px 0 28px;
+  border: none;
+  padding: 0;
+}
+.founder-sig {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.founder-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+.founder-role {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+.founder-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+}
+
 /* ─── CTA ─── */
 .cta-section { padding: 100px 0; text-align: center; }
 .cta-box {
@@ -638,15 +700,15 @@ nav.scrolled { border-bottom-color: var(--border); }
   flex: 1; min-width: 220px;
   padding: 14px 18px;
   font-family: var(--font-display); font-size: 15px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-accent);
   border-radius: 10px;
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .cta-input::placeholder { color: var(--text-secondary); }
-.cta-input:focus { border-color: var(--accent); }
+.cta-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
 .cta-submit {
   padding: 14px 32px;
   font-family: var(--font-mono); font-size: 13px; font-weight: 600;
@@ -729,7 +791,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="hero-content">
       <div class="hero-tag">
         <span class="hero-tag-dot"></span>
-        <span data-i18n="hero_tag">PRE-LAUNCH 2026</span>
+        <span data-i18n="hero_tag">BETA · FIRST 500 SPOTS</span>
       </div>
       <h1>
         <span data-i18n="hero_title_1">Lift.</span>
@@ -764,19 +826,19 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="metrics-grid">
       <div class="metric-item anim">
         <div class="metric-value">&lt;0.5<span class="unit">s</span></div>
-        <div class="metric-label" data-i18n="metric_1">SET LOGGING</div>
+        <div class="metric-label" data-i18n="metric_1">PER-SET LOGGING</div>
       </div>
       <div class="metric-item anim anim-delay-1">
-        <div class="metric-value">100<span class="unit">%</span></div>
-        <div class="metric-label" data-i18n="metric_2">OFFLINE</div>
+        <div class="metric-value">100<span class="unit">%</span> <span class="unit" data-i18n="metric_2_val">Offline</span></div>
+        <div class="metric-label" data-i18n="metric_2">NO INTERNET NEEDED</div>
       </div>
       <div class="metric-item anim anim-delay-2">
-        <div class="metric-value">0</div>
-        <div class="metric-label" data-i18n="metric_3">ADS & TRACKERS</div>
+        <div class="metric-value">0 <span class="unit" data-i18n="metric_3_val">Ads</span></div>
+        <div class="metric-label" data-i18n="metric_3">ZERO TRACKERS</div>
       </div>
       <div class="metric-item anim anim-delay-3">
-        <div class="metric-value">10<span class="unit">+</span></div>
-        <div class="metric-label" data-i18n="metric_4">SET TYPES</div>
+        <div class="metric-value">10<span class="unit">+</span> <span class="unit" data-i18n="metric_4_val">Set Types</span></div>
+        <div class="metric-label" data-i18n="metric_4">DROP · AMRAP · MORE</div>
       </div>
     </div>
   </div>
@@ -1039,6 +1101,23 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   </div>
 </section>
 
+<!-- FOUNDER'S NOTE -->
+<section class="founder">
+  <div class="container">
+    <div class="founder-box anim">
+      <div class="founder-quote">
+        <div class="section-tag" data-i18n="founder_tag">FROM THE MAKER</div>
+        <blockquote data-i18n="founder_text">I built THYMOS because I was tired of fitness apps that treat your workout data as their product. I'm a lifter and a developer — and I wanted a tool that respects both the craft and the person behind it. No VC funding. No growth hacks. Just an honest tool for honest training.</blockquote>
+        <div class="founder-sig">
+          <span class="founder-name">— Ata</span>
+          <span class="founder-divider"></span>
+          <span class="founder-role" data-i18n="founder_role">Founder & Developer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA / WAITLIST -->
 <section class="cta-section" id="waitlist">
   <div class="container">
@@ -1087,7 +1166,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 const translations = {
   en: {
     nav_cta: "Join Waitlist",
-    hero_tag: "PRE-LAUNCH 2026",
+    hero_tag: "BETA · FIRST 500 SPOTS",
     hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
     hero_desc: "A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just training and data.",
     form_placeholder: "your@email.com",
@@ -1095,7 +1174,8 @@ const translations = {
     form_success: "You're on the list. We'll be in touch.",
     form_note: "No spam. Unsubscribe anytime.",
     fomo_cta: "Get early beta access before spots run out and <strong>unlock every Pro feature free for life.</strong>",
-    metric_1: "SET LOGGING", metric_2: "OFFLINE", metric_3: "ADS & TRACKERS", metric_4: "SET TYPES",
+    metric_1: "PER-SET LOGGING", metric_2: "NO INTERNET NEEDED", metric_3: "ZERO TRACKERS", metric_4: "DROP · AMRAP · MORE",
+    metric_2_val: "Offline", metric_3_val: "Ads", metric_4_val: "Set Types",
     features_tag: "FEATURES",
     features_title: "Built Different.",
     features_desc: "Not another fitness app with a social feed. THYMOS is a precision instrument for people who take training seriously.",
@@ -1155,11 +1235,14 @@ const translations = {
     pp3_title: "Sensitive Data Stays Local",
     pp3_desc: "Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.",
     pp4_title: "Full Export, Anytime",
-    pp4_desc: "Export everything as CSV or JSON whenever you want. No lock-in. No asking permission."
+    pp4_desc: "Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.",
+    founder_tag: "FROM THE MAKER",
+    founder_text: "I built THYMOS because I was tired of fitness apps that treat your workout data as their product. I\u2019m a lifter and a developer \u2014 and I wanted a tool that respects both the craft and the person behind it. No VC funding. No growth hacks. Just an honest tool for honest training.",
+    founder_role: "Founder & Developer"
   },
   tr: {
     nav_cta: "Listeye Katıl",
-    hero_tag: "LANSMAN ÖNCESİ 2026",
+    hero_tag: "BETA · İLK 500 KİŞİ",
     hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
     hero_desc: "Daha akıllı antrenman yapman, tutarlı kalman ve gerçek ilerlemeyi görmeni sağlayan gizlilik odaklı antrenman uygulaması. Her zaman çevrimdışı çalışır. Sosyal akış yok. Reklam yok. Sadece antrenman ve veri.",
     form_placeholder: "email@adresin.com",
@@ -1167,7 +1250,8 @@ const translations = {
     form_success: "Listedesin. Seninle iletişime geçeceğiz.",
     form_note: "Spam yok. İstediğin zaman çık.",
     fomo_cta: "Yerler dolmadan erken beta erişimini al ve <strong>tüm Pro özelliklerin kilidini ömür boyu ücretsiz aç.</strong>",
-    metric_1: "SET KAYDI", metric_2: "ÇEVRİMDIŞI", metric_3: "REKLAM & TAKİP", metric_4: "SET TİPİ",
+    metric_1: "SET BAŞINA KAYIT", metric_2: "İNTERNET GEREKMEZ", metric_3: "SIFIR TAKİP", metric_4: "DROP · AMRAP · DİĞER",
+    metric_2_val: "Çevrimdışı", metric_3_val: "Reklam", metric_4_val: "Set Tipi",
     features_tag: "ÖZELLİKLER",
     features_title: "Farklı Tasarlandı.",
     features_desc: "Sosyal akışlı bir fitness uygulaması değil. THYMOS, antrenmanı ciddiye alanlar için hassas bir araç.",
@@ -1227,7 +1311,10 @@ const translations = {
     pp3_title: "Hassas Veri Cihazında Kalır",
     pp3_desc: "Yorgunluk verileri, sağlık bağlamı ve RPE verileri hassas olarak işaretlenir ve asla buluta senkronize edilmez.",
     pp4_title: "Tam Dışa Aktarım, Her Zaman",
-    pp4_desc: "İstediğin zaman CSV veya JSON olarak her şeyi dışa aktar. Kilit yok. İzin istemek yok."
+    pp4_desc: "İstediğin zaman CSV veya JSON olarak her şeyi dışa aktar. Kilit yok. İzin istemek yok.",
+    founder_tag: "GELİŞTİRİCİDEN",
+    founder_text: "THYMOS\u2019u, antrenman verilerini \u00FCr\u00FCn olarak g\u00F6ren fitness uygulamalar\u0131ndan b\u0131kt\u0131\u011F\u0131m i\u00E7in yapt\u0131m. Hem spor yapan hem de yaz\u0131l\u0131m geli\u015Ftiren biri olarak, hem i\u015Fi hem de arkas\u0131ndaki ki\u015Fiyi ciddiye alan bir ara\u00E7 istedim. Risk sermayesi yok. B\u00FCy\u00FCme hileleri yok. D\u00FCr\u00FCst antrenman i\u00E7in d\u00FCr\u00FCst bir ara\u00E7.",
+    founder_role: "Kurucu & Geliştirici"
   }
 };
 
@@ -1256,6 +1343,13 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+// Show nav CTA after hero form scrolls out of view
+const navCta = document.querySelector('.nav-cta');
+const heroFormObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => navCta.classList.toggle('visible', !e.isIntersecting));
+}, { threshold: 0 });
+heroFormObserver.observe(document.getElementById('heroForm'));
 
 async function handleWaitlist(e, source) {
   e.preventDefault();
