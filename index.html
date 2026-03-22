@@ -794,10 +794,10 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <a href="#" class="logo">THYMOS<span>.</span></a>
     <div class="nav-right">
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')" data-umami-event="lang-switch-en">EN</button>
+        <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
       </div>
-      <a href="#waitlist" class="nav-cta" data-i18n="nav_cta">Join Waitlist</a>
+      <a href="#waitlist" class="nav-cta" data-i18n="nav_cta" data-umami-event="nav-waitlist-click">Join Waitlist</a>
     </div>
   </div>
 </nav>
@@ -822,7 +822,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <p class="fomo-line" data-i18n="fomo_cta">Be one of the first 100 beta testers and <strong>unlock every Pro feature free for life.</strong></p>
       <form class="hero-form" id="heroForm" onsubmit="return handleWaitlist(event,'hero')">
         <input type="email" class="hero-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
-        <button type="submit" class="hero-submit" data-i18n="form_button">Claim Free Pro</button>
+        <button type="submit" class="hero-submit" data-i18n="form_button" data-umami-event="hero-waitlist-submit">Get Lifetime Free Pro</button>
       </form>
       <div class="hero-success" id="heroSuccess">
         <span>✓</span>
@@ -916,7 +916,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <div class="section-tag" data-i18n="founder_tag">FROM THE MAKER</div>
         <blockquote data-i18n="founder_text">I am building THYMOS because I am tired of fitness apps that treat your workout data as their product. Apps that distract you with social feed and seek your attention with noisy notifications for you to "use" their app. As a lifter and a developer, I wanted a tool that respects both the craft and the person behind it. Just an honest tool for honest training. If we are on the same page, welcome aboard.</blockquote>
         <div class="founder-sig">
-          <a class="founder-name" href="https://www.instagram.com/redglovez/" target="_blank">— redglovez</a>
+          <a class="founder-name" href="https://www.instagram.com/redglovez/" target="_blank" data-umami-event="founder-instagram-click">— redglovez</a>
           <span class="founder-divider"></span>
           <span class="founder-role" data-i18n="founder_role">Founder & Developer</span>
         </div>
@@ -1148,7 +1148,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <p class="fomo-line" data-i18n="fomo_cta">Be one of the first 100 beta testers and <strong>unlock every Pro feature free for life.</strong></p>
       <form class="cta-form" id="ctaForm" onsubmit="return handleWaitlist(event,'cta')">
         <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
-        <button type="submit" class="cta-submit" data-i18n="form_button">Claim Free Pro</button>
+        <button type="submit" class="cta-submit" data-i18n="form_button" data-umami-event="cta-waitlist-submit">Get Lifetime Free Pro</button>
       </form>
       <div class="cta-success" id="ctaSuccess">
         <span>✓</span>
@@ -1164,9 +1164,9 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   <div class="container footer-inner">
     <div class="footer-left">© 2026 THYMOS</div>
     <div class="footer-links">
-      <a href="mailto:hello@thymos.fit">hello@thymos.fit</a>
-      <a href="https://instagram.com/thymos.fit" target="_blank">Instagram</a>
-      <a href="https://x.com/thymos_fit" target="_blank">X</a>
+      <a href="mailto:hello@thymos.fit" data-umami-event="footer-email-click">hello@thymos.fit</a>
+      <a href="https://instagram.com/thymos.fit" target="_blank" data-umami-event="footer-instagram-click">Instagram</a>
+      <a href="https://x.com/thymos_fit" target="_blank" data-umami-event="footer-x-click">X</a>
     </div>
     <p class="footer-note" data-i18n="footer_note">Proudly tracking nothing. This site uses privacy-first, cookie-less analytics just to see how many of you drop by. (To figure out if our marketing sucks.) Your data is yours.</p>
   </div>
@@ -1180,7 +1180,7 @@ const translations = {
     hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
     hero_desc: "A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just training and data.",
     form_placeholder: "your@email.com",
-    form_button: "Claim Free Pro",
+    form_button: "Get Lifetime Free Pro",
     form_success: "You're on the list. We'll be in touch.",
     form_note: "No spam. Unsubscribe anytime.",
     fomo_cta: "Be one of the first 100 beta testers and <strong>unlock every Pro feature free for life.</strong>",
@@ -1256,7 +1256,8 @@ const translations = {
     hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
     hero_desc: "Daha akıllı antrenman yapman, tutarlı kalman ve gerçek ilerlemeyi görmeni sağlayan gizlilik odaklı antrenman uygulaması. Her zaman çevrimdışı çalışır. Sosyal akış yok. Reklam yok. Sadece antrenman ve veri.",
     form_placeholder: "email@adresin.com",
-    form_button: "Ücretsiz Pro Al",
+    form_button: "Ömür Boyu Bedava Pro Edin",
+    waitlist_counter: "<strong>{count}</strong> ciddi sporcuyla birlikte bekleme listesine katıl",
     form_success: "Listedesin. Seninle iletişime geçeceğiz.",
     form_note: "Spam yok. İstediğin zaman çık.",
     fomo_cta: "İlk 100 beta testçisinden biri ol ve <strong>tüm Pro özelliklerin kilidini ömür boyu ücretsiz aç.</strong>",
@@ -1360,6 +1361,7 @@ const heroFormObserver = new IntersectionObserver(entries => {
   entries.forEach(e => navCta.classList.toggle('visible', !e.isIntersecting));
 }, { threshold: 0 });
 heroFormObserver.observe(document.getElementById('heroForm'));
+
 
 async function handleWaitlist(e, source) {
   e.preventDefault();
