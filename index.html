@@ -300,9 +300,6 @@ nav.scrolled { border-bottom-color: var(--border); }
 .phone-hero {
   width: 320px;
   position: relative; z-index: 1;
-  animation: float 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  will-change: transform;
-  filter: drop-shadow(0 40px 60px rgba(0,0,0,0.55));
 }
 .phone-hero img { width: 100%; height: auto; display: block; border-radius: 36px; }
 @media(max-width:600px) { .phone-hero { width: 260px; } }
@@ -895,7 +892,6 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <span data-i18n="form_success">You're on the list. We'll be in touch.</span>
       </div>
       <p class="hero-note" data-i18n="form_note">No spam. Unsubscribe anytime.</p>
-      <a href="roadmap.html" class="roadmap-btn" data-i18n="nav_roadmap" data-umami-event="hero-roadmap-click">Roadmap →</a>
     </div>
     <div class="hero-visual">
       <div class="phone-hero">
