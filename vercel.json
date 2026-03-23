@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/ig",
+      "destination": "/?utm_source=instagram&utm_medium=bio",
+      "permanent": false
+    },
+    {
+      "source": "/tt",
+      "destination": "/?utm_source=tiktok&utm_medium=bio",
+      "permanent": false
+    },
+    {
+      "source": "/x",
+      "destination": "/?utm_source=twitter&utm_medium=bio",
+      "permanent": false
+    }
+  ]
+}
