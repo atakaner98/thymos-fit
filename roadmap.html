@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THYMOS — Roadmap</title>
+<meta name="description" content="THYMOS development roadmap. See what's coming next for the privacy-first workout companion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="a1f4c123-dfae-448b-bce1-f8b4e8e5f8fa"></script>
+<style>
+:root {
+  --bg-primary: #0A0A0B;
+  --bg-secondary: #111113;
+  --bg-card: #161618;
+  --bg-card-hover: #1C1C1F;
+  --border: #2A2A2E;
+  --border-accent: #3A3A3F;
+  --text-primary: #F0EDE8;
+  --text-secondary: #8E8C87;
+  --text-muted: #5A5856;
+  --accent: #C8553D;
+  --accent-glow: rgba(200, 85, 61, 0.15);
+  --accent-hover: #D4634C;
+  --gold: #BFA36D;
+  --gold-dim: rgba(191, 163, 109, 0.1);
+  --success: #4A9E6D;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-display);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+section { position: relative; z-index: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.anim.visible { opacity: 1; transform: translateY(0); }
+.anim-delay-1 { transition-delay: 0.15s; }
+.anim-delay-2 { transition-delay: 0.3s; }
+.anim-delay-3 { transition-delay: 0.45s; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo {
+  font-family: var(--font-mono);
+  font-size: 18px; font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.logo span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.lang-toggle {
+  display: flex;
+  background: transparent;
+  border: 1px solid var(--border-accent);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.lang-btn {
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 1px;
+  border: none; background: transparent;
+  color: var(--text-muted); cursor: pointer;
+  transition: all 0.2s;
+}
+.lang-btn:hover { color: var(--text-secondary); }
+.lang-btn.active { background: rgba(240,237,232,0.07); color: var(--text-primary); }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 1px;
+  background: var(--accent); color: white;
+  border: none; border-radius: 8px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--accent-hover); }
+@media(min-width:768px) { .nav-cta { padding: 8px 20px; font-size: 12px; } }
+
+/* ─── ROADMAP HERO ─── */
+.roadmap-hero {
+  padding: 140px 0 60px;
+  text-align: center;
+}
+.roadmap-hero .section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid rgba(191,163,109,0.15);
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+.roadmap-hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.roadmap-hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+.roadmap-hero p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ─── TIMELINE ─── */
+.timeline {
+  padding: 40px 0 100px;
+  position: relative;
+}
+.timeline-container {
+  position: relative;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* Vertical line */
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--border-accent) 40%, var(--border) 100%);
+}
+@media(min-width:768px) {
+  .timeline-container::before {
+    left: 50%;
+    transform: translateX(-1px);
+  }
+}
+
+/* Phase block */
+.phase {
+  position: relative;
+  margin-bottom: 64px;
+  padding-left: 72px;
+}
+@media(min-width:768px) {
+  .phase { padding-left: 0; }
+}
+
+/* Phase dot */
+.phase-dot {
+  position: absolute;
+  left: 16px;
+  top: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: var(--bg-primary);
+  z-index: 2;
+}
+.phase.current .phase-dot {
+  background: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow), 0 0 32px var(--accent-glow);
+}
+.phase.future .phase-dot {
+  border-color: var(--border-accent);
+}
+.phase.distant .phase-dot {
+  border-color: var(--border);
+}
+@media(min-width:768px) {
+  .phase-dot {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Phase header */
+.phase-header {
+  margin-bottom: 20px;
+}
+@media(min-width:768px) {
+  .phase-header {
+    text-align: center;
+    padding-top: 40px;
+  }
+}
+.phase-version {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.phase.future .phase-version { color: var(--gold); }
+.phase.distant .phase-version { color: var(--text-muted); }
+
+.phase-name {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.phase-status {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-top: 8px;
+}
+.phase.current .phase-status {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid rgba(200,85,61,0.3);
+}
+.phase.future .phase-status {
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid rgba(191,163,109,0.15);
+}
+.phase.distant .phase-status {
+  background: rgba(90,88,86,0.1);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* Feature cards grid */
+.phase-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+@media(min-width:768px) {
+  .phase-features {
+    grid-template-columns: 1fr 1fr;
+    max-width: 640px;
+    margin: 20px auto 0;
+  }
+}
+
+.feature-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.feature-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-accent);
+}
+.feature-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 18px;
+}
+.phase.current .feature-icon {
+  background: var(--accent-glow);
+}
+.phase.future .feature-icon {
+  background: var(--gold-dim);
+}
+.phase.distant .feature-icon {
+  background: rgba(90,88,86,0.1);
+}
+.feature-card-text h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.feature-card-text p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── CTA BANNER ─── */
+.roadmap-cta {
+  text-align: center;
+  padding: 60px 0 100px;
+}
+.roadmap-cta-box {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 48px 40px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+.roadmap-cta-box h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.roadmap-cta-box p {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+.roadmap-cta-box .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  font-family: var(--font-mono);
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 1px;
+  background: var(--accent);
+  color: white;
+  border: none; border-radius: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.roadmap-cta-box .btn:hover { background: var(--accent-hover); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.footer-left {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.footer-links {
+  display: flex; gap: 20px;
+}
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text-primary); }
+.footer-note {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">THYMOS<span>.</span></a>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')" data-umami-event="lang-switch-en">EN</button>
+        <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
+      </div>
+      <a href="index.html#waitlist" class="nav-cta" data-i18n="nav_cta" data-umami-event="nav-waitlist-click">Join Waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ROADMAP HERO -->
+<section class="roadmap-hero">
+  <div class="container">
+    <div class="section-tag anim" data-i18n="roadmap_tag">ROADMAP</div>
+    <h1 class="anim anim-delay-1" data-i18n="roadmap_title">What's <em>Coming</em></h1>
+    <p class="anim anim-delay-2" data-i18n="roadmap_desc">An honest look at where THYMOS is headed. No hype, no vague promises — just the plan.</p>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <div class="container">
+    <div class="timeline-container">
+
+      <!-- V1.X — CURRENT -->
+      <div class="phase current anim">
+        <div class="phase-dot"></div>
+        <div class="phase-header">
+          <div class="phase-version">V1.X</div>
+          <div class="phase-name" data-i18n="phase1_name">Foundation & Intelligence</div>
+          <div class="phase-status" data-i18n="phase1_status">IN PROGRESS</div>
+        </div>
+        <div class="phase-features">
+          <div class="feature-card anim anim-delay-1">
+            <div class="feature-icon">🧠</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v1_1">Adaptive Program Builder</h4>
+              <p data-i18n="f_v1_1d">Smart, auto-adjusting training programs that evolve with your progress.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-1">
+            <div class="feature-icon">🌐</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v1_2">Web Routine Builder</h4>
+              <p data-i18n="f_v1_2d">Create and manage routines from your browser, sync to your phone.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-2">
+            <div class="feature-icon">📹</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v1_3">Form Video Recording</h4>
+              <p data-i18n="f_v1_3d">Record your lifts for personal review. No social sharing, just self-coaching.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-2">
+            <div class="feature-icon">📊</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v1_4">Deep Analytics & Insights</h4>
+              <p data-i18n="f_v1_4d">Advanced volume tracking, periodization analysis, and performance insights.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-3">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v1_5">Long-Term Goals & Periodization</h4>
+              <p data-i18n="f_v1_5d">Set multi-month goals and let THYMOS structure your mesocycles accordingly.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-3">
+            <div class="feature-icon">⚙️</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v1_6">Smart Set Tools</h4>
+              <p data-i18n="f_v1_6d">Auto back-off suggestions, drop set % calculator, and AMRAP-based load adjustments.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-3">
+            <div class="feature-icon">🍎</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v1_7">iOS Launch</h4>
+              <p data-i18n="f_v1_7d">Bringing THYMOS to the App Store. Same privacy, same precision.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-3">
+            <div class="feature-icon">🏋️</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v1_8">Niche Training Modes</h4>
+              <p data-i18n="f_v1_8d">Calisthenics, Powerlifting, Olympic Lifting — dedicated modes for each discipline.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- V2 -->
+      <div class="phase future anim">
+        <div class="phase-dot"></div>
+        <div class="phase-header">
+          <div class="phase-version">V2</div>
+          <div class="phase-name" data-i18n="phase2_name">Expansion & Integration</div>
+          <div class="phase-status" data-i18n="phase2_status">PLANNED</div>
+        </div>
+        <div class="phase-features">
+          <div class="feature-card anim anim-delay-1">
+            <div class="feature-icon">🎓</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v2_1">Technique Library</h4>
+              <p data-i18n="f_v2_1d">Exercise demos and coaching cues built into your workflow.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-1">
+            <div class="feature-icon">⌚</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v2_2">Smartwatch Support</h4>
+              <p data-i18n="f_v2_2d">Wear OS and Apple Watch companion for wrist-based logging.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-2">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v2_3">Power-User Scripting</h4>
+              <p data-i18n="f_v2_3d">IF–THEN rules to automate your training logic. Your gym, your rules.</p>
+            </div>
+          </div>
+          <div class="feature-card anim anim-delay-2">
+            <div class="feature-icon">🔌</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v2_4">API & MCP Integration</h4>
+              <p data-i18n="f_v2_4d">API-first development and MCP server integration for advanced workflows.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- V3+ -->
+      <div class="phase distant anim">
+        <div class="phase-dot"></div>
+        <div class="phase-header">
+          <div class="phase-version">V3+</div>
+          <div class="phase-name" data-i18n="phase3_name">The Long Game</div>
+          <div class="phase-status" data-i18n="phase3_status">EXPLORING</div>
+        </div>
+        <div class="phase-features">
+          <div class="feature-card anim anim-delay-1">
+            <div class="feature-icon">🤖</div>
+            <div class="feature-card-text">
+              <h4 data-i18n="f_v3_1">AI Explainable Coaching</h4>
+              <p data-i18n="f_v3_1d">AI-powered training suggestions that always show their reasoning. No black boxes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="roadmap-cta">
+  <div class="container">
+    <div class="roadmap-cta-box anim">
+      <h2 data-i18n="roadmap_cta_title">Shape the Roadmap</h2>
+      <p data-i18n="roadmap_cta_desc">Join the beta and tell us what matters most to you. Early testers get every Pro feature free — forever.</p>
+      <a href="index.html#waitlist" class="btn" data-umami-event="roadmap-waitlist-click" data-i18n="nav_cta">Join Waitlist</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-left">© 2026 THYMOS</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="mailto:hello@thymos.fit" data-umami-event="footer-email-click">hello@thymos.fit</a>
+      <a href="https://instagram.com/thymos.fit" target="_blank" data-umami-event="footer-instagram-click">Instagram</a>
+      <a href="https://x.com/thymos_fit" target="_blank" data-umami-event="footer-x-click">X</a>
+    </div>
+    <p class="footer-note" data-i18n="footer_note">Proudly tracking nothing. This site uses privacy-first, cookie-less analytics just to see how many of you drop by. (To figure out if our marketing works.) Your data is yours.</p>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  en: {
+    nav_cta: "Join Waitlist",
+    roadmap_tag: "ROADMAP",
+    roadmap_title: "What's <em>Coming</em>",
+    roadmap_desc: "An honest look at where THYMOS is headed. No hype, no vague promises — just the plan.",
+    phase1_name: "Foundation & Intelligence",
+    phase1_status: "IN PROGRESS",
+    f_v1_1: "Adaptive Program Builder", f_v1_1d: "Smart, auto-adjusting training programs that evolve with your progress.",
+    f_v1_2: "Web Routine Builder", f_v1_2d: "Create and manage routines from your browser, sync to your phone.",
+    f_v1_3: "Form Video Recording", f_v1_3d: "Record your lifts for personal review. No social sharing, just self-coaching.",
+    f_v1_4: "Deep Analytics & Insights", f_v1_4d: "Advanced volume tracking, periodization analysis, and performance insights.",
+    f_v1_5: "Long-Term Goals & Periodization", f_v1_5d: "Set multi-month goals and let THYMOS structure your mesocycles accordingly.",
+    f_v1_6: "Smart Set Tools", f_v1_6d: "Auto back-off suggestions, drop set % calculator, and AMRAP-based load adjustments.",
+    f_v1_7: "iOS Launch", f_v1_7d: "Bringing THYMOS to the App Store. Same privacy, same precision.",
+    f_v1_8: "Niche Training Modes", f_v1_8d: "Calisthenics, Powerlifting, Olympic Lifting — dedicated modes for each discipline.",
+    phase2_name: "Expansion & Integration",
+    phase2_status: "PLANNED",
+    f_v2_1: "Technique Library", f_v2_1d: "Exercise demos and coaching cues built into your workflow.",
+    f_v2_2: "Smartwatch Support", f_v2_2d: "Wear OS and Apple Watch companion for wrist-based logging.",
+    f_v2_3: "Power-User Scripting", f_v2_3d: "IF–THEN rules to automate your training logic. Your gym, your rules.",
+    f_v2_4: "API & MCP Integration", f_v2_4d: "API-first development and MCP server integration for advanced workflows.",
+    phase3_name: "The Long Game",
+    phase3_status: "EXPLORING",
+    f_v3_1: "AI Explainable Coaching", f_v3_1d: "AI-powered training suggestions that always show their reasoning. No black boxes.",
+    roadmap_cta_title: "Shape the Roadmap",
+    roadmap_cta_desc: "Join the beta and tell us what matters most to you. Early testers get every Pro feature free — forever.",
+    footer_note: "Proudly tracking nothing. This site uses privacy-first, cookie-less analytics just to see how many of you drop by. (To figure out if our marketing works.) Your data is yours."
+  },
+  tr: {
+    nav_cta: "Listeye Katıl",
+    roadmap_tag: "YOL HARİTASI",
+    roadmap_title: "Neler <em>Geliyor</em>",
+    roadmap_desc: "THYMOS'un nereye gittiğine dürüst bir bakış. Abartı yok, belirsiz vaatler yok — sadece plan.",
+    phase1_name: "Temel & Zeka",
+    phase1_status: "GELİŞTİRİLİYOR",
+    f_v1_1: "Adaptif Program Oluşturucu", f_v1_1d: "İlerlemenle birlikte evrilen akıllı, otomatik ayarlanan antrenman programları.",
+    f_v1_2: "Web Rutin Oluşturucu", f_v1_2d: "Tarayıcıdan rutin oluştur ve yönet, telefonuna senkronize et.",
+    f_v1_3: "Form Video Kaydı", f_v1_3d: "Kaldırışlarını kişisel inceleme için kaydet. Sosyal paylaşım yok, sadece öz-koçluk.",
+    f_v1_4: "Derin Analitik & İçgörüler", f_v1_4d: "Gelişmiş hacim takibi, periodizasyon analizi ve performans içgörüleri.",
+    f_v1_5: "Uzun Vadeli Hedef & Periodizasyon", f_v1_5d: "Aylık hedefler koy, THYMOS mezosikluslarını buna göre yapılandırsın.",
+    f_v1_6: "Akıllı Set Araçları", f_v1_6d: "Otomatik back-off önerisi, drop set % hesaplama ve AMRAP bazlı yük ayarı.",
+    f_v1_7: "iOS Lansmanı", f_v1_7d: "THYMOS App Store'a geliyor. Aynı gizlilik, aynı hassasiyet.",
+    f_v1_8: "Niş Antrenman Modları", f_v1_8d: "Kalistenik, Powerlifting, Olimpik Kaldırma — her disiplin için özel modlar.",
+    phase2_name: "Genişleme & Entegrasyon",
+    phase2_status: "PLANLANMIŞ",
+    f_v2_1: "Teknik Kütüphanesi", f_v2_1d: "İş akışına entegre egzersiz demoları ve koçluk ipuçları.",
+    f_v2_2: "Akıllı Saat Desteği", f_v2_2d: "Bilekten kayıt için Wear OS ve Apple Watch desteği.",
+    f_v2_3: "İleri Kullanıcı Scriptleri", f_v2_3d: "Antrenman mantığını otomatikleştirmek için IF–THEN kuralları. Senin salonun, senin kuralların.",
+    f_v2_4: "API & MCP Entegrasyonu", f_v2_4d: "Gelişmiş iş akışları için API-öncelikli geliştirme ve MCP sunucu entegrasyonu.",
+    phase3_name: "Uzun Vade",
+    phase3_status: "ARAŞTIRILIYOR",
+    f_v3_1: "Açıklanabilir AI Koçluk", f_v3_1d: "Her zaman nedenini gösteren AI destekli antrenman önerileri. Kara kutu yok.",
+    roadmap_cta_title: "Yol Haritasını Şekillendir",
+    roadmap_cta_desc: "Betaya katıl ve senin için en önemli olanı söyle. Erken testçiler tüm Pro özellikleri ömür boyu ücretsiz alır.",
+    footer_note: "Gururla hiçbir şey takip etmiyoruz. Bu site sadece kaç kişinin uğradığını görmek için gizlilik odaklı, çerezsiz analitik kullanıyor. (Pazarlamamızın işe yarayıp yaramadığını anlamak için.) Verin senin."
+  }
+};
+
+function setLang(lang) {
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+  localStorage.setItem('thymos_lang', lang);
+}
+
+// Restore language
+const savedLang = localStorage.getItem('thymos_lang');
+if (savedLang) setLang(savedLang);
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

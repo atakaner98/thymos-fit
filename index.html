@@ -578,7 +578,7 @@ nav.scrolled { border-bottom-color: var(--border); }
 /* CSS-only phone frame for raw video recordings */
 .phone-frame {
   position: relative;
-  max-width: 340px;
+  max-width: 350px;
   border: 6px solid #1a1a1a;
   border-radius: 36px;
   overflow: hidden;
@@ -834,6 +834,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')" data-umami-event="lang-switch-en">EN</button>
         <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
       </div>
+      <a href="roadmap.html" class="nav-link" data-i18n="nav_roadmap" data-umami-event="nav-roadmap-click" style="font-family:var(--font-mono);font-size:12px;letter-spacing:1px;color:var(--text-secondary);text-decoration:none;transition:color 0.2s;">Roadmap</a>
       <a href="#waitlist" class="nav-cta" data-i18n="nav_cta" data-umami-event="nav-waitlist-click">Join Waitlist</a>
     </div>
   </div>
@@ -869,7 +870,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     </div>
     <div class="hero-visual">
       <div class="phone-hero">
-        <img src="assets/images/screen-workout.png" alt="THYMOS active workout screen" loading="eager">
+        <video src="assets/videos/raw_record_workout_logging.mp4" autoplay loop muted playsinline style="width:100%;height:auto;display:block;border-radius:inherit;"></video>
       </div>
     </div>
   </div>
@@ -938,7 +939,9 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         </div>
       </div>
       <div class="privacy-visual-col anim anim-delay-1">
-        <img class="privacy-screen" src="assets/images/screen-data-privacy.png" alt="THYMOS data privacy — on-device storage">
+        <div class="phone-frame" style="margin:0 auto;">
+          <video src="assets/videos/raw_record_data_privacy.mp4" autoplay loop muted playsinline></video>
+        </div>
       </div>
     </div>
   </div>
@@ -1023,8 +1026,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         </div>
       </div>
       <div class="showcase-visual anim anim-delay-1">
-        <div class="showcase-phone">
-          <img src="assets/images/screen-rpe-recommendation.png" alt="RPE and RIR based weight suggestion">
+        <div class="phone-frame">
+          <video src="assets/videos/raw_record_rpe_suggestion.mp4" autoplay loop muted playsinline></video>
         </div>
       </div>
     </div>
@@ -1061,8 +1064,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         </div>
       </div>
       <div class="showcase-visual anim anim-delay-1">
-        <div class="showcase-phone">
-          <img src="assets/images/screen-plate-calculator.png" alt="Advanced plate calculator">
+        <div class="phone-frame">
+          <video src="assets/videos/raw_record_plate_calculator.mp4" autoplay loop muted playsinline></video>
         </div>
       </div>
     </div>
@@ -1070,8 +1073,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <!-- Muscle Heatmap -->
     <div class="showcase-row reverse">
       <div class="showcase-visual anim">
-        <div class="showcase-phone">
-          <img src="assets/images/screen-heatmap.png" alt="Muscle group heatmap analysis">
+        <div class="phone-frame">
+          <video src="assets/videos/row_records_heatmap.mp4" autoplay loop muted playsinline></video>
         </div>
       </div>
       <div class="showcase-text anim anim-delay-1">
@@ -1099,8 +1102,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         </div>
       </div>
       <div class="showcase-visual anim anim-delay-1">
-        <div class="showcase-phone">
-          <img src="assets/images/screen-trends.png" alt="Long-term trends and progress tracking">
+        <div class="phone-frame">
+          <video src="assets/videos/row_record_trends.mp4" autoplay loop muted playsinline></video>
         </div>
       </div>
     </div>
@@ -1108,8 +1111,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <!-- CSV Import -->
     <div class="showcase-row reverse">
       <div class="showcase-visual anim">
-        <div class="showcase-phone">
-          <img src="assets/images/screen-csv-import.png" alt="Import from Strong, Hevy, FitNotes or Excel">
+        <div class="phone-frame">
+          <video src="assets/videos/raw_record_csv_import.mp4" autoplay loop muted playsinline></video>
         </div>
       </div>
       <div class="showcase-text anim anim-delay-1">
@@ -1202,6 +1205,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   <div class="container footer-inner">
     <div class="footer-left">© 2026 THYMOS</div>
     <div class="footer-links">
+      <a href="roadmap.html" data-umami-event="footer-roadmap-click" data-i18n="nav_roadmap">Roadmap</a>
       <a href="mailto:hello@thymos.fit" data-umami-event="footer-email-click">hello@thymos.fit</a>
       <a href="https://instagram.com/thymos.fit" target="_blank" data-umami-event="footer-instagram-click">Instagram</a>
       <a href="https://x.com/thymos_fit" target="_blank" data-umami-event="footer-x-click">X</a>
@@ -1214,6 +1218,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 const translations = {
   en: {
     nav_cta: "Join Waitlist",
+    nav_roadmap: "Roadmap",
     hero_tag: "BETA · LIMITED TO 100 · CLOSING SOON",
     hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
     hero_desc: "A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just training and data.",
@@ -1291,6 +1296,7 @@ const translations = {
   },
   tr: {
     nav_cta: "Listeye Katıl",
+    nav_roadmap: "Yol Haritası",
     hero_tag: "BETA · 100 KİŞİ LİMİT · YAKINDA KAPANIYOR",
     hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
     hero_desc: "Daha akıllı antrenman yapman, tutarlı kalman ve gerçek ilerlemeyi görmeni sağlayan gizlilik odaklı antrenman uygulaması. Her zaman çevrimdışı çalışır. Sosyal akış yok. Reklam yok. Sadece antrenman ve veri.",
