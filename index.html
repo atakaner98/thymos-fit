@@ -575,6 +575,37 @@ nav.scrolled { border-bottom-color: var(--border); }
 .showcase-phone:hover { transform: translateY(-6px) scale(1.01); }
 .showcase-phone img, .showcase-phone video { width: 100%; height: auto; display: block; border-radius: 28px; }
 
+/* CSS-only phone frame for raw video recordings */
+.phone-frame {
+  position: relative;
+  max-width: 370px;
+  border: 6px solid #1a1a1a;
+  border-radius: 36px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 0 0 2px #2a2a2a,
+    0 20px 60px rgba(0,0,0,0.6),
+    0 8px 20px rgba(0,0,0,0.4);
+}
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 22px;
+  background: #1a1a1a;
+  border-radius: 0 0 14px 14px;
+  z-index: 2;
+}
+.phone-frame video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* ─── PHILOSOPHY ─── */
 .philosophy {
   padding: 100px 0;
@@ -1000,8 +1031,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <!-- Warm-up -->
     <div class="showcase-row reverse">
       <div class="showcase-visual anim">
-        <div class="showcase-phone">
-          <video src="assets/videos/screenrecording_warmup_video.mp4" autoplay loop muted playsinline alt="Science-based automatic warm-up sets" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></video>
+        <div class="phone-frame">
+          <video src="assets/videos/raw_record_warmup.mp4" autoplay loop muted playsinline></video>
         </div>
       </div>
       <div class="showcase-text anim anim-delay-1">
