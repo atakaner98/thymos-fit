@@ -66,8 +66,9 @@ section { position: relative; z-index: 1; }
   50%       { opacity: 0.5; }
 }
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33%      { transform: translateY(-6px) rotate(0.3deg); }
+  66%      { transform: translateY(-3px) rotate(-0.2deg); }
 }
 
 .anim {
@@ -247,6 +248,22 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 .hero-submit:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .hero-note { font-size: 12px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 8px; }
+.roadmap-btn {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 10px 24px;
+  border: 1px solid rgba(191,163,109,0.25);
+  border-radius: 10px;
+  background: var(--gold-dim);
+  transition: all 0.2s;
+}
+.roadmap-btn:hover { border-color: var(--gold); color: var(--text-primary); }
 .hero-success {
   display: none;
   align-items: center; gap: 10px;
@@ -283,7 +300,8 @@ nav.scrolled { border-bottom-color: var(--border); }
 .phone-hero {
   width: 320px;
   position: relative; z-index: 1;
-  animation: float 5s ease-in-out infinite;
+  animation: float 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
   filter: drop-shadow(0 40px 60px rgba(0,0,0,0.55));
 }
 .phone-hero img { width: 100%; height: auto; display: block; border-radius: 36px; }
@@ -877,6 +895,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <span data-i18n="form_success">You're on the list. We'll be in touch.</span>
       </div>
       <p class="hero-note" data-i18n="form_note">No spam. Unsubscribe anytime.</p>
+      <a href="roadmap.html" class="roadmap-btn" data-i18n="nav_roadmap" data-umami-event="hero-roadmap-click">Roadmap →</a>
     </div>
     <div class="hero-visual">
       <div class="phone-hero">
@@ -1208,6 +1227,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </div>
       <p class="cta-note" data-i18n="form_note">No spam. Unsubscribe anytime.</p>
       <p class="cta-note" style="margin-top: 16px;" data-i18n="cta_platform">Building for Android first. iOS to follow.</p>
+      <a href="roadmap.html" class="roadmap-btn" data-i18n="roadmap_link" data-umami-event="cta-roadmap-click">See the Roadmap →</a>
     </div>
   </div>
 </section>
@@ -1231,6 +1251,7 @@ const translations = {
   en: {
     nav_cta: "Join Waitlist",
     nav_roadmap: "Roadmap",
+    roadmap_link: "See the Roadmap →",
     hero_tag: "BETA · LIMITED TO 100 · CLOSING SOON",
     hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
     hero_desc: "A privacy-first workout companion that helps you train smarter, stay consistent, and see real progress over time. Offline-first. No social feed. No ads. Just training and data.",
@@ -1309,6 +1330,7 @@ const translations = {
   tr: {
     nav_cta: "Listeye Katıl",
     nav_roadmap: "Yol Haritası",
+    roadmap_link: "Yol Haritasını Gör →",
     hero_tag: "BETA · 100 KİŞİ LİMİT · YAKINDA KAPANIYOR",
     hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
     hero_desc: "Daha akıllı antrenman yapman, tutarlı kalman ve gerçek ilerlemeyi görmeni sağlayan gizlilik odaklı antrenman uygulaması. Her zaman çevrimdışı çalışır. Sosyal akış yok. Reklam yok. Sadece antrenman ve veri.",

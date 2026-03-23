@@ -158,7 +158,7 @@ nav {
 .roadmap-hero p {
   font-size: 17px;
   color: var(--text-secondary);
-  max-width: 640px;
+  max-width: 780px;
   margin: 0 auto;
   line-height: 1.7;
 }
@@ -380,22 +380,54 @@ nav {
   font-size: 15px;
   margin-bottom: 24px;
 }
-.roadmap-cta-box .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 32px;
+.roadmap-cta-box .cta-form {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.roadmap-cta-box .cta-input {
+  flex: 1; min-width: 200px;
+  padding: 14px 18px;
+  font-family: var(--font-display); font-size: 15px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-accent);
+  border-radius: 10px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.roadmap-cta-box .cta-input::placeholder { color: var(--text-secondary); }
+.roadmap-cta-box .cta-input:focus { border-color: var(--accent); }
+.roadmap-cta-box .cta-submit {
+  padding: 14px 28px;
   font-family: var(--font-mono);
   font-size: 13px; font-weight: 600;
   letter-spacing: 1px;
   background: var(--accent);
   color: white;
-  border: none; border-radius: 12px;
-  text-decoration: none;
+  border: none; border-radius: 10px;
   cursor: pointer;
   transition: background 0.2s;
+  white-space: nowrap;
 }
-.roadmap-cta-box .btn:hover { background: var(--accent-hover); }
+.roadmap-cta-box .cta-submit:hover { background: var(--accent-hover); }
+.roadmap-cta-box .cta-success {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: var(--success);
+}
+.roadmap-cta-box .cta-success.show { display: flex; justify-content: center; }
+.roadmap-cta-box .cta-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  margin-top: 12px;
+}
 
 /* ─── FOOTER ─── */
 footer {
@@ -456,7 +488,7 @@ footer {
   <div class="container">
     <div class="section-tag anim" data-i18n="roadmap_tag">ROADMAP</div>
     <h1 class="anim anim-delay-1" data-i18n="roadmap_title">What's <em>Coming</em></h1>
-    <p class="anim anim-delay-2" data-i18n="roadmap_desc">An honest look at where THYMOS is headed. No hype, no vague promises — just the plan.</p>
+    <p class="anim anim-delay-2" data-i18n="roadmap_desc">An honest look at where THYMOS is headed — without hype and vague promises, just the plan.</p>
   </div>
 </section>
 
@@ -527,7 +559,7 @@ footer {
             <div class="feature-icon">🏋️</div>
             <div class="feature-card-text">
               <h4 data-i18n="f_v1_8">Niche Training Modes</h4>
-              <p data-i18n="f_v1_8d">Calisthenics, Powerlifting, Olympic Lifting — dedicated modes for each discipline.</p>
+              <p data-i18n="f_v1_8d">Calisthenics, Powerlifting, Bodybuilding, Olympic Lifting — dedicated modes for each discipline.</p>
             </div>
           </div>
         </div>
@@ -602,7 +634,15 @@ footer {
     <div class="roadmap-cta-box anim">
       <h2 data-i18n="roadmap_cta_title">Shape the Roadmap</h2>
       <p data-i18n="roadmap_cta_desc">Join the beta and tell us what matters most to you. Early testers get every Pro feature free — forever.</p>
-      <a href="index.html#waitlist" class="btn" data-umami-event="roadmap-waitlist-click" data-i18n="nav_cta">Join Waitlist</a>
+      <form class="cta-form" id="roadmapForm" onsubmit="return handleWaitlist(event,'roadmap')">
+        <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
+        <button type="submit" class="cta-submit" data-i18n="form_button" data-umami-event="roadmap-waitlist-submit">Get Lifetime Free Pro</button>
+      </form>
+      <div class="cta-success" id="roadmapSuccess">
+        <span>✓</span>
+        <span data-i18n="form_success">You're on the list. We'll be in touch.</span>
+      </div>
+      <p class="cta-note" data-i18n="form_note">No spam. Unsubscribe anytime.</p>
     </div>
   </div>
 </section>
@@ -627,7 +667,7 @@ const translations = {
     nav_cta: "Join Waitlist",
     roadmap_tag: "ROADMAP",
     roadmap_title: "What's <em>Coming</em>",
-    roadmap_desc: "An honest look at where THYMOS is headed. No hype, no vague promises — just the plan.",
+    roadmap_desc: "An honest look at where THYMOS is headed — without hype and vague promises, just the plan.",
     phase1_name: "Foundation & Intelligence",
     phase1_status: "IN PROGRESS",
     f_v1_1: "Adaptive Program Builder", f_v1_1d: "Smart, auto-adjusting training programs that evolve with your progress.",
@@ -637,7 +677,7 @@ const translations = {
     f_v1_5: "Long-Term Goals & Periodization", f_v1_5d: "Set multi-month goals and let THYMOS structure your mesocycles accordingly.",
     f_v1_6: "Smart Set Tools", f_v1_6d: "Auto back-off suggestions, drop set % calculator, and AMRAP-based load adjustments.",
     f_v1_7: "iOS Launch", f_v1_7d: "Bringing THYMOS to the App Store. Same privacy, same precision.",
-    f_v1_8: "Niche Training Modes", f_v1_8d: "Calisthenics, Powerlifting, Olympic Lifting — dedicated modes for each discipline.",
+    f_v1_8: "Niche Training Modes", f_v1_8d: "Calisthenics, Powerlifting, Bodybuilding, Olympic Lifting — dedicated modes for each discipline.",
     phase2_name: "Expansion & Integration",
     phase2_status: "PLANNED",
     f_v2_1: "Technique Library", f_v2_1d: "Exercise demos and coaching cues built into your workflow.",
@@ -649,13 +689,17 @@ const translations = {
     f_v3_1: "AI Explainable Coaching", f_v3_1d: "AI-powered training suggestions that always show their reasoning. No black boxes.",
     roadmap_cta_title: "Shape the Roadmap",
     roadmap_cta_desc: "Join the beta and tell us what matters most to you. Early testers get every Pro feature free — forever.",
+    form_placeholder: "your@email.com",
+    form_button: "Get Lifetime Free Pro",
+    form_success: "You're on the list. We'll be in touch.",
+    form_note: "No spam. Unsubscribe anytime.",
     footer_note: "Proudly tracking nothing. This site uses privacy-first, cookie-less analytics just to see how many of you drop by. (To figure out if our marketing works.) Your data is yours."
   },
   tr: {
     nav_cta: "Listeye Katıl",
     roadmap_tag: "YOL HARİTASI",
     roadmap_title: "Neler <em>Geliyor</em>",
-    roadmap_desc: "THYMOS'un nereye gittiğine dürüst bir bakış. Abartı yok, belirsiz vaatler yok — sadece plan.",
+    roadmap_desc: "THYMOS'un nereye gittiğine dürüst bir bakış — abartı ve belirsiz vaatler olmadan, sadece plan.",
     phase1_name: "Temel & Zeka",
     phase1_status: "GELİŞTİRİLİYOR",
     f_v1_1: "Adaptif Program Oluşturucu", f_v1_1d: "İlerlemenle birlikte evrilen akıllı, otomatik ayarlanan antrenman programları.",
@@ -665,7 +709,7 @@ const translations = {
     f_v1_5: "Uzun Vadeli Hedef & Periodizasyon", f_v1_5d: "Aylık hedefler koy, THYMOS mezosikluslarını buna göre yapılandırsın.",
     f_v1_6: "Akıllı Set Araçları", f_v1_6d: "Otomatik back-off önerisi, drop set % hesaplama ve AMRAP bazlı yük ayarı.",
     f_v1_7: "iOS Lansmanı", f_v1_7d: "THYMOS App Store'a geliyor. Aynı gizlilik, aynı hassasiyet.",
-    f_v1_8: "Niş Antrenman Modları", f_v1_8d: "Kalistenik, Powerlifting, Olimpik Kaldırma — her disiplin için özel modlar.",
+    f_v1_8: "Niş Antrenman Modları", f_v1_8d: "Kalistenik, Powerlifting, Vücut Geliştirme, Olimpik Kaldırma — her disiplin için özel modlar.",
     phase2_name: "Genişleme & Entegrasyon",
     phase2_status: "PLANLANMIŞ",
     f_v2_1: "Teknik Kütüphanesi", f_v2_1d: "İş akışına entegre egzersiz demoları ve koçluk ipuçları.",
@@ -677,6 +721,10 @@ const translations = {
     f_v3_1: "Açıklanabilir AI Koçluk", f_v3_1d: "Her zaman nedenini gösteren AI destekli antrenman önerileri. Kara kutu yok.",
     roadmap_cta_title: "Yol Haritasını Şekillendir",
     roadmap_cta_desc: "Betaya katıl ve senin için en önemli olanı söyle. Erken testçiler tüm Pro özellikleri ömür boyu ücretsiz alır.",
+    form_placeholder: "email@adresin.com",
+    form_button: "Ömür Boyu Bedava Pro Edin",
+    form_success: "Listedesin. Seninle iletişime geçeceğiz.",
+    form_note: "Spam yok. İstediğin zaman çık.",
     footer_note: "Gururla hiçbir şey takip etmiyoruz. Bu site sadece kaç kişinin uğradığını görmek için gizlilik odaklı, çerezsiz analitik kullanıyor. (Pazarlamamızın işe yarayıp yaramadığını anlamak için.) Verin senin."
   }
 };
@@ -688,6 +736,12 @@ function setLang(lang) {
     const key = el.getAttribute('data-i18n');
     if (translations[lang] && translations[lang][key]) {
       el.innerHTML = translations[lang][key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[lang] && translations[lang][key]) {
+      el.placeholder = translations[lang][key];
     }
   });
   localStorage.setItem('thymos_lang', lang);
@@ -702,6 +756,36 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+// Waitlist handler
+async function handleWaitlist(e, source) {
+  e.preventDefault();
+  const form = e.target;
+  const email = form.querySelector('input[type="email"]').value.trim();
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  const SUPABASE_URL = 'https://fxdlscqifuicpawdzcdg.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZGxzY3FpZnVpY3Bhd2R6Y2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTY2MDcsImV4cCI6MjA4ODEzMjYwN30.X_LCrL2i1FVNVMdrO7hIYa33vtJCHjxmDT8Xf-GM5DE';
+
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email, source, signed_up_at: new Date().toISOString() })
+    });
+  } catch {}
+
+  form.style.display = 'none';
+  document.getElementById(source + 'Success').classList.add('show');
+  return false;
+}
 </script>
 </body>
 </html>
