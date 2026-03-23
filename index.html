@@ -578,7 +578,7 @@ nav.scrolled { border-bottom-color: var(--border); }
 /* CSS-only phone frame for raw video recordings */
 .phone-frame {
   position: relative;
-  max-width: 370px;
+  max-width: 300px;
   border: 6px solid #1a1a1a;
   border-radius: 36px;
   overflow: hidden;
@@ -588,6 +588,7 @@ nav.scrolled { border-bottom-color: var(--border); }
     0 20px 60px rgba(0,0,0,0.6),
     0 8px 20px rgba(0,0,0,0.4);
 }
+@media(max-width:768px) { .phone-frame { max-width: 260px; margin: 0 auto; } }
 .phone-frame::before {
   content: '';
   position: absolute;
