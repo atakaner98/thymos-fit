@@ -149,7 +149,7 @@ nav {
   font-size: clamp(36px, 6vw, 64px);
   font-weight: 800;
   line-height: 1.1;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 .roadmap-hero h1 em {
   font-style: normal;
@@ -158,7 +158,7 @@ nav {
 .roadmap-hero p {
   font-size: 17px;
   color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
   line-height: 1.7;
 }
@@ -183,6 +183,7 @@ nav {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom, var(--accent), var(--border-accent) 40%, var(--border) 100%);
+  z-index: 0;
 }
 @media(min-width:768px) {
   .timeline-container::before {
@@ -196,6 +197,7 @@ nav {
   position: relative;
   margin-bottom: 64px;
   padding-left: 72px;
+  z-index: 1;
 }
 @media(min-width:768px) {
   .phase { padding-left: 0; }
@@ -237,7 +239,21 @@ nav {
 @media(min-width:768px) {
   .phase-header {
     text-align: center;
-    padding-top: 40px;
+    padding-top: 48px;
+    position: relative;
+    z-index: 3;
+  }
+  .phase-version,
+  .phase-name,
+  .phase-status {
+    background: var(--bg-primary);
+    display: inline-block;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .phase-name {
+    padding-top: 4px;
+    padding-bottom: 4px;
   }
 }
 .phase-version {

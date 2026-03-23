@@ -102,7 +102,8 @@ nav.scrolled { border-bottom-color: var(--border); }
   text-decoration: none;
 }
 .logo span { color: var(--accent); }
-.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+@media(max-width:600px) { .nav-right { gap: 8px; } .nav-right .nav-link { display: none; } }
 .lang-toggle {
   display: flex;
   background: transparent;
@@ -140,6 +141,15 @@ nav.scrolled { border-bottom-color: var(--border); }
   pointer-events: auto;
 }
 .nav-cta:hover { background: var(--accent-hover); }
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--text-primary); }
 @media(min-width:768px) { .nav-cta { padding: 8px 20px; font-size: 12px; } }
 
 /* ─── HERO ─── */
@@ -271,13 +281,13 @@ nav.scrolled { border-bottom-color: var(--border); }
   z-index: 0;
 }
 .phone-hero {
-  width: 370px;
+  width: 320px;
   position: relative; z-index: 1;
   animation: float 5s ease-in-out infinite;
   filter: drop-shadow(0 40px 60px rgba(0,0,0,0.55));
 }
 .phone-hero img { width: 100%; height: auto; display: block; border-radius: 36px; }
-@media(max-width:600px) { .phone-hero { width: 280px; } }
+@media(max-width:600px) { .phone-hero { width: 260px; } }
 
 /* ─── METRICS ─── */
 .metrics {
@@ -834,7 +844,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')" data-umami-event="lang-switch-en">EN</button>
         <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
       </div>
-      <a href="roadmap.html" class="nav-link" data-i18n="nav_roadmap" data-umami-event="nav-roadmap-click" style="font-family:var(--font-mono);font-size:12px;letter-spacing:1px;color:var(--text-secondary);text-decoration:none;transition:color 0.2s;">Roadmap</a>
+      <a href="roadmap.html" class="nav-link" data-i18n="nav_roadmap" data-umami-event="nav-roadmap-click">Roadmap</a>
       <a href="#waitlist" class="nav-cta" data-i18n="nav_cta" data-umami-event="nav-waitlist-click">Join Waitlist</a>
     </div>
   </div>
@@ -870,7 +880,9 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     </div>
     <div class="hero-visual">
       <div class="phone-hero">
-        <video src="assets/videos/raw_record_workout_logging.mp4" autoplay loop muted playsinline style="width:100%;height:auto;display:block;border-radius:inherit;"></video>
+        <div class="phone-frame" style="max-width:100%;border-radius:36px;">
+          <video src="assets/videos/raw_record_workout_logging.mp4" autoplay loop muted playsinline></video>
+        </div>
       </div>
     </div>
   </div>
