@@ -1,0 +1,5 @@
+# thymos.fit
+User-agent: *
+Allow: /
+
+Sitemap: https://thymos.fit/sitemap.xml
