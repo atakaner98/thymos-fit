@@ -1040,7 +1040,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </div>
       <div class="privacy-visual-col anim anim-delay-1">
         <div class="phone-frame" style="margin:0 auto;">
-          <video src="assets/videos/raw_record_data_privacy.mp4" autoplay loop muted playsinline></video>
+          <video data-src="assets/videos/raw_record_data_privacy.mp4" loop muted playsinline preload="none"></video>
         </div>
       </div>
     </div>
@@ -1172,7 +1172,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </div>
       <div class="showcase-visual anim anim-delay-1">
         <div class="phone-frame">
-          <video src="assets/videos/raw_record_rpe_suggestion.mp4" autoplay loop muted playsinline></video>
+          <video data-src="assets/videos/raw_record_rpe_suggestion.mp4" loop muted playsinline preload="none"></video>
         </div>
       </div>
     </div>
@@ -1181,7 +1181,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="showcase-row reverse">
       <div class="showcase-visual anim">
         <div class="phone-frame">
-          <video src="assets/videos/raw_record_warmup.mp4" autoplay loop muted playsinline></video>
+          <video data-src="assets/videos/raw_record_warmup.mp4" loop muted playsinline preload="none"></video>
         </div>
       </div>
       <div class="showcase-text anim anim-delay-1">
@@ -1210,7 +1210,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </div>
       <div class="showcase-visual anim anim-delay-1">
         <div class="phone-frame">
-          <video src="assets/videos/raw_record_plate_calculator.mp4" autoplay loop muted playsinline></video>
+          <video data-src="assets/videos/raw_record_plate_calculator.mp4" loop muted playsinline preload="none"></video>
         </div>
       </div>
     </div>
@@ -1219,7 +1219,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="showcase-row reverse">
       <div class="showcase-visual anim">
         <div class="phone-frame">
-          <video src="assets/videos/row_records_heatmap.mp4" autoplay loop muted playsinline></video>
+          <video data-src="assets/videos/row_records_heatmap.mp4" loop muted playsinline preload="none"></video>
         </div>
       </div>
       <div class="showcase-text anim anim-delay-1">
@@ -1248,7 +1248,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </div>
       <div class="showcase-visual anim anim-delay-1">
         <div class="phone-frame">
-          <video src="assets/videos/row_record_trends.mp4" autoplay loop muted playsinline></video>
+          <video data-src="assets/videos/row_record_trends.mp4" loop muted playsinline preload="none"></video>
         </div>
       </div>
     </div>
@@ -1257,7 +1257,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="showcase-row reverse">
       <div class="showcase-visual anim">
         <div class="phone-frame">
-          <video src="assets/videos/raw_record_csv_import.mp4" autoplay loop muted playsinline></video>
+          <video data-src="assets/videos/raw_record_csv_import.mp4" loop muted playsinline preload="none"></video>
         </div>
       </div>
       <div class="showcase-text anim anim-delay-1">
@@ -1502,6 +1502,19 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+// Lazy load videos when they enter viewport
+const videoObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const video = e.target;
+      video.src = video.dataset.src;
+      video.play();
+      videoObserver.unobserve(video);
+    }
+  });
+}, { rootMargin: '200px' });
+document.querySelectorAll('video[data-src]').forEach(v => videoObserver.observe(v));
 
 // Show nav CTA after hero form scrolls out of view
 const navCta = document.querySelector('.nav-cta');
