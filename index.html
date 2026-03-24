@@ -920,6 +920,37 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   .hero-form, .cta-form { flex-direction: column; }
   .hero-submit, .cta-submit { width: 100%; }
 }
+
+/* ── FAQ ── */
+.faq-section { padding: 100px 0 60px; }
+.faq-section .section-title { text-align: center; margin-bottom: 48px; }
+.faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 1px; }
+.faq-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
+.faq-question {
+  width: 100%; background: none; border: none; color: var(--text-primary);
+  font-family: var(--font-body); font-size: 16px; font-weight: 600;
+  text-align: left; padding: 20px 0; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.faq-question:hover { color: var(--accent); }
+.faq-icon {
+  flex-shrink: 0; width: 20px; height: 20px;
+  position: relative; transition: transform 0.3s ease;
+}
+.faq-icon::before, .faq-icon::after {
+  content: ''; position: absolute; background: currentColor; border-radius: 1px;
+}
+.faq-icon::before { width: 14px; height: 2px; top: 9px; left: 3px; }
+.faq-icon::after { width: 2px; height: 14px; top: 3px; left: 9px; transition: transform 0.3s ease; }
+.faq-item.open .faq-icon::after { transform: scaleY(0); }
+.faq-answer {
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-answer-inner {
+  padding: 0 0 20px; color: var(--text-secondary);
+  font-size: 15px; line-height: 1.7;
+}
+.faq-item.open .faq-answer { max-height: 300px; }
 </style>
 </head>
 <body>
@@ -1279,6 +1310,80 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <h2 class="section-title anim" data-i18n="faq_title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+
+      <div class="faq-item anim">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <span data-i18n="faq_q1">Can I transfer my workout data to THYMOS?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a1">Yes! THYMOS imports your workout history from Hevy, Strong, FitNotes, and can parse any Excel or Google Sheets file. Nothing gets left behind.</div></div>
+      </div>
+
+      <div class="faq-item anim">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <span data-i18n="faq_q2">What makes THYMOS different?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a2">Most workout apps are built around social feeds, streaks, and cloud-first architectures. THYMOS is built around one idea: your phone is the source of truth. It works fully offline, logs a set in under half a second, and never sends your data anywhere unless you choose to. There's no account required to start, no ads, no behavioral tracking. When the app makes a suggestion — like your next working weight — it tells you exactly why, so you stay in control.</div></div>
+      </div>
+
+      <div class="faq-item anim">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <span data-i18n="faq_q3">Can I export my data and leave?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a3">Anytime. Full export as CSV or JSON, no restrictions, no "request your data" waiting period. Your data is yours, we just help you organize it.</div></div>
+      </div>
+
+      <div class="faq-item anim">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <span data-i18n="faq_q4">Does it support metric and imperial units?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a4">Yes. You can choose what works for you in the settings.</div></div>
+      </div>
+
+      <div class="faq-item anim">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <span data-i18n="faq_q5">What languages does it support?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a5">English and Turkish currently. Spanish and German are next on the list. More languages will be added based on demand.</div></div>
+      </div>
+
+      <div class="faq-item anim">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <span data-i18n="faq_q6">Is it free?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a6">Yes! The free tier covers full workout logging, exercise library, muscle heatmaps, CSV/JSON import and export, and offline mode. No time limits, no ads. Pro unlocks advanced features for lifters who want more depth.</div></div>
+      </div>
+
+      <div class="faq-item anim">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <span data-i18n="faq_q7">What does Pro include?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a7">Pro unlocks advanced analytics, smart coaching (RPE/RIR-based weight suggestions), science-based warm-up generation, and cloud backup. The full list will be finalized during beta based on tester feedback.</div></div>
+      </div>
+
+      <div class="faq-item anim">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          <span data-i18n="faq_q8">How much will Pro cost?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a8">During beta, the first 100 testers get every Pro feature free for life. After that, Pro will cost $2.49/month or $19.99/year.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- CTA / WAITLIST -->
 <section class="cta-section" id="waitlist">
   <div class="container">
@@ -1395,7 +1500,24 @@ const translations = {
     footer_note: "Proudly tracking nothing. This site uses privacy-first, cookie-less analytics just to see how many of you drop by. (To figure out if our marketing sucks.) Your data is yours.",
     founder_tag: "FROM THE MAKER",
     founder_text: "I\u2019m building THYMOS because I\u2019m tired of fitness apps that treat your data as their product and your attention as their revenue. As a lifter and a developer, I want a tool that respects both the craft and the person behind it. Just an honest tool for honest training. If we are on the same page, welcome aboard.",
-    founder_role: "Founder & Developer"
+    founder_role: "Founder & Developer",
+    faq_title: "Frequently Asked Questions",
+    faq_q1: "Can I transfer my workout data to THYMOS?",
+    faq_a1: "Yes! THYMOS imports your workout history from Hevy, Strong, FitNotes, and can parse any Excel or Google Sheets file. Nothing gets left behind.",
+    faq_q2: "What makes THYMOS different?",
+    faq_a2: "Most workout apps are built around social feeds, streaks, and cloud-first architectures. THYMOS is built around one idea: your phone is the source of truth. It works fully offline, logs a set in under half a second, and never sends your data anywhere unless you choose to. There's no account required to start, no ads, no behavioral tracking. When the app makes a suggestion — like your next working weight — it tells you exactly why, so you stay in control.",
+    faq_q3: "Can I export my data and leave?",
+    faq_a3: "Anytime. Full export as CSV or JSON, no restrictions, no \"request your data\" waiting period. Your data is yours, we just help you organize it.",
+    faq_q4: "Does it support metric and imperial units?",
+    faq_a4: "Yes. You can choose what works for you in the settings.",
+    faq_q5: "What languages does it support?",
+    faq_a5: "English and Turkish currently. Spanish and German are next on the list. More languages will be added based on demand.",
+    faq_q6: "Is it free?",
+    faq_a6: "Yes! The free tier covers full workout logging, exercise library, muscle heatmaps, CSV/JSON import and export, and offline mode. No time limits, no ads. Pro unlocks advanced features for lifters who want more depth.",
+    faq_q7: "What does Pro include?",
+    faq_a7: "Pro unlocks advanced analytics, smart coaching (RPE/RIR-based weight suggestions), science-based warm-up generation, and cloud backup. The full list will be finalized during beta based on tester feedback.",
+    faq_q8: "How much will Pro cost?",
+    faq_a8: "During beta, the first 100 testers get every Pro feature free for life. After that, Pro will cost $2.49/month or $19.99/year."
   },
   tr: {
     nav_cta: "Listeye Katıl",
@@ -1475,7 +1597,24 @@ const translations = {
         footer_note: "Gururla hiçbir şey takip etmiyoruz. Bu site sadece kaç kişinin uğradığını görmek için gizlilik odaklı, çerezsiz analitik kullanıyor. (Pazarlamamızın işe yarayıp yaramadığını anlamak için.) Verin senin.",
     founder_tag: "GELİŞTİRİCİDEN",
     founder_text: "THYMOS\u2019u, verilerini \u00FCr\u00FCn olarak g\u00F6ren ve dikkatini gelir kayna\u011F\u0131 olarak kullanan fitness uygulamalar\u0131ndan b\u0131kt\u0131\u011F\u0131m i\u00E7in yap\u0131yorum. Hem spor yapan hem de yaz\u0131l\u0131m geli\u015Ftiren biri olarak, hem i\u015Fi hem de arkas\u0131ndaki ki\u015Fiyi ciddiye alan bir ara\u00E7 istiyorum. D\u00FCr\u00FCst antrenman i\u00E7in d\u00FCr\u00FCst bir ara\u00E7. Ayn\u0131 kafadaysak, ho\u015F geldin.",
-    founder_role: "Kurucu & Geliştirici"
+    founder_role: "Kurucu & Geliştirici",
+    faq_title: "Sıkça Sorulan Sorular",
+    faq_q1: "Antrenman verilerimi THYMOS'a aktarabilir miyim?",
+    faq_a1: "Evet! THYMOS; Hevy, Strong, FitNotes'tan ve herhangi bir Excel ya da Google Sheets dosyasından antrenman geçmişini içe aktarır. Hiçbir şey geride kalmaz.",
+    faq_q2: "THYMOS'u farklı kılan ne?",
+    faq_a2: "Çoğu antrenman uygulaması sosyal akış, seriler ve bulut-öncelikli mimari üzerine kurulu. THYMOS tek bir fikir üzerine kurulu: telefonun gerçeğin kaynağı. Tamamen çevrimdışı çalışır, bir seti yarım saniyenin altında kaydeder ve sen istemediğin sürece verini hiçbir yere göndermez. Başlamak için hesap gerekmez, reklam yok, davranışsal takip yok. Uygulama bir öneri sunduğunda — mesela bir sonraki çalışma ağırlığın — nedenini açıkça söyler, böylece kontrol sende kalır.",
+    faq_q3: "Verilerimi dışa aktarıp ayrılabilir miyim?",
+    faq_a3: "İstediğin zaman. CSV veya JSON olarak tam dışa aktarım, kısıtlama yok, \"verini talep et\" bekleme süresi yok. Verin senin, biz sadece düzenlemene yardım ediyoruz.",
+    faq_q4: "Metrik ve imperial birimleri destekliyor mu?",
+    faq_a4: "Evet. Ayarlardan sana uygun olanı seçebilirsin.",
+    faq_q5: "Hangi dilleri destekliyor?",
+    faq_a5: "Şu an İngilizce ve Türkçe. İspanyolca ve Almanca sırada. Talebe göre daha fazla dil eklenecek.",
+    faq_q6: "Ücretsiz mi?",
+    faq_a6: "Evet! Ücretsiz sürüm tam antrenman kaydı, egzersiz kütüphanesi, kas ısı haritaları, CSV/JSON içe ve dışa aktarım ve çevrimdışı modu kapsar. Süre sınırı yok, reklam yok. Pro, daha fazla derinlik isteyen sporcular için gelişmiş özelliklerin kilidini açar.",
+    faq_q7: "Pro neleri içeriyor?",
+    faq_a7: "Pro; gelişmiş analizler, akıllı koçluk (RPE/RIR tabanlı ağırlık önerileri), bilim tabanlı ısınma oluşturma ve bulut yedekleme sunar. Tam liste, beta sürecinde test kullanıcılarının geri bildirimleriyle şekillenecek.",
+    faq_q8: "Pro ne kadar olacak?",
+    faq_a8: "Beta süresince ilk 100 test kullanıcısı tüm Pro özelliklerini ömür boyu ücretsiz kullanır. Sonrasında Pro aylık $2.49 veya yıllık $19.99 olacak."
   }
 };
 
