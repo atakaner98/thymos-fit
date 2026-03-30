@@ -330,12 +330,12 @@ footer {
   <p>Kişisel verileriniz;</p>
   <ul>
     <li><strong>cihazınızda tutulan yerel veriler</strong> — siz silene, uygulamayı kaldırana veya veriyi sıfırlayana kadar,</li>
-    <li><strong>senkronizasyon kayıtları</strong> (mutation journal, principal alias) — hesabınız aktif kaldığı sürece; hesap silme talebinde tüm sunucu verileri kalıcı olarak silinir (hard-delete),</li>
+    <li><strong>senkronizasyon kayıtları</strong> (mutation journal, principal alias) — hesabınız aktif kaldığı sürece; hesap silme talebinde senkronizasyon verileri kalıcı olarak silinir (hard-delete), ancak açık rızanın alındığını ispatlamak için gerekli asgari onay kayıtları mevzuata uygun süre boyunca saklanabilir,</li>
     <li><strong>silme tombstone kayıtları</strong> — 365 gün,</li>
     <li><strong>oran sınırlama (rate limit) kayıtları</strong> — 90 gün,</li>
     <li><strong>hata ve çökme kayıtları</strong> (Sentry) — 90 gün (Sentry varsayılan saklama süresi),</li>
     <li><strong>egzersiz notları</strong> — yalnızca cihazda saklanır, sunucuya hiçbir zaman iletilmez,</li>
-    <li><strong>inaktif hesaplar</strong> — 2 yıl boyunca senkronizasyon işlemi yapılmayan hesaplara inaktivite uyarısı gönderilir; uyarı süresinden sonra hesap arşivlenebilir veya silinebilir,</li>
+    <li><strong>inaktif hesaplar</strong> — şu anda otomatik bir uyarı veya silme politikasına tabi değildir; ileride böyle bir politika yürürlüğe alınırsa bu metin güncellenir,</li>
     <li>hukuki uyuşmazlık veya mevzuat yükümlülüğü doğması halinde gerekli zamanaşımı ve saklama süreleri boyunca</li>
   </ul>
   <p>muhafaza edilebilir.</p>

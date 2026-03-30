@@ -315,7 +315,7 @@ footer {
     <li>use the app offline,</li>
     <li>choose whether to enable cloud sync,</li>
     <li>export your data,</li>
-    <li>delete your sync account and all associated server data from within the app (Settings &gt; Sync &gt; Delete Account) or via our <a href="delete-account.html">web deletion page</a>,</li>
+    <li>delete your sync account and synced server data from within the app (Settings &gt; Sync &gt; Delete Account) or via our <a href="delete-account.html">web deletion page</a>,</li>
     <li>request access, correction, deletion or other privacy rights under applicable law,</li>
     <li>withdraw optional consent where processing is based on consent.</li>
   </ul>
@@ -324,11 +324,12 @@ footer {
   <ul>
     <li><strong>Local data</strong> remains on your device until you delete it, reset the app or uninstall it.</li>
     <li><strong>Sync data</strong> (mutation journal, principal aliases) is retained on the server while your account is active. When you delete your account, all sync data is permanently and irreversibly deleted (hard-delete).</li>
+    <li><strong>Consent records</strong> for cloud sync may be retained after account deletion where legally necessary to prove that consent was obtained while the account was active.</li>
     <li><strong>Delete tombstones</strong> used for cross-device synchronization are automatically purged after 365 days.</li>
     <li><strong>Rate limiting logs</strong> are purged after 90 days.</li>
     <li><strong>Crash and error reports</strong> (Sentry) are retained for 90 days per Sentry's default policy.</li>
     <li><strong>Exercise notes</strong> are never stored on the server; they remain local to your device only.</li>
-    <li><strong>Inactive accounts</strong> with no sync activity for 2 years may receive an inactivity notice. Accounts that remain inactive after the notice period may be archived or deleted.</li>
+    <li><strong>Inactive accounts</strong> are not currently subject to an automatic warning or deletion workflow. If an inactivity policy is introduced in the future, this notice will be updated before it takes effect.</li>
   </ul>
 
   <h2>10. Children's Privacy</h2>
@@ -417,7 +418,7 @@ footer {
     <li>uygulamayı çevrimdışı kullanabilirsiniz,</li>
     <li>bulut senkronizasyonunu etkinleştirip etkinleştirmemeyi seçebilirsiniz,</li>
     <li>verilerinizi dışa aktarabilirsiniz,</li>
-    <li>senkronizasyon hesabınızı ve ilişkili tüm sunucu verilerini uygulama içinden (Ayarlar &gt; Sync &gt; Hesabı Sil) veya <a href="delete-account.html">web silme sayfamız</a> üzerinden silebilirsiniz,</li>
+    <li>senkronizasyon hesabınızı ve senkronize sunucu verilerini uygulama içinden (Ayarlar &gt; Sync &gt; Hesabı Sil) veya <a href="delete-account.html">web silme sayfamız</a> üzerinden silebilirsiniz,</li>
     <li>yürürlükteki yasalar kapsamında erişim, düzeltme, silme veya diğer gizlilik haklarınızı talep edebilirsiniz,</li>
     <li>işleme onaya dayandığı durumlarda isteğe bağlı onayınızı geri çekebilirsiniz.</li>
   </ul>
@@ -426,11 +427,12 @@ footer {
   <ul>
     <li><strong>Yerel veriler</strong> — silene, uygulamayı sıfırlayana veya kaldırana kadar cihazınızda kalır.</li>
     <li><strong>Senkronizasyon verileri</strong> (mutation journal, principal alias) — hesabınız aktif olduğu sürece sunucuda tutulur. Hesabınızı sildiğinizde tüm senkronizasyon verileri kalıcı olarak silinir (hard-delete).</li>
+    <li><strong>Açık rıza kayıtları</strong> — hesabınız silinse bile, rızanın alındığını ispatlamak için hukuken gerekli asgari kayıtlar saklanabilir.</li>
     <li><strong>Silme tombstone kayıtları</strong> — 365 gün sonra otomatik temizlenir.</li>
     <li><strong>Oran sınırlama kayıtları</strong> — 90 gün sonra temizlenir.</li>
     <li><strong>Çökme ve hata raporları</strong> (Sentry) — Sentry'nin varsayılan politikasına göre 90 gün tutulur.</li>
     <li><strong>Egzersiz notları</strong> — sunucuda hiçbir zaman saklanmaz; yalnızca cihazınızda kalır.</li>
-    <li><strong>İnaktif hesaplar</strong> — 2 yıl boyunca senkronizasyon yapılmayan hesaplara inaktivite uyarısı gönderilebilir.</li>
+    <li><strong>İnaktif hesaplar</strong> — şu anda otomatik bir uyarı veya silme politikasına tabi değildir. İleride böyle bir politika yürürlüğe alınırsa bu bildirim önceden güncellenir.</li>
   </ul>
 
   <h2>10. Çocukların Gizliliği</h2>
