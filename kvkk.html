@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THYMOS — KVKK Aydınlatma Metni</title>
+<meta name="description" content="THYMOS KVKK Aydınlatma Metni. 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında bilgilendirme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="a1f4c123-dfae-448b-bce1-f8b4e8e5f8fa"></script>
+<style>
+:root {
+  --bg-primary: #0A0A0B;
+  --bg-secondary: #111113;
+  --bg-card: #161618;
+  --bg-card-hover: #1C1C1F;
+  --border: #2A2A2E;
+  --border-accent: #3A3A3F;
+  --text-primary: #F0EDE8;
+  --text-secondary: #8E8C87;
+  --text-muted: #5A5856;
+  --accent: #C8553D;
+  --accent-glow: rgba(200, 85, 61, 0.15);
+  --accent-hover: #D4634C;
+  --gold: #BFA36D;
+  --gold-dim: rgba(191, 163, 109, 0.1);
+  --success: #4A9E6D;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-display);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+section { position: relative; z-index: 1; }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo {
+  font-family: var(--font-mono);
+  font-size: 18px; font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.logo span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 1px;
+  background: var(--accent);
+  color: var(--text-primary);
+  border-radius: 8px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--accent-hover); }
+@media(min-width:768px) { .nav-cta { padding: 8px 20px; font-size: 12px; } }
+
+.legal-hero {
+  padding: 140px 0 40px;
+  text-align: center;
+}
+.legal-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.legal-title {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.legal-updated {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.legal-body {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+.legal-body h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 40px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.legal-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 24px 0 12px;
+}
+.legal-body p {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+.legal-body ul, .legal-body ol {
+  color: var(--text-secondary);
+  margin: 0 0 16px 24px;
+  line-height: 1.8;
+}
+.legal-body li { margin-bottom: 6px; }
+.legal-body strong { color: var(--text-primary); font-weight: 600; }
+.legal-body a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+.legal-body a:hover { color: var(--accent-hover); }
+.legal-body .note-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 24px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.footer-left {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text-primary); }
+.footer-note {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 8px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">THYMOS<span>.</span></a>
+    <div class="nav-right">
+      <a href="index.html#waitlist" class="nav-cta" data-umami-event="nav-waitlist-click">Listeye Katıl</a>
+    </div>
+  </div>
+</nav>
+
+<section class="legal-hero">
+  <div class="container">
+    <div class="legal-tag">KVKK AYDINLATMA METNİ</div>
+    <h1 class="legal-title">Kişisel Verilerin Korunması<br>Aydınlatma Metni</h1>
+    <p class="legal-updated">Son güncelleme: 30 Mart 2026</p>
+  </div>
+</section>
+
+<div class="legal-body">
+
+  <div class="note-box">
+    Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında hazırlanmıştır. İngilizce gizlilik politikası için <a href="privacy.html">Privacy Policy</a> sayfasını ziyaret edebilirsiniz.
+  </div>
+
+  <h2>1. Veri Sorumlusu</h2>
+  <p>Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında veri sorumlusu sıfatıyla hareket eden:</p>
+  <ul>
+    <li>Atakan ER</li>
+    <li>THYMOS uygulamasının bireysel geliştiricisi</li>
+    <li>Adres: Karargahtepe Mah. Halkalı Sk. No: 5, D: 7, Keçiören, 06120, Türkiye (TR)</li>
+    <li>E-posta: <a href="mailto:hello@thymos.fit">hello@thymos.fit</a></li>
+  </ul>
+  <p>tarafından, THYMOS mobil uygulamasını kullanan kişiler için hazırlanmıştır.</p>
+
+  <h2>2. Bu Metin Ne İçin Hazırlandı</h2>
+  <p>Bu metin, THYMOS uygulaması kapsamında hangi kişisel verilerin işlendiğini, bu verilerin hangi amaçlarla kullanıldığını, kimlere aktarılabileceğini, hangi yöntemlerle toplandığını ve KVKK kapsamındaki haklarınızı açıklamak amacıyla hazırlanmıştır.</p>
+  <p>Bu metin, uygulamanın:</p>
+  <ul>
+    <li>yerel/cihaz içi kullanımını,</li>
+    <li>isteğe bağlı bulut senkronizasyonunu,</li>
+    <li>hesap bağlama ve e-posta ile giriş akışlarını,</li>
+    <li>veri içe aktarma ve dışa aktarma işlevlerini,</li>
+    <li>uygulama güvenliği ve hata izleme süreçlerini</li>
+  </ul>
+  <p>kapsar.</p>
+
+  <h2>3. İşlenen Kişisel Veri Kategorileri</h2>
+
+  <h3>3.1. Hesap ve İletişim Verileri</h3>
+  <ul>
+    <li>Bulut senkronizasyonu veya hesap bağlama özelliğini kullanmanız halinde e-posta adresiniz</li>
+    <li>Hesap oturumuna ilişkin kullanıcı kimlikleri ve oturum bilgileri</li>
+  </ul>
+
+  <h3>3.2. Uygulama Kullanımına Girdiğiniz Veriler</h3>
+  <ul>
+    <li>Antrenman geçmişiniz</li>
+    <li>Egzersizler, setler, tekrar, süre, ağırlık ve benzeri performans verileri</li>
+    <li>Şablonlar, programlar, takvim/schedule kayıtları</li>
+    <li>Egzersiz notları (<strong>yalnızca cihazda saklanır; bulut senkronizasyonuna dahil edilmez</strong>)</li>
+    <li>Favoriler, tercih edilen birim ve dinlenme süresi gibi uygulama tercihleri</li>
+    <li>İçe aktardığınız CSV/XLSX dosyalarındaki antrenman verileri</li>
+  </ul>
+
+  <h3>3.3. Fiziksel Profil Verileri</h3>
+  <ul>
+    <li>Boy bilginiz</li>
+    <li>Kilo/vücut ağırlığı bilginiz</li>
+  </ul>
+
+  <h3>3.4. Teknik ve Güvenlik Verileri</h3>
+  <ul>
+    <li>Uygulama tarafından üretilen cihaz içi benzersiz kimlikler</li>
+    <li>Senkronizasyon için oluşturulan principal/alias kayıtları</li>
+    <li>Uygulama sürümü, işletim sistemi bilgisi, zaman damgaları</li>
+    <li>Hata, çökme ve performans kayıtları</li>
+    <li>Kötüye kullanım ve oran sınırlama kayıtları</li>
+  </ul>
+
+  <h3>3.5. Bildirim ve Dosya İşleme Verileri</h3>
+  <ul>
+    <li>Dinlenme zamanlayıcısı için yerel bildirim tercihleri</li>
+    <li>Yalnızca sizin seçtiğiniz dosyalar üzerinden içe aktarılan veriler</li>
+    <li>Talebiniz üzerine oluşturulan dışa aktarım dosyaları</li>
+  </ul>
+
+  <h2>4. Kişisel Verilerin İşlenme Amaçları</h2>
+  <p>Kişisel verileriniz aşağıdaki amaçlarla işlenebilir:</p>
+  <ul>
+    <li>uygulamanın temel işlevlerinin çalıştırılması,</li>
+    <li>antrenman kayıtlarının cihazınızda saklanması,</li>
+    <li>performans, geçmiş ve istatistik ekranlarının oluşturulması,</li>
+    <li>egzersiz tercihleri, notlar ve kullanıcı ayarlarının kaydedilmesi,</li>
+    <li>veri içe aktarma ve eşleştirme süreçlerinin yürütülmesi,</li>
+    <li>veri dışa aktarma ve paylaşım taleplerinizin yerine getirilmesi,</li>
+    <li>isteğe bağlı bulut senkronizasyonunun sağlanması,</li>
+    <li>cihazlar arası yedekleme ve veri eşitleme yapılması,</li>
+    <li>hesap bağlama, oturum doğrulama ve güvenlik kontrollerinin yürütülmesi,</li>
+    <li>hata tespiti, hizmet sürekliliği ve güvenlik iyileştirmelerinin yapılması,</li>
+    <li>destek taleplerinin, hukuki süreçlerin ve ilgili kişi başvurularının yönetilmesi.</li>
+  </ul>
+
+  <h2>5. Kişisel Verilerin Toplanma Yöntemi ve Hukuki Sebebi</h2>
+  <p>Kişisel verileriniz;</p>
+  <ul>
+    <li>uygulama ekranlarına veri girmeniz,</li>
+    <li>hesap bağlama veya bulut senkronizasyonunu etkinleştirmeniz,</li>
+    <li>içe aktarma için dosya seçmeniz,</li>
+    <li>dışa aktarma veya paylaşım talebinde bulunmanız,</li>
+    <li>uygulamayı kullanmanız sırasında otomatik oluşan teknik kayıtlar</li>
+  </ul>
+  <p>yoluyla elektronik ortamda toplanabilir.</p>
+  <p>Verileriniz, veri kategorisi ve işleme amacına göre KVKK'nın 5. ve 6. maddelerinde yer alan işleme şartlarına dayanılarak işlenir. Bu kapsamda:</p>
+  <ul>
+    <li>uygulamanın temel ve beklenen işlevleri için sözleşmenin kurulması veya ifası ile doğrudan ilgili olma,</li>
+    <li>hizmet güvenliğinin sağlanması için veri sorumlusunun meşru menfaati,</li>
+    <li>hukuki yükümlülüklerin yerine getirilmesi,</li>
+    <li>talebiniz üzerine sunulan isteğe bağlı özellikler bakımından açık rıza</li>
+  </ul>
+  <p>işleme şartlarından biri veya birkaçı uygulanabilir.</p>
+  <p>Özellikle bulut senkronizasyonu, pazarlama iletişimi veya benzeri ihtiyari işlemler için gerektiğinde ayrıca açık rıza alınır. Açık rızaya dayalı bir işlem, uygulamanın temel çevrimdışı kullanımının ön şartı haline getirilmez.</p>
+
+  <h2>6. Kişisel Verilerin Aktarılması</h2>
+  <p>Kişisel verileriniz, işleme amacının gerektirdiği ölçüde aşağıdaki alıcılara aktarılabilir:</p>
+  <ul>
+    <li>isteğe bağlı bulut senkronizasyonu ve hesap doğrulama süreçleri için <strong>Supabase</strong> (AB bölgesi bulut altyapısı),</li>
+    <li>hata izleme ve teknik tanılama süreçleri için <strong>Sentry</strong>,</li>
+    <li>hukuken yetkili kamu kurum ve kuruluşları,</li>
+    <li>hukuki, mali veya teknik danışmanlık alınması halinde sır saklama yükümlülüğü altındaki hizmet sağlayıcılar.</li>
+  </ul>
+  <p>Yurt dışına veri aktarımı söz konusu ise, bu aktarım açık rıza veya mevzuatta öngörülen diğer aktarım mekanizmaları çerçevesinde ayrıca değerlendirilir ve gerekli ise ayrı metinlerle bilgilendirme yapılır.</p>
+
+  <h2>7. Saklama Süresi</h2>
+  <p>Kişisel verileriniz;</p>
+  <ul>
+    <li><strong>cihazınızda tutulan yerel veriler</strong> — siz silene, uygulamayı kaldırana veya veriyi sıfırlayana kadar,</li>
+    <li><strong>senkronizasyon kayıtları</strong> (mutation journal, principal alias) — hesabınız aktif kaldığı sürece; hesap silme talebinde tüm sunucu verileri kalıcı olarak silinir (hard-delete),</li>
+    <li><strong>silme tombstone kayıtları</strong> — 365 gün,</li>
+    <li><strong>oran sınırlama (rate limit) kayıtları</strong> — 90 gün,</li>
+    <li><strong>hata ve çökme kayıtları</strong> (Sentry) — 90 gün (Sentry varsayılan saklama süresi),</li>
+    <li><strong>egzersiz notları</strong> — yalnızca cihazda saklanır, sunucuya hiçbir zaman iletilmez,</li>
+    <li><strong>inaktif hesaplar</strong> — 2 yıl boyunca senkronizasyon işlemi yapılmayan hesaplara inaktivite uyarısı gönderilir; uyarı süresinden sonra hesap arşivlenebilir veya silinebilir,</li>
+    <li>hukuki uyuşmazlık veya mevzuat yükümlülüğü doğması halinde gerekli zamanaşımı ve saklama süreleri boyunca</li>
+  </ul>
+  <p>muhafaza edilebilir.</p>
+
+  <h2>8. İlgili Kişi Olarak Haklarınız</h2>
+  <p>KVKK'nın 11. maddesi kapsamında, veri sorumlusuna başvurarak:</p>
+  <ul>
+    <li>kişisel verilerinizin işlenip işlenmediğini öğrenme,</li>
+    <li>işlenmişse buna ilişkin bilgi talep etme,</li>
+    <li>işleme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,</li>
+    <li>yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme,</li>
+    <li>eksik veya yanlış işlenmişse düzeltilmesini isteme,</li>
+    <li>KVKK'da öngörülen şartlar çerçevesinde silinmesini veya yok edilmesini isteme,</li>
+    <li>yapılan düzeltme, silme veya yok etme işlemlerinin aktarıldığı üçüncü kişilere bildirilmesini isteme,</li>
+    <li>münhasıran otomatik sistemler ile analiz edilmesi nedeniyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme,</li>
+    <li>kanuna aykırı işleme nedeniyle zarara uğramanız hâlinde zararın giderilmesini talep etme</li>
+  </ul>
+  <p>haklarına sahipsiniz.</p>
+
+  <h2>9. Başvuru Yöntemi</h2>
+  <p>KVKK kapsamındaki taleplerinizi:</p>
+  <ul>
+    <li>E-posta: <a href="mailto:hello@thymos.fit">hello@thymos.fit</a></li>
+    <li>Posta adresi: Karargahtepe Mah. Halkalı Sk. No: 5, D: 7, Keçiören, 06120, Türkiye (TR)</li>
+  </ul>
+  <p>üzerinden, "KVKK Başvurusu" konulu açık bir ileti ile iletebilirsiniz.</p>
+  <p>Başvurular, ilgili mevzuatta öngörülen usul ve süreler içinde sonuçlandırılır.</p>
+
+  <h2>10. Güncelleme</h2>
+  <p>Bu metin, uygulamanın özellikleri, kullanılan altyapılar veya mevzuattaki değişiklikler doğrultusunda güncellenebilir. Güncel metin bu sayfa üzerinden yayımlanır.</p>
+
+</div>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-left">© 2026 THYMOS</div>
+    <div class="footer-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Kullanım Koşulları</a>
+      <a href="mailto:hello@thymos.fit" data-umami-event="footer-email-click">hello@thymos.fit</a>
+    </div>
+    <p class="footer-note">Gururla hiçbir şey takip etmiyoruz. Bu site sadece kaç kişinin uğradığını görmek için gizlilik odaklı, çerezsiz analitik kullanıyor. Verin senin.</p>
+  </div>
+</footer>
+
+</body>
+</html>
