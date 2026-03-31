@@ -236,7 +236,7 @@ footer {
     <li>isteğe bağlı bulut senkronizasyonunu,</li>
     <li>hesap bağlama ve e-posta ile giriş akışlarını,</li>
     <li>veri içe aktarma ve dışa aktarma işlevlerini,</li>
-    <li>uygulama güvenliği ve hata izleme süreçlerini</li>
+    <li>uygulama güvenliği ve kötüye kullanım önleme süreçlerini</li>
   </ul>
   <p>kapsar.</p>
 
@@ -269,7 +269,6 @@ footer {
     <li>Uygulama tarafından üretilen cihaz içi benzersiz kimlikler</li>
     <li>Senkronizasyon için oluşturulan principal/alias kayıtları</li>
     <li>Uygulama sürümü, işletim sistemi bilgisi, zaman damgaları</li>
-    <li>Hata, çökme ve performans kayıtları</li>
     <li>Kötüye kullanım ve oran sınırlama kayıtları</li>
   </ul>
 
@@ -292,7 +291,7 @@ footer {
     <li>isteğe bağlı bulut senkronizasyonunun sağlanması,</li>
     <li>cihazlar arası yedekleme ve veri eşitleme yapılması,</li>
     <li>hesap bağlama, oturum doğrulama ve güvenlik kontrollerinin yürütülmesi,</li>
-    <li>hata tespiti, hizmet sürekliliği ve güvenlik iyileştirmelerinin yapılması,</li>
+    <li>hizmet güvenliğinin sağlanması, kötüye kullanımın önlenmesi ve hizmet sürekliliğinin desteklenmesi,</li>
     <li>destek taleplerinin, hukuki süreçlerin ve ilgili kişi başvurularının yönetilmesi.</li>
   </ul>
 
@@ -320,7 +319,6 @@ footer {
   <p>Kişisel verileriniz, işleme amacının gerektirdiği ölçüde aşağıdaki alıcılara aktarılabilir:</p>
   <ul>
     <li>isteğe bağlı bulut senkronizasyonu ve hesap doğrulama süreçleri için <strong>Supabase</strong> (AB bölgesi bulut altyapısı),</li>
-    <li>hata izleme ve teknik tanılama süreçleri için <strong>Sentry</strong>,</li>
     <li>hukuken yetkili kamu kurum ve kuruluşları,</li>
     <li>hukuki, mali veya teknik danışmanlık alınması halinde sır saklama yükümlülüğü altındaki hizmet sağlayıcılar.</li>
   </ul>
@@ -333,7 +331,6 @@ footer {
     <li><strong>senkronizasyon kayıtları</strong> (mutation journal, principal alias) — hesabınız aktif kaldığı sürece; hesap silme talebinde senkronizasyon verileri kalıcı olarak silinir (hard-delete), ancak açık rızanın alındığını ispatlamak için gerekli asgari onay kayıtları mevzuata uygun süre boyunca saklanabilir,</li>
     <li><strong>silme tombstone kayıtları</strong> — 365 gün,</li>
     <li><strong>oran sınırlama (rate limit) kayıtları</strong> — 90 gün,</li>
-    <li><strong>hata ve çökme kayıtları</strong> (Sentry) — 90 gün (Sentry varsayılan saklama süresi),</li>
     <li><strong>egzersiz notları</strong> — yalnızca cihazda saklanır, sunucuya hiçbir zaman iletilmez,</li>
     <li><strong>inaktif hesaplar</strong> — şu anda otomatik bir uyarı veya silme politikasına tabi değildir; ileride böyle bir politika yürürlüğe alınırsa bu metin güncellenir,</li>
     <li>hukuki uyuşmazlık veya mevzuat yükümlülüğü doğması halinde gerekli zamanaşımı ve saklama süreleri boyunca</li>
