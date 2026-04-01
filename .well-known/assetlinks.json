@@ -1,10 +1,15 @@
-[{
-    "relation": ["delegate_permission/common.handle_all_urls"],
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
-          "namespace": "android_app",
-          "package_name": "fit.thymos.app",
-          "sha256_cert_fingerprints": [
-                  "F9:8F:04:0C:29:80:CF:6A:3E:D6:12:8D:CC:28:E4:36:41:FA:8F:79:75:72:11:33:E2:AC:6F:33:14:BD:AD:DF"
-          ]
+      "namespace": "android_app",
+      "package_name": "fit.thymos.app",
+      "sha256_cert_fingerprints": [
+        "F9:8F:04:0C:29:80:CF:6A:3E:D6:12:8D:CC:28:E4:36:41:FA:8F:79:75:72:11:33:E2:AC:6F:33:14:BD:AD:DF",
+        "2E:DD:23:4B:18:F3:96:B7:E5:D9:77:F5:96:98:E9:33:BC:C9:8C:0F:B3:7D:3F:3D:71:44:2A:65:A0:4C:67:BF"
+      ]
     }
-}]
+  }
+]
