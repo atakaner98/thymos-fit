@@ -994,6 +994,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <input type="email" class="hero-input" data-i18n-placeholder="form_placeholder" placeholder="your@gmail.com" required>
         <button type="submit" class="hero-submit" data-i18n="form_button" data-umami-event="hero-waitlist-submit">JOIN</button>
       </form>
+      <p class="hero-gmail-error" id="heroGmailError" style="display:none;font-size:12px;color:#C8553D;margin-top:8px;font-family:var(--font-mono);" data-i18n="gmail_error">Please use a Gmail address to join the closed test.</p>
       <div class="hero-success" id="heroSuccess">
         <span>✓</span>
         <span data-i18n="form_success">You're in. Check your inbox for the invite link.</span>
@@ -1398,6 +1399,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@gmail.com" required>
         <button type="submit" class="cta-submit" data-i18n="form_button" data-umami-event="cta-waitlist-submit">JOIN</button>
       </form>
+      <p class="cta-gmail-error" id="ctaGmailError" style="display:none;font-size:12px;color:#C8553D;margin-top:8px;font-family:var(--font-mono);" data-i18n="gmail_error">Please use a Gmail address to join the closed test.</p>
       <div class="cta-success" id="ctaSuccess">
         <span>✓</span>
         <span data-i18n="form_success">You're in. Check your inbox for the invite link.</span>
@@ -1436,6 +1438,7 @@ const translations = {
     hero_desc: "Your fitness app sells your data, distracts you with a social feed, and breaks the moment you lose signal. THYMOS doesn't. Offline-first workout tracking for lifters who want speed, privacy, and zero bullshit.",
     form_placeholder: "your@gmail.com",
     form_button: "JOIN",
+    gmail_error: "Please use a Gmail address to join the closed test.",
     form_success: "You're in. Check your inbox for the invite link.",
     form_note: "Closed testing only. Removal requests: <a href='mailto:hello@thymos.fit' style='color:var(--text-muted);text-decoration:underline;'>hello@thymos.fit</a>. <a href='privacy.html' style='color:var(--text-muted);text-decoration:underline;'>Privacy Policy</a>",
     fomo_cta: "Join the list — your closed test invite link lands straight in your inbox.",
@@ -1536,6 +1539,7 @@ const translations = {
     form_placeholder: "gmail@adresin.com",
     form_button: "KATIL",
     waitlist_counter: "<strong>{count}</strong> ciddi sporcuyla birlikte bekleme listesine katıl",
+    gmail_error: "Kapalı teste katılmak için Gmail adresi kullanmalısın.",
     form_success: "Harika! Davetiye linki için mailini kontrol et.",
     form_note: "Yalnızca kapalı test bildirimi. Çıkmak için: <a href='mailto:hello@thymos.fit' style='color:var(--text-muted);text-decoration:underline;'>hello@thymos.fit</a>. <a href='privacy.html' style='color:var(--text-muted);text-decoration:underline;'>Gizlilik Politikası</a>",
     fomo_cta: "Listeye katıl — kapalı test davetiye linki direkt mailinde.",
@@ -1680,6 +1684,14 @@ async function handleWaitlist(e, source) {
   const form = e.target;
   const email = form.querySelector('input[type="email"]').value.trim();
   const btn = form.querySelector('button[type="submit"]');
+  const errorEl = document.getElementById(source + 'GmailError');
+
+  if (!email.toLowerCase().endsWith('@gmail.com')) {
+    if (errorEl) errorEl.style.display = 'block';
+    return false;
+  }
+  if (errorEl) errorEl.style.display = 'none';
+
   btn.disabled = true;
   btn.textContent = '...';
 
