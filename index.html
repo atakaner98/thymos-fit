@@ -978,6 +978,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="hero-tag">
         <span data-i18n="hero_tag">CLOSED TESTING</span>
         <span class="hero-tag-dot"></span>
+        <span data-i18n="hero_tag_promo">FIRST 100 GET PRO FOR LIFE</span>
       </div>
       <h1>
         <span data-i18n="hero_title_1">Lift.</span>
@@ -990,7 +991,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <p class="cta-note" style="margin-bottom: 12px;" data-i18n="cta_platform">Building for Android first. iOS to follow.</p>
       <p class="fomo-line" data-i18n="fomo_cta">Join the list — your closed test invite link lands straight in your inbox.</p>
       <form class="hero-form" id="heroForm" onsubmit="return handleWaitlist(event,'hero')">
-        <input type="email" class="hero-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
+        <input type="email" class="hero-input" data-i18n-placeholder="form_placeholder" placeholder="your@gmail.com" required>
         <button type="submit" class="hero-submit" data-i18n="form_button" data-umami-event="hero-waitlist-submit">JOIN</button>
       </form>
       <div class="hero-success" id="heroSuccess">
@@ -1390,11 +1391,11 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="cta-box anim">
       <h2 class="cta-title" data-i18n="cta_title">Join the Closed Test</h2>
       <p class="cta-desc" data-i18n="cta_desc">
-        Join the list — your closed test invite link lands straight in your inbox.
+        First 100 testers get lifetime Pro — for free.
       </p>
       <p class="fomo-line" data-i18n="fomo_cta">Join the list — your closed test invite link lands straight in your inbox.</p>
       <form class="cta-form" id="ctaForm" onsubmit="return handleWaitlist(event,'cta')">
-        <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
+        <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@gmail.com" required>
         <button type="submit" class="cta-submit" data-i18n="form_button" data-umami-event="cta-waitlist-submit">JOIN</button>
       </form>
       <div class="cta-success" id="ctaSuccess">
@@ -1433,8 +1434,8 @@ const translations = {
     hero_tag: "CLOSED TESTING",
     hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
     hero_desc: "Your fitness app sells your data, distracts you with a social feed, and breaks the moment you lose signal. THYMOS doesn't. Offline-first workout tracking for lifters who want speed, privacy, and zero bullshit.",
-    form_placeholder: "your@email.com",
-    form_button: "Join Launch List",
+    form_placeholder: "your@gmail.com",
+    form_button: "JOIN",
     form_success: "You're in. Check your inbox for the invite link.",
     form_note: "Closed testing only. Removal requests: <a href='mailto:hello@thymos.fit' style='color:var(--text-muted);text-decoration:underline;'>hello@thymos.fit</a>. <a href='privacy.html' style='color:var(--text-muted);text-decoration:underline;'>Privacy Policy</a>",
     fomo_cta: "Join the list — your closed test invite link lands straight in your inbox.",
@@ -1487,7 +1488,7 @@ const translations = {
     p3_title: "No Pushy Tactics", p3_desc: "No push notifications begging you to come back. No premium upsell popups during your workout.",
     p4_title: "No Vendor Lock-in", p4_desc: "Export everything, anytime. Your data is yours — we just help you organize it.",
     cta_title: "Join the Closed Test",
-    cta_desc: "Join the list — your closed test invite link lands straight in your inbox.",
+    cta_desc: "First 100 testers get lifetime Pro — for free.",
     privacy_kicker: "DATA PRIVACY",
     privacy_headline: "Your fitness data can identify you<br>among <em>100&nbsp;million&nbsp;people</em> in&nbsp;6&nbsp;days.<br>Here's what we do about it.",
     privacy_lead: "Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.",
@@ -1500,6 +1501,7 @@ const translations = {
     pp4_title: "Full Export, Anytime",
     pp4_desc: "Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.",
     cta_platform: "Building for Android first. iOS to follow.",
+    hero_tag_promo: "FIRST 100 GET PRO FOR LIFE",
     footer_privacy: "Privacy",
     footer_terms: "Terms",
     footer_note: "The THYMOS app itself uses no ads or behavioral analytics. This website uses privacy-first, cookie-less analytics to measure visits.",
@@ -1531,8 +1533,8 @@ const translations = {
     hero_tag: "KAPALI TEST",
     hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
     hero_desc: "Fitness uygulamaların verilerini satıyor, sosyal akışla dikkatini dağıtıyor ve sinyal kesilince çalışmayı bırakıyor. THYMOS böyle değil. Hız, gizlilik ve sıfır saçmalık isteyen sporcular için çevrimdışı antrenman takibi.",
-    form_placeholder: "email@adresin.com",
-    form_button: "Lansman Listesine Katıl",
+    form_placeholder: "gmail@adresin.com",
+    form_button: "KATIL",
     waitlist_counter: "<strong>{count}</strong> ciddi sporcuyla birlikte bekleme listesine katıl",
     form_success: "Harika! Davetiye linki için mailini kontrol et.",
     form_note: "Yalnızca kapalı test bildirimi. Çıkmak için: <a href='mailto:hello@thymos.fit' style='color:var(--text-muted);text-decoration:underline;'>hello@thymos.fit</a>. <a href='privacy.html' style='color:var(--text-muted);text-decoration:underline;'>Gizlilik Politikası</a>",
@@ -1586,7 +1588,7 @@ const translations = {
     p3_title: "Baskı Taktiği Yok", p3_desc: "\"Geri dön\" diye zorlayan bildirimler yok. Antrenman sırasında seni durduran premium satış ekranları yok.",
     p4_title: "Zorunlu Bağlılık Yok", p4_desc: "Her şeyi istediğin zaman dışa aktar. Verin senin — biz sadece düzenlemene yardım ediyoruz.",
     cta_title: "Kapalı Teste Katıl",
-    cta_desc: "Listeye katıl — kapalı test davetiye linki direkt mailinde.",
+    cta_desc: "İlk 100 kişi Pro versiyonu ömür boyu bedava alıyor.",
     privacy_kicker: "VERİ GİZLİLİĞİ",
     privacy_headline: "Fitness verilerin seni 100 milyon kişi arasından<br>6 günde tanımlayabilir.<br><em>Biz ne yapıyoruz?</em>",
     privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu sana ait olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Yorgunluk verileri ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
@@ -1599,6 +1601,7 @@ const translations = {
     pp4_title: "Tam Dışa Aktarım, Her Zaman",
     pp4_desc: "İstediğin zaman CSV veya JSON olarak her şeyi dışa aktar. Kilit yok. İzin istemek yok.",
         cta_platform: "Önce Android için geliştiriyoruz. iOS sonra gelecek.",
+        hero_tag_promo: "İLK 100 KİŞİYE ÖMÜR BOYU PRO",
     footer_privacy: "Gizlilik",
     footer_terms: "Koşullar",
         footer_note: "THYMOS uygulamasının kendisi reklam veya davranışsal analitik kullanmaz. Bu web sitesi yalnızca ziyaretleri ölçmek için gizlilik odaklı, çerezsiz analitik kullanır.",
