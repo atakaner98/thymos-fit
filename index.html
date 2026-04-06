@@ -265,6 +265,11 @@ nav.scrolled { border-bottom-color: var(--border); }
   letter-spacing: 2px; color: var(--text-primary);
   text-transform: uppercase;
   margin-bottom: 28px;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+@media(max-width:480px) {
+  .hero-tag { font-size: 9px; letter-spacing: 1px; padding: 5px 10px; gap: 6px; }
 }
 .hero-tag-dot {
   width: 9px; height: 9px;
@@ -1003,9 +1008,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     </div>
     <div class="hero-visual">
       <div class="phone-hero">
-        <div class="phone-frame" style="max-width:100%;border-radius:36px;">
-          <video src="assets/videos/raw_record_workout_logging.mp4" autoplay loop muted playsinline></video>
-        </div>
+        <img src="assets/images/actvive_workout_logging.png" alt="Active workout logging screen" loading="eager">
       </div>
     </div>
   </div>
