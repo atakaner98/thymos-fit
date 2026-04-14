@@ -5,27 +5,31 @@
  * Configure in Supabase: Database → Webhooks → Create
  * - Table: waitlist
  * - Events: INSERT
- * - URL: https://thymos-fit.vercel.app/api/waitlist-webhook
+ * - URL: https://thymos.fit/api/waitlist-webhook
  */
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+export async function onRequestPost(context) {
+  const { request, env } = context;
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = env.RESEND_API_KEY;
   if (!apiKey) {
     console.error('RESEND_API_KEY is not set');
-    return res.status(500).json({ error: 'Server misconfiguration' });
+    return new Response(JSON.stringify({ error: 'Server misconfiguration' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   try {
-    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    const body = await request.json();
     const record = body?.record ?? body?.payload?.record;
     const email = record?.email;
 
     if (!email || typeof email !== 'string') {
-      return res.status(400).json({ error: 'No email in payload' });
+      return new Response(JSON.stringify({ error: 'No email in payload' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const response = await fetch('https://api.resend.com/emails', {
@@ -87,12 +91,21 @@ export default async function handler(req, res) {
     if (!response.ok) {
       const errText = await response.text();
       console.error('Resend error:', response.status, errText);
-      return res.status(500).json({ error: 'Failed to send email' });
+      return new Response(JSON.stringify({ error: 'Failed to send email' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
-    return res.status(200).json({ ok: true });
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (err) {
     console.error('Webhook error:', err);
-    return res.status(500).json({ error: 'Internal error' });
+    return new Response(JSON.stringify({ error: 'Internal error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
