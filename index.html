@@ -60,7 +60,7 @@
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD",
-    "availability": "https://schema.org/PreOrder"
+    "availability": "https://schema.org/InStock"
   },
   "author": {
     "@type": "Person",
@@ -955,7 +955,44 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   padding: 0 0 20px; color: var(--text-secondary);
   font-size: 15px; line-height: 1.7;
 }
-.faq-item.open .faq-answer { max-height: 300px; }
+.faq-item.open .faq-answer { max-height: 400px; }
+
+/* ─── PLAY STORE BUTTON ─── */
+.playstore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all 0.2s;
+  margin-bottom: 16px;
+}
+.playstore-btn:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.playstore-btn svg { color: var(--accent); flex-shrink: 0; }
+.playstore-btn-text { display: flex; flex-direction: column; gap: 2px; }
+.playstore-btn-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+.playstore-btn-main {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1;
+}
+.cta-box .playstore-btn { margin-left: auto; margin-right: auto; }
 </style>
 </head>
 <body>
@@ -970,7 +1007,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
       </div>
       <a href="roadmap.html" class="nav-link" data-i18n="nav_roadmap" data-umami-event="nav-roadmap-click">Roadmap</a>
-      <a href="#waitlist" class="nav-cta" data-i18n="nav_cta" data-umami-event="nav-waitlist-click">Join Waitlist</a>
+      <a href="https://play.google.com/store/apps/details?id=fit.thymos.app" class="nav-cta" data-i18n="nav_cta" target="_blank" rel="noopener" data-umami-event="nav-playstore-click">Download</a>
     </div>
   </div>
 </nav>
@@ -981,9 +1018,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   <div class="container hero-grid">
     <div class="hero-content">
       <div class="hero-tag">
-        <span data-i18n="hero_tag">CLOSED TESTING</span>
         <span class="hero-tag-dot"></span>
-        <span data-i18n="hero_tag_promo">FIRST 100 GET PRO FOR LIFE</span>
+        <span data-i18n="hero_tag">PLAY STORE EARLY ACCESS</span>
       </div>
       <h1>
         <span data-i18n="hero_title_1">Lift.</span>
@@ -993,18 +1029,21 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <p class="hero-desc" data-i18n="hero_desc">
         Your fitness app sells your data, distracts you with a social feed, and breaks the moment you lose signal. THYMOS doesn't. Offline-first workout tracking for lifters who want speed, privacy, and zero bullshit.
       </p>
-      <p class="cta-note" style="margin-bottom: 12px;" data-i18n="cta_platform">Building for Android first. iOS to follow.</p>
-      <p class="fomo-line" data-i18n="fomo_cta">Join the list — your closed test invite link lands straight in your inbox.</p>
-      <form class="hero-form" id="heroForm" onsubmit="return handleWaitlist(event,'hero')">
-        <input type="email" class="hero-input" data-i18n-placeholder="form_placeholder" placeholder="your@gmail.com" required>
-        <button type="submit" class="hero-submit" data-i18n="form_button" data-umami-event="hero-waitlist-submit">JOIN</button>
-      </form>
-      <p class="hero-gmail-error" id="heroGmailError" style="display:none;font-size:12px;color:#C8553D;margin-top:8px;font-family:var(--font-mono);" data-i18n="gmail_error">Please use a Gmail address to join the closed test.</p>
-      <div class="hero-success" id="heroSuccess">
-        <span>✓</span>
-        <span data-i18n="form_success">You're in. Check your inbox for the invite link.</span>
-      </div>
-      <p class="hero-note" data-i18n="form_note">Closed testing only. Removal requests: hello@thymos.fit.</p>
+      <p class="fomo-line" data-i18n="fomo_cta">Early Access is open. Lock in <strong>lifetime 40% off Pro</strong> — pricing adjusts to your region.</p>
+      <a href="https://play.google.com/store/apps/details?id=fit.thymos.app"
+         class="playstore-btn"
+         target="_blank"
+         rel="noopener"
+         data-umami-event="hero-playstore-click">
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M1 1.27v19.46c0 .55.59.87 1.04.58L19 11.58a.67.67 0 0 0 0-1.16L2.04.69A.67.67 0 0 0 1 1.27Z" fill="currentColor"/>
+        </svg>
+        <span class="playstore-btn-text">
+          <span class="playstore-btn-sub">GET IT ON</span>
+          <span class="playstore-btn-main">Google Play</span>
+        </span>
+      </a>
+      <p class="hero-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
     </div>
     <div class="hero-visual">
       <div class="phone-hero">
@@ -1351,7 +1390,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
           <span data-i18n="faq_q6">Is it free?</span>
           <span class="faq-icon"></span>
         </button>
-        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a6">Yes! The free tier covers full workout logging, exercise library, muscle heatmaps, CSV/JSON import and export, and offline mode. No time limits, no ads. Pro unlocks advanced features for lifters who want more depth.</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a6">Yes. The free tier covers unlimited workout logging, offline use, starter program access, basic analytics (90-day trends, 7-day muscle map history), one data import, up to 10 custom exercises, and 5 custom templates. No ads, no time limits. Pro removes all limits and unlocks deeper tools.</div></div>
       </div>
 
       <div class="faq-item anim">
@@ -1359,7 +1398,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
           <span data-i18n="faq_q7">What does Pro include?</span>
           <span class="faq-icon"></span>
         </button>
-        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a7">Pro unlocks advanced analytics, smart coaching (RPE/RIR-based weight suggestions), science-based warm-up generation, and cloud backup. The full list will be finalized during beta based on tester feedback.</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a7">Pro removes all free-tier limits and adds: unlimited custom exercises &amp; templates, full trend and muscle map history, unlimited data imports, program library + builder, advanced analytics with PR breakdowns, alternative exercise suggestions, science-based warm-up generation, and cloud backup.</div></div>
       </div>
 
       <div class="faq-item anim">
@@ -1367,7 +1406,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
           <span data-i18n="faq_q8">How much will Pro cost?</span>
           <span class="faq-icon"></span>
         </button>
-        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a8">During beta, the first 100 testers get every Pro feature free for life. After that, Pro will cost $2.49/month or $19.99/year.</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq_a8">Pro costs $3.99/month or $29.99/year. During Early Access, subscribers lock in a lifetime 40% discount — you pay this lower rate for as long as you stay subscribed. Pricing automatically adjusts to your region's purchasing power.</div></div>
       </div>
 
     </div>
@@ -1378,21 +1417,23 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 <section class="cta-section" id="waitlist">
   <div class="container">
     <div class="cta-box anim">
-      <h2 class="cta-title" data-i18n="cta_title">Join the Closed Test</h2>
-      <p class="cta-desc" data-i18n="cta_desc">
-        First 100 testers get lifetime Pro — for free.
-      </p>
-      <p class="fomo-line" data-i18n="fomo_cta">Join the list — your closed test invite link lands straight in your inbox.</p>
-      <form class="cta-form" id="ctaForm" onsubmit="return handleWaitlist(event,'cta')">
-        <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@gmail.com" required>
-        <button type="submit" class="cta-submit" data-i18n="form_button" data-umami-event="cta-waitlist-submit">JOIN</button>
-      </form>
-      <p class="cta-gmail-error" id="ctaGmailError" style="display:none;font-size:12px;color:#C8553D;margin-top:8px;font-family:var(--font-mono);" data-i18n="gmail_error">Please use a Gmail address to join the closed test.</p>
-      <div class="cta-success" id="ctaSuccess">
-        <span>✓</span>
-        <span data-i18n="form_success">You're in. Check your inbox for the invite link.</span>
-      </div>
-      <p class="cta-note" data-i18n="form_note">Closed testing only. Removal requests: hello@thymos.fit.</p>
+      <h2 class="cta-title" data-i18n="cta_title">Download THYMOS</h2>
+      <p class="cta-desc" data-i18n="cta_desc">Early Access is open on Android. Download now and train without compromise.</p>
+      <p class="fomo-line" data-i18n="fomo_cta">Early Access is open. Lock in <strong>lifetime 40% off Pro</strong> — pricing adjusts to your region.</p>
+      <a href="https://play.google.com/store/apps/details?id=fit.thymos.app"
+         class="playstore-btn"
+         target="_blank"
+         rel="noopener"
+         data-umami-event="cta-playstore-click">
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M1 1.27v19.46c0 .55.59.87 1.04.58L19 11.58a.67.67 0 0 0 0-1.16L2.04.69A.67.67 0 0 0 1 1.27Z" fill="currentColor"/>
+        </svg>
+        <span class="playstore-btn-text">
+          <span class="playstore-btn-sub">GET IT ON</span>
+          <span class="playstore-btn-main">Google Play</span>
+        </span>
+      </a>
+      <p class="cta-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
       <a href="roadmap.html" class="roadmap-btn" data-i18n="roadmap_link" data-umami-event="cta-roadmap-click">See the Roadmap →</a>
     </div>
   </div>
@@ -1418,18 +1459,13 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 <script>
 const translations = {
   en: {
-    nav_cta: "Join Waitlist",
+    nav_cta: "Download",
     nav_roadmap: "Roadmap",
     roadmap_link: "See the Roadmap →",
-    hero_tag: "CLOSED TESTING",
+    hero_tag: "PLAY STORE EARLY ACCESS",
     hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
     hero_desc: "Your fitness app sells your data, distracts you with a social feed, and breaks the moment you lose signal. THYMOS doesn't. Offline-first workout tracking for lifters who want speed, privacy, and zero bullshit.",
-    form_placeholder: "your@gmail.com",
-    form_button: "JOIN",
-    gmail_error: "Please use a Gmail address to join the closed test.",
-    form_success: "You're in. Check your inbox for the invite link.",
-    form_note: "Closed testing only. Removal requests: <a href='mailto:hello@thymos.fit' style='color:var(--text-muted);text-decoration:underline;'>hello@thymos.fit</a>. <a href='privacy.html' style='color:var(--text-muted);text-decoration:underline;'>Privacy Policy</a>",
-    fomo_cta: "Join the list — your closed test invite link lands straight in your inbox.",
+    fomo_cta: "Early Access is open. Lock in <strong>lifetime 40% off Pro</strong> — pricing adjusts to your region.",
     metric_1: "PER-SET LOGGING", metric_2: "NO INTERNET NEEDED", metric_3: "ZERO TRACKERS", metric_4: "NEEDED",
     metric_2_val: "Offline", metric_3_val: "Ads", metric_4_val: "Accounts",
     features_tag: "FEATURES",
@@ -1478,8 +1514,8 @@ const translations = {
     p2_title: "No Gamification", p2_desc: "No streaks, no badges, no fake motivation. Your progress is the reward.",
     p3_title: "No Pushy Tactics", p3_desc: "No push notifications begging you to come back. No premium upsell popups during your workout.",
     p4_title: "No Vendor Lock-in", p4_desc: "Export everything, anytime. Your data is yours — we just help you organize it.",
-    cta_title: "Join the Closed Test",
-    cta_desc: "First 100 testers get lifetime Pro — for free.",
+    cta_title: "Download THYMOS",
+    cta_desc: "Early Access is open on Android. Download now and train without compromise.",
     privacy_kicker: "DATA PRIVACY",
     privacy_headline: "Your fitness data can identify you<br>among <em>100&nbsp;million&nbsp;people</em> in&nbsp;6&nbsp;days.<br>Here's what we do about it.",
     privacy_lead: "Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.",
@@ -1491,8 +1527,7 @@ const translations = {
     pp3_desc: "Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.",
     pp4_title: "Full Export, Anytime",
     pp4_desc: "Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.",
-    cta_platform: "Building for Android first. iOS to follow.",
-    hero_tag_promo: "FIRST 100 GET PRO FOR LIFE",
+    cta_platform: "Available on Android. iOS coming soon.",
     footer_privacy: "Privacy",
     footer_terms: "Terms",
     footer_note: "The THYMOS app itself uses no ads or behavioral analytics. This website uses privacy-first, cookie-less analytics to measure visits.",
@@ -1511,26 +1546,20 @@ const translations = {
     faq_q5: "What languages does it support?",
     faq_a5: "English and Turkish currently. Spanish and German are next on the list. More languages will be added based on demand.",
     faq_q6: "Is it free?",
-    faq_a6: "Yes! The free tier covers full workout logging, exercise library, muscle heatmaps, CSV/JSON import and export, and offline mode. No time limits, no ads. Pro unlocks advanced features for lifters who want more depth.",
+    faq_a6: "Yes. The free tier covers unlimited workout logging, offline use, starter program access, basic analytics (90-day trends, 7-day muscle map history), one data import, up to 10 custom exercises, and 5 custom templates. No ads, no time limits. Pro removes all limits and unlocks deeper tools.",
     faq_q7: "What does Pro include?",
-    faq_a7: "Pro unlocks advanced analytics, smart coaching (RPE/RIR-based weight suggestions), science-based warm-up generation, and cloud backup. The full list will be finalized during beta based on tester feedback.",
-    faq_q8: "How much will Pro cost?",
-    faq_a8: "During beta, the first 100 testers get every Pro feature free for life. After that, Pro will cost $2.49/month or $19.99/year."
+    faq_a7: "Pro removes all free-tier limits and adds: unlimited custom exercises &amp; templates, full trend and muscle map history, unlimited data imports, program library + builder, advanced analytics with PR breakdowns, alternative exercise suggestions, science-based warm-up generation, and cloud backup.",
+    faq_q8: "How much does Pro cost?",
+    faq_a8: "Pro costs $3.99/month or $29.99/year. During Early Access, subscribers lock in a lifetime 40% discount — you pay this lower rate for as long as you stay subscribed. Pricing automatically adjusts to your region's purchasing power."
   },
   tr: {
-    nav_cta: "Listeye Katıl",
+    nav_cta: "İndir",
     nav_roadmap: "Yol Haritası",
     roadmap_link: "Yol Haritasını Gör →",
-    hero_tag: "KAPALI TEST",
+    hero_tag: "PLAY STORE ERKEN ERİŞİM",
     hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
     hero_desc: "Fitness uygulamaların verilerini satıyor, sosyal akışla dikkatini dağıtıyor ve sinyal kesilince çalışmayı bırakıyor. THYMOS böyle değil. Hız, gizlilik ve sıfır saçmalık isteyen sporcular için çevrimdışı antrenman takibi.",
-    form_placeholder: "gmail@adresin.com",
-    form_button: "KATIL",
-    waitlist_counter: "<strong>{count}</strong> ciddi sporcuyla birlikte bekleme listesine katıl",
-    gmail_error: "Kapalı teste katılmak için Gmail adresi kullanmalısın.",
-    form_success: "Harika! Davetiye linki için mailini kontrol et.",
-    form_note: "Yalnızca kapalı test bildirimi. Çıkmak için: <a href='mailto:hello@thymos.fit' style='color:var(--text-muted);text-decoration:underline;'>hello@thymos.fit</a>. <a href='privacy.html' style='color:var(--text-muted);text-decoration:underline;'>Gizlilik Politikası</a>",
-    fomo_cta: "Listeye katıl — kapalı test davetiye linki direkt mailinde.",
+    fomo_cta: "Erken Erişim açık. Pro için <strong>ömür boyu %40 indirim</strong> fırsatını yakala — fiyat bölgene göre otomatik ayarlanır.",
     metric_1: "SET BAŞINA KAYIT", metric_2: "İNTERNET GEREKMEZ", metric_3: "SIFIR TAKİP", metric_4: "GEREKLİ",
     metric_2_val: "Çevrimdışı", metric_3_val: "Reklam", metric_4_val: "Hesap",
     features_tag: "ÖZELLİKLER",
@@ -1579,8 +1608,8 @@ const translations = {
     p2_title: "Oyunlaştırma Yok", p2_desc: "Seri yok, rozet yok, sahte motivasyon yok. Asıl ödül, ilerlemek.",
     p3_title: "Baskı Taktiği Yok", p3_desc: "\"Geri dön\" diye zorlayan bildirimler yok. Antrenman sırasında seni durduran premium satış ekranları yok.",
     p4_title: "Zorunlu Bağlılık Yok", p4_desc: "Her şeyi istediğin zaman dışa aktar. Verin senin — biz sadece düzenlemene yardım ediyoruz.",
-    cta_title: "Kapalı Teste Katıl",
-    cta_desc: "İlk 100 kişi Pro versiyonu ömür boyu bedava alıyor.",
+    cta_title: "THYMOS'u İndir",
+    cta_desc: "Android'de Erken Erişim açık. İndir ve ödün vermeden antrenman yap.",
     privacy_kicker: "VERİ GİZLİLİĞİ",
     privacy_headline: "Fitness verilerin seni 100 milyon kişi arasından<br>6 günde tanımlayabilir.<br><em>Biz ne yapıyoruz?</em>",
     privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu sana ait olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Yorgunluk verileri ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
@@ -1592,8 +1621,7 @@ const translations = {
     pp3_desc: "Yorgunluk verileri, sağlık bağlamı ve RPE verileri hassas olarak işaretlenir ve asla buluta senkronize edilmez.",
     pp4_title: "Tam Dışa Aktarım, Her Zaman",
     pp4_desc: "İstediğin zaman CSV veya JSON olarak her şeyi dışa aktar. Kilit yok. İzin istemek yok.",
-        cta_platform: "Önce Android için geliştiriyoruz. iOS sonra gelecek.",
-        hero_tag_promo: "İLK 100 KİŞİYE ÖMÜR BOYU PRO",
+    cta_platform: "Android'de mevcut. iOS yakında.",
     footer_privacy: "Gizlilik",
     footer_terms: "Koşullar",
         footer_note: "THYMOS uygulamasının kendisi reklam veya davranışsal analitik kullanmaz. Bu web sitesi yalnızca ziyaretleri ölçmek için gizlilik odaklı, çerezsiz analitik kullanır.",
@@ -1612,11 +1640,11 @@ const translations = {
     faq_q5: "Hangi dilleri destekliyor?",
     faq_a5: "Şu an İngilizce ve Türkçe. İspanyolca ve Almanca sırada. Talebe göre daha fazla dil eklenecek.",
     faq_q6: "Ücretsiz mi?",
-    faq_a6: "Evet! Ücretsiz sürüm tam antrenman kaydı, egzersiz kütüphanesi, kas ısı haritaları, CSV/JSON içe ve dışa aktarım ve çevrimdışı modu kapsar. Süre sınırı yok, reklam yok. Pro, daha fazla derinlik isteyen sporcular için gelişmiş özelliklerin kilidini açar.",
+    faq_a6: "Evet. Ücretsiz sürüm; sınırsız antrenman kaydı, çevrimdışı kullanım, başlangıç programı erişimi, temel analiz (90 günlük trend, 7 günlük kas haritası geçmişi), bir içe aktarım, 10 özel egzersiz ve 5 şablon içerir. Reklam yok, süre sınırı yok. Pro tüm limitleri kaldırır ve daha derin özellikler açar.",
     faq_q7: "Pro neleri içeriyor?",
-    faq_a7: "Pro; gelişmiş analizler, akıllı koçluk (RPE/RIR tabanlı ağırlık önerileri), bilim tabanlı ısınma oluşturma ve bulut yedekleme sunar. Tam liste, beta sürecinde test kullanıcılarının geri bildirimleriyle şekillenecek.",
-    faq_q8: "Pro ne kadar olacak?",
-    faq_a8: "Beta süresince ilk 100 test kullanıcısı tüm Pro özelliklerini ömür boyu ücretsiz kullanır. Sonrasında Pro aylık $2.49 veya yıllık $19.99 olacak."
+    faq_a7: "Pro tüm ücretsiz sürüm limitlerini kaldırır ve şunları ekler: sınırsız özel egzersiz &amp; şablon, tam trend ve kas haritası geçmişi, sınırsız veri içe aktarımı, program kütüphanesi + oluşturucu, PR kırılımları ile gelişmiş analitik, alternatif egzersiz önerileri, bilimsel ısınma oluşturma ve bulut senkronizasyonu.",
+    faq_q8: "Pro ne kadar?",
+    faq_a8: "Pro aylık $3.99 veya yıllık $29.99. Erken Erişim süresince abone olanlar ömür boyu %40 indirimli fiyatı kilitler — abone kaldığın sürece bu indirimli fiyatı ödersin. Fiyatlar bölgenin satın alma gücüne göre otomatik olarak ayarlanır."
   }
 };
 
@@ -1659,52 +1687,13 @@ const videoObserver = new IntersectionObserver(entries => {
 }, { rootMargin: '200px' });
 document.querySelectorAll('video[data-src]').forEach(v => videoObserver.observe(v));
 
-// Show nav CTA after hero form scrolls out of view
+// Show nav CTA after hero content scrolls out of view
 const navCta = document.querySelector('.nav-cta');
-const heroFormObserver = new IntersectionObserver(entries => {
+const heroObserver = new IntersectionObserver(entries => {
   entries.forEach(e => navCta.classList.toggle('visible', !e.isIntersecting));
 }, { threshold: 0 });
-heroFormObserver.observe(document.getElementById('heroForm'));
-
-
-async function handleWaitlist(e, source) {
-  e.preventDefault();
-  const form = e.target;
-  const email = form.querySelector('input[type="email"]').value.trim();
-  const btn = form.querySelector('button[type="submit"]');
-  const errorEl = document.getElementById(source + 'GmailError');
-
-  if (!email.toLowerCase().endsWith('@gmail.com')) {
-    if (errorEl) errorEl.style.display = 'block';
-    return false;
-  }
-  if (errorEl) errorEl.style.display = 'none';
-
-  btn.disabled = true;
-  btn.textContent = '...';
-
-  const SUPABASE_URL = 'https://fxdlscqifuicpawdzcdg.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZGxzY3FpZnVpY3Bhd2R6Y2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTY2MDcsImV4cCI6MjA4ODEzMjYwN30.X_LCrL2i1FVNVMdrO7hIYa33vtJCHjxmDT8Xf-GM5DE';
-
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ email, source, signed_up_at: new Date().toISOString() })
-    });
-  } catch {}
-
-  form.style.display = 'none';
-  document.getElementById(source + 'Success').classList.add('show');
-  const note = document.querySelector(`.${source === 'hero' ? 'hero' : 'cta'}-note`);
-  if (note) note.style.display = 'none';
-  return false;
-}
+const heroContent = document.querySelector('.hero-content');
+if (heroContent) heroObserver.observe(heroContent);
 </script>
 </body>
 </html>
