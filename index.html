@@ -957,42 +957,15 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 }
 .faq-item.open .faq-answer { max-height: 400px; }
 
-/* ─── PLAY STORE BUTTON ─── */
-.playstore-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-accent);
-  border-radius: 14px;
-  text-decoration: none;
-  color: var(--text-primary);
-  transition: all 0.2s;
-  margin-bottom: 16px;
+/* ─── PLAY STORE BADGE ─── */
+.playstore-badge-link {
+  display: inline-block;
+  margin-bottom: 8px;
+  transition: opacity 0.2s, transform 0.2s;
 }
-.playstore-btn:hover {
-  border-color: var(--accent);
-  background: var(--bg-card-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-}
-.playstore-btn svg { color: var(--accent); flex-shrink: 0; }
-.playstore-btn-text { display: flex; flex-direction: column; gap: 2px; }
-.playstore-btn-sub {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-}
-.playstore-btn-main {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  line-height: 1;
-}
-.cta-box .playstore-btn { margin-left: auto; margin-right: auto; }
+.playstore-badge-link:hover { opacity: 0.85; transform: translateY(-2px); }
+.playstore-badge { height: 72px; width: auto; display: block; }
+.cta-box .playstore-badge-link { margin-left: auto; margin-right: auto; }
 </style>
 </head>
 <body>
@@ -1031,17 +1004,14 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </p>
       <p class="fomo-line" data-i18n="fomo_cta">Lock in <strong>lifetime 40% off Pro</strong> — pricing has been adjusted based on your region's purchasing power.</p>
       <a href="https://play.google.com/store/apps/details?id=fit.thymos.app"
-         class="playstore-btn"
+         class="playstore-badge-link"
          target="_blank"
          rel="noopener"
          data-umami-event="hero-playstore-click">
-        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M1 1.27v19.46c0 .55.59.87 1.04.58L19 11.58a.67.67 0 0 0 0-1.16L2.04.69A.67.67 0 0 0 1 1.27Z" fill="currentColor"/>
-        </svg>
-        <span class="playstore-btn-text">
-          <span class="playstore-btn-sub">GET IT ON</span>
-          <span class="playstore-btn-main">Google Play</span>
-        </span>
+        <img class="playstore-badge"
+             src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+             alt="Get it on Google Play"
+             height="72">
       </a>
       <p class="hero-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
     </div>
@@ -1421,17 +1391,14 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <p class="cta-desc" data-i18n="cta_desc">Early Access is open on Android. Download and train without compromise.</p>
       <p class="fomo-line" data-i18n="fomo_cta">Lock in <strong>lifetime 40% off Pro</strong> — pricing has been adjusted based on your region's purchasing power.</p>
       <a href="https://play.google.com/store/apps/details?id=fit.thymos.app"
-         class="playstore-btn"
+         class="playstore-badge-link"
          target="_blank"
          rel="noopener"
          data-umami-event="cta-playstore-click">
-        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M1 1.27v19.46c0 .55.59.87 1.04.58L19 11.58a.67.67 0 0 0 0-1.16L2.04.69A.67.67 0 0 0 1 1.27Z" fill="currentColor"/>
-        </svg>
-        <span class="playstore-btn-text">
-          <span class="playstore-btn-sub">GET IT ON</span>
-          <span class="playstore-btn-main">Google Play</span>
-        </span>
+        <img class="playstore-badge"
+             src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+             alt="Get it on Google Play"
+             height="72">
       </a>
       <p class="cta-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
       <a href="roadmap.html" class="roadmap-btn" data-i18n="roadmap_link" data-umami-event="cta-roadmap-click">See the Roadmap →</a>
@@ -1650,6 +1617,11 @@ const translations = {
 
 let currentLang = 'en';
 
+const playstoreBadge = {
+  en: { src: 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png', alt: 'Get it on Google Play' },
+  tr: { src: 'https://play.google.com/intl/tr/badges/static/images/badges/tr_badge_web_generic.png', alt: "Google Play'den edinin" }
+};
+
 function setLang(lang) {
   currentLang = lang;
   document.documentElement.setAttribute('data-lang', lang);
@@ -1662,6 +1634,11 @@ function setLang(lang) {
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const k = el.getAttribute('data-i18n-placeholder');
     if (t[k] !== undefined) el.placeholder = t[k];
+  });
+  const badge = playstoreBadge[lang] || playstoreBadge.en;
+  document.querySelectorAll('.playstore-badge').forEach(img => {
+    img.src = badge.src;
+    img.alt = badge.alt;
   });
 }
 

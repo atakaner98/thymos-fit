@@ -388,76 +388,85 @@ nav {
 }
 
 /* ─── CTA BANNER ─── */
-.roadmap-cta {
-  text-align: center;
-  padding: 60px 0 100px;
-}
+.roadmap-cta { text-align: center; padding: 60px 0 100px; }
 .roadmap-cta-box {
   max-width: 600px;
   margin: 0 auto;
-  padding: 48px 40px;
+  padding: 64px 40px;
   background: var(--bg-secondary);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.roadmap-cta-box::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: 20%; right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 .roadmap-cta-box h2 {
-  font-size: 28px;
+  font-size: clamp(26px, 4vw, 40px);
   font-weight: 700;
-  margin-bottom: 12px;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
 }
-.roadmap-cta-box p {
+.roadmap-cta-box .cta-desc {
+  font-size: 16px;
   color: var(--text-secondary);
-  font-size: 15px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
 }
-.roadmap-cta-box .cta-form {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 480px;
-  margin: 0 auto;
+.fomo-line {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  padding: 11px 16px 11px 14px;
+  margin-bottom: 28px;
+  max-width: 520px;
+  box-sizing: border-box;
+  background: rgba(200, 85, 61, 0.06);
+  border: 1px solid rgba(200, 85, 61, 0.15);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.roadmap-cta-box .cta-input {
-  flex: 1; min-width: 200px;
-  padding: 14px 18px;
-  font-family: var(--font-display); font-size: 15px;
-  background: var(--bg-card);
-  border: 2px solid var(--border-accent);
-  border-radius: 10px;
-  color: var(--text-primary);
-  outline: none;
-  transition: border-color 0.2s;
-}
-.roadmap-cta-box .cta-input::placeholder { color: var(--text-secondary); }
-.roadmap-cta-box .cta-input:focus { border-color: var(--accent); }
-.roadmap-cta-box .cta-submit {
-  padding: 14px 28px;
-  font-family: var(--font-mono);
-  font-size: 13px; font-weight: 600;
-  letter-spacing: 1px;
-  background: var(--accent);
-  color: white;
-  border: none; border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
-}
-.roadmap-cta-box .cta-submit:hover { background: var(--accent-hover); }
-.roadmap-cta-box .cta-success {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  color: var(--success);
-}
-.roadmap-cta-box .cta-success.show { display: flex; justify-content: center; }
-.roadmap-cta-box .cta-note {
+.fomo-line strong { color: var(--text-primary); font-weight: 700; }
+.cta-note {
   font-size: 12px;
   color: var(--text-secondary);
   font-family: var(--font-mono);
-  margin-top: 12px;
+  margin-top: 4px;
+  margin-bottom: 20px;
 }
+.playstore-badge-link {
+  display: inline-block;
+  margin-bottom: 8px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.playstore-badge-link:hover { opacity: 0.85; transform: translateY(-2px); }
+.playstore-badge { height: 72px; width: auto; display: block; margin: 0 auto; }
+.roadmap-btn {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 10px 24px;
+  border: 1px solid rgba(191,163,109,0.25);
+  border-radius: 10px;
+  background: rgba(191,163,109,0.07);
+  transition: all 0.2s;
+}
+.roadmap-btn:hover { border-color: var(--gold); color: var(--text-primary); }
 
 /* ─── FOOTER ─── */
 footer {
@@ -508,7 +517,7 @@ footer {
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')" data-umami-event="lang-switch-en">EN</button>
         <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
       </div>
-      <a href="index.html#waitlist" class="nav-cta" data-i18n="nav_cta" data-umami-event="nav-waitlist-click">Join Waitlist</a>
+      <a href="https://play.google.com/store/apps/details?id=fit.thymos.app" class="nav-cta" data-i18n="nav_cta" target="_blank" rel="noopener" data-umami-event="nav-playstore-click">Download</a>
     </div>
   </div>
 </nav>
@@ -651,17 +660,21 @@ footer {
 <section class="roadmap-cta">
   <div class="container">
     <div class="roadmap-cta-box anim">
-      <h2 data-i18n="roadmap_cta_title">Join the Launch List</h2>
-      <p data-i18n="roadmap_cta_desc">Join the launch list and get a launch email when THYMOS is ready.</p>
-      <form class="cta-form" id="roadmapForm" onsubmit="return handleWaitlist(event,'roadmap')">
-        <input type="email" class="cta-input" data-i18n-placeholder="form_placeholder" placeholder="your@email.com" required>
-        <button type="submit" class="cta-submit" data-i18n="form_button" data-umami-event="roadmap-waitlist-submit">Join Launch List</button>
-      </form>
-      <div class="cta-success" id="roadmapSuccess">
-        <span>✓</span>
-        <span data-i18n="form_success">You're on the launch list. We'll email you when THYMOS is ready.</span>
-      </div>
-      <p class="cta-note" data-i18n="form_note">Launch notice only. Removal requests: hello@thymos.fit.</p>
+      <h2 data-i18n="cta_title">Download THYMOS</h2>
+      <p class="cta-desc" data-i18n="cta_desc">Early Access is open on Android. Download and train without compromise.</p>
+      <p class="fomo-line" data-i18n="fomo_cta">Lock in <strong>lifetime 40% off Pro</strong> — pricing has been adjusted based on your region's purchasing power.</p>
+      <a href="https://play.google.com/store/apps/details?id=fit.thymos.app"
+         class="playstore-badge-link"
+         target="_blank"
+         rel="noopener"
+         data-umami-event="roadmap-playstore-click">
+        <img class="playstore-badge"
+             src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+             alt="Get it on Google Play"
+             height="72">
+      </a>
+      <p class="cta-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
+      <a href="index.html" class="roadmap-btn" data-i18n="return_home" data-umami-event="roadmap-return-home-click">← Return to Main Page</a>
     </div>
   </div>
 </section>
@@ -686,7 +699,7 @@ footer {
 <script>
 const translations = {
   en: {
-    nav_cta: "Join Waitlist",
+    nav_cta: "Download",
     roadmap_tag: "ROADMAP",
     roadmap_title: "What's <em>Coming</em>",
     roadmap_desc: "An honest look at where THYMOS is headed — without hype and vague promises, just the plan.",
@@ -709,18 +722,17 @@ const translations = {
     phase3_name: "The Long Game",
     phase3_status: "EXPLORING",
     f_v3_1: "AI Explainable Coaching", f_v3_1d: "AI-powered training suggestions that always show their reasoning. No black boxes.",
-    roadmap_cta_title: "Join the Launch List",
-    roadmap_cta_desc: "Join the launch list and get a launch email when THYMOS is ready.",
-    form_placeholder: "your@email.com",
-    form_button: "Join Launch List",
-    form_success: "You're on the launch list. We'll email you when THYMOS is ready.",
-    form_note: "Launch notice only. Removal requests: <a href='mailto:hello@thymos.fit' style='color:var(--text-muted);text-decoration:underline;'>hello@thymos.fit</a>. <a href='privacy.html' style='color:var(--text-muted);text-decoration:underline;'>Privacy Policy</a>",
+    cta_title: "Download THYMOS",
+    cta_desc: "Early Access is open on Android. Download and train without compromise.",
+    fomo_cta: "Lock in <strong>lifetime 40% off Pro</strong> — pricing has been adjusted based on your region's purchasing power.",
+    cta_platform: "Available on Android. iOS coming soon.",
+    return_home: "← Return to Main Page",
     footer_privacy: "Privacy",
     footer_terms: "Terms",
     footer_note: "The THYMOS app itself uses no ads or behavioral analytics. This website uses privacy-first, cookie-less analytics to measure visits."
   },
   tr: {
-    nav_cta: "Listeye Katıl",
+    nav_cta: "İndir",
     roadmap_tag: "YOL HARİTASI",
     roadmap_title: "Neler <em>Geliyor</em>",
     roadmap_desc: "THYMOS'un nereye gittiğine dürüst bir bakış — abartı ve belirsiz vaatler olmadan, sadece plan.",
@@ -743,16 +755,20 @@ const translations = {
     phase3_name: "Uzun Vade",
     phase3_status: "ARAŞTIRILIYOR",
     f_v3_1: "Açıklanabilir AI Koçluk", f_v3_1d: "Her zaman nedenini gösteren AI destekli antrenman önerileri. Kara kutu yok.",
-    roadmap_cta_title: "Lansman Listesine Katıl",
-    roadmap_cta_desc: "Lansman listesine katıl; THYMOS hazır olduğunda sana lansman e-postası gönderelim.",
-    form_placeholder: "email@adresin.com",
-    form_button: "Lansman Listesine Katıl",
-    form_success: "Lansman listesine eklendin. THYMOS hazır olduğunda sana e-posta göndereceğiz.",
-    form_note: "Yalnızca lansman bildirimi. Çıkmak için: <a href='mailto:hello@thymos.fit' style='color:var(--text-muted);text-decoration:underline;'>hello@thymos.fit</a>. <a href='privacy.html' style='color:var(--text-muted);text-decoration:underline;'>Gizlilik Politikası</a>",
+    cta_title: "THYMOS'u İndir",
+    cta_desc: "Android'de Erken Erişim açık. İndir ve ödün vermeden antrenman yap.",
+    fomo_cta: "Pro için <strong>ömür boyu %40 indirim</strong> fırsatını yakala — fiyat bölgenin satın alma gücüne göre ayarlanmıştır.",
+    cta_platform: "Android'de mevcut. iOS yakında.",
+    return_home: "← Ana Sayfaya Dön",
     footer_privacy: "Gizlilik",
     footer_terms: "Koşullar",
     footer_note: "THYMOS uygulamasının kendisi reklam veya davranışsal analitik kullanmaz. Bu web sitesi yalnızca ziyaretleri ölçmek için gizlilik odaklı, çerezsiz analitik kullanır."
   }
+};
+
+const playstoreBadge = {
+  en: { src: 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png', alt: 'Get it on Google Play' },
+  tr: { src: 'https://play.google.com/intl/tr/badges/static/images/badges/tr_badge_web_generic.png', alt: "Google Play'den edinin" }
 };
 
 function setLang(lang) {
@@ -770,6 +786,11 @@ function setLang(lang) {
       el.placeholder = translations[lang][key];
     }
   });
+  const badge = playstoreBadge[lang] || playstoreBadge.en;
+  document.querySelectorAll('.playstore-badge').forEach(img => {
+    img.src = badge.src;
+    img.alt = badge.alt;
+  });
   localStorage.setItem('thymos_lang', lang);
 }
 
@@ -782,36 +803,6 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.anim').forEach(el => observer.observe(el));
-
-// Waitlist handler
-async function handleWaitlist(e, source) {
-  e.preventDefault();
-  const form = e.target;
-  const email = form.querySelector('input[type="email"]').value.trim();
-  const btn = form.querySelector('button[type="submit"]');
-  btn.disabled = true;
-  btn.textContent = '...';
-
-  const SUPABASE_URL = 'https://fxdlscqifuicpawdzcdg.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZGxzY3FpZnVpY3Bhd2R6Y2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTY2MDcsImV4cCI6MjA4ODEzMjYwN30.X_LCrL2i1FVNVMdrO7hIYa33vtJCHjxmDT8Xf-GM5DE';
-
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ email, source, signed_up_at: new Date().toISOString() })
-    });
-  } catch {}
-
-  form.style.display = 'none';
-  document.getElementById(source + 'Success').classList.add('show');
-  return false;
-}
 </script>
 </body>
 </html>
