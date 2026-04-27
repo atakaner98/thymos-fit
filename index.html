@@ -895,6 +895,14 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 .cta-success.show { display: flex; }
 .cta-note { font-size: 12px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 8px; }
+.cta-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.cta-links .roadmap-btn { margin-top: 0; }
 
 /* ─── FOOTER ─── */
 footer { padding: 40px 0; border-top: 1px solid var(--border); }
@@ -980,6 +988,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
       </div>
       <a href="roadmap.html" class="nav-link" data-i18n="nav_roadmap" data-umami-event="nav-roadmap-click">Roadmap</a>
+      <a href="blog/en/" class="nav-link" data-href-en="blog/en/" data-href-tr="blog/tr/" data-i18n="nav_blog" data-umami-event="blog-nav-click">Blog</a>
       <a href="https://play.google.com/store/apps/details?id=fit.thymos.app" class="nav-cta" data-i18n="nav_cta" target="_blank" rel="noopener" data-umami-event="nav-playstore-click">Download</a>
     </div>
   </div>
@@ -1401,7 +1410,10 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
              height="72">
       </a>
       <p class="cta-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
-      <a href="roadmap.html" class="roadmap-btn" data-i18n="roadmap_link" data-umami-event="cta-roadmap-click">See the Roadmap →</a>
+      <div class="cta-links">
+        <a href="roadmap.html" class="roadmap-btn" data-i18n="roadmap_link" data-umami-event="cta-roadmap-click">See the Roadmap →</a>
+        <a href="blog/en/" class="roadmap-btn" data-href-en="blog/en/" data-href-tr="blog/tr/" data-i18n="blog_cta_link" data-umami-event="cta-blog-click">Read the Blog →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1412,6 +1424,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="footer-left">© 2026 THYMOS</div>
     <div class="footer-links">
       <a href="roadmap.html" data-umami-event="footer-roadmap-click" data-i18n="nav_roadmap">Roadmap</a>
+      <a href="blog/en/" data-href-en="blog/en/" data-href-tr="blog/tr/" data-umami-event="blog-nav-click" data-i18n="nav_blog">Blog</a>
       <a href="privacy.html" data-umami-event="footer-privacy-click" data-i18n="footer_privacy">Privacy</a>
       <a href="kvkk.html" data-umami-event="footer-kvkk-click">KVKK</a>
       <a href="terms.html" data-umami-event="footer-terms-click" data-i18n="footer_terms">Terms</a>
@@ -1428,7 +1441,9 @@ const translations = {
   en: {
     nav_cta: "Download",
     nav_roadmap: "Roadmap",
+    nav_blog: "Blog",
     roadmap_link: "See the Roadmap →",
+    blog_cta_link: "Read the Blog →",
     hero_tag: "PLAY STORE EARLY ACCESS",
     hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
     hero_desc: "Your fitness app sells your data, distracts you with a social feed, and breaks the moment you lose signal. THYMOS doesn't. Offline-first workout tracking for lifters who want speed, privacy, and zero bullshit.",
@@ -1522,7 +1537,9 @@ const translations = {
   tr: {
     nav_cta: "İndir",
     nav_roadmap: "Yol Haritası",
+    nav_blog: "Blog",
     roadmap_link: "Yol Haritasını Gör →",
+    blog_cta_link: "Blogu Oku →",
     hero_tag: "PLAY STORE ERKEN ERİŞİM",
     hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
     hero_desc: "Fitness uygulamaların verilerini satıyor, sosyal akışla dikkatini dağıtıyor ve sinyal kesilince çalışmayı bırakıyor. THYMOS böyle değil. Hız, gizlilik ve sıfır saçmalık isteyen sporcular için çevrimdışı antrenman takibi.",
@@ -1634,6 +1651,9 @@ function setLang(lang) {
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const k = el.getAttribute('data-i18n-placeholder');
     if (t[k] !== undefined) el.placeholder = t[k];
+  });
+  document.querySelectorAll('[data-href-en][data-href-tr]').forEach(el => {
+    el.href = el.getAttribute(`data-href-${lang}`);
   });
   const badge = playstoreBadge[lang] || playstoreBadge.en;
   document.querySelectorAll('.playstore-badge').forEach(img => {

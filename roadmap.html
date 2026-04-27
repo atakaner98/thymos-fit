@@ -141,6 +141,15 @@ nav {
 }
 .lang-btn:hover { color: var(--text-secondary); }
 .lang-btn.active { background: rgba(240,237,232,0.07); color: var(--text-primary); }
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--text-primary); }
 .nav-cta {
   display: inline-flex;
   align-items: center;
@@ -517,6 +526,7 @@ footer {
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')" data-umami-event="lang-switch-en">EN</button>
         <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
       </div>
+      <a href="blog/en/" class="nav-link" data-href-en="blog/en/" data-href-tr="blog/tr/" data-i18n="nav_blog" data-umami-event="blog-nav-click">Blog</a>
       <a href="https://play.google.com/store/apps/details?id=fit.thymos.app" class="nav-cta" data-i18n="nav_cta" target="_blank" rel="noopener" data-umami-event="nav-playstore-click">Download</a>
     </div>
   </div>
@@ -685,6 +695,7 @@ footer {
     <div class="footer-left">© 2026 THYMOS</div>
     <div class="footer-links">
       <a href="index.html">Home</a>
+      <a href="blog/en/" data-href-en="blog/en/" data-href-tr="blog/tr/" data-umami-event="blog-nav-click" data-i18n="nav_blog">Blog</a>
       <a href="privacy.html" data-umami-event="footer-privacy-click" data-i18n="footer_privacy">Privacy</a>
       <a href="kvkk.html" data-umami-event="footer-kvkk-click">KVKK</a>
       <a href="terms.html" data-umami-event="footer-terms-click" data-i18n="footer_terms">Terms</a>
@@ -700,6 +711,7 @@ footer {
 const translations = {
   en: {
     nav_cta: "Download",
+    nav_blog: "Blog",
     roadmap_tag: "ROADMAP",
     roadmap_title: "What's <em>Coming</em>",
     roadmap_desc: "An honest look at where THYMOS is headed — without hype and vague promises, just the plan.",
@@ -733,6 +745,7 @@ const translations = {
   },
   tr: {
     nav_cta: "İndir",
+    nav_blog: "Blog",
     roadmap_tag: "YOL HARİTASI",
     roadmap_title: "Neler <em>Geliyor</em>",
     roadmap_desc: "THYMOS'un nereye gittiğine dürüst bir bakış — abartı ve belirsiz vaatler olmadan, sadece plan.",
@@ -785,6 +798,9 @@ function setLang(lang) {
     if (translations[lang] && translations[lang][key]) {
       el.placeholder = translations[lang][key];
     }
+  });
+  document.querySelectorAll('[data-href-en][data-href-tr]').forEach(el => {
+    el.href = el.getAttribute(`data-href-${lang}`);
   });
   const badge = playstoreBadge[lang] || playstoreBadge.en;
   document.querySelectorAll('.playstore-badge').forEach(img => {
