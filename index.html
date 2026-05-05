@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THYMOS — Lift. Log. Own.</title>
-<meta name="description" content="A privacy-first workout companion for serious lifters. Offline-first. Zero ads. Your data, your rules.">
+<title>THYMOS — Lift. Log. Own Your Data.</title>
+<meta name="description" content="Log a set in under a second. No account needed, 100% offline, zero data sharing. The workout tracker that actually respects your privacy.">
 <meta name="google" content="notranslate">
 <!-- ═══════════════════════════════════════════════════════ -->
 <!-- PASTE EVERYTHING BELOW INTO YOUR <head> TAG          -->
@@ -22,8 +22,8 @@
 <!-- ═══════ OPEN GRAPH (Facebook, LinkedIn, iMessage, Discord, etc.) ═══════ -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thymos.fit/">
-<meta property="og:title" content="THYMOS — Lift. Log. Own.">
-<meta property="og:description" content="Offline-first workout tracker for serious lifters. No social feed, no ads, no bullshit. Your data stays on your device.">
+<meta property="og:title" content="THYMOS — Lift. Log. Own Your Data.">
+<meta property="og:description" content="Log a set in under a second. No account, 100% offline, zero data sharing. The workout tracker that protects your personal information.">
 <meta property="og:image" content="https://thymos.fit/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -34,8 +34,8 @@
 <!-- ═══════ TWITTER / X CARD ═══════ -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@thymos_fit">
-<meta name="twitter:title" content="THYMOS — Lift. Log. Own.">
-<meta name="twitter:description" content="Offline-first workout tracker for serious lifters. No social feed, no ads, no bullshit. Your data stays on your device.">
+<meta name="twitter:title" content="THYMOS — Lift. Log. Own Your Data.">
+<meta name="twitter:description" content="Log a set in under a second. No account, 100% offline, zero data sharing. The workout tracker that protects your personal information.">
 <meta name="twitter:image" content="https://thymos.fit/og-image.png">
 
 <!-- ═══════ HREFLANG (prevents duplicate content for bilingual toggle) ═══════ -->
@@ -597,6 +597,18 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
 .feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+.feature-learn-more {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s;
+}
+.feature-learn-more:hover { opacity: 0.75; }
 
 /* ─── SHOWCASE rows ─── */
 .showcase { padding: 60px 0; }
@@ -965,6 +977,68 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 }
 .faq-item.open .faq-answer { max-height: 400px; }
 
+/* ─── COMPARISON TABLE ─── */
+.comparison { padding: 80px 0; }
+.comparison-table-wrap {
+  overflow-x: auto;
+  margin-top: 48px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+.comparison-table thead th {
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.comparison-table thead th:first-child { text-align: left; min-width: 180px; }
+.comparison-table thead th.col-thymos {
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+.comparison-table tbody tr { border-bottom: 1px solid var(--border); }
+.comparison-table tbody tr:last-child { border-bottom: none; }
+.comparison-table tbody tr:hover { background: var(--bg-card); }
+.comparison-table td {
+  padding: 14px 20px;
+  font-size: 14px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+.comparison-table td.feature-label {
+  text-align: left;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 14px;
+}
+.comparison-table td.col-thymos { background: rgba(200,85,61,0.05); }
+.comparison-table .val-yes { color: var(--success); font-weight: 700; font-size: 17px; }
+.comparison-table .val-no { color: #8B4040; font-weight: 700; font-size: 17px; }
+.comparison-table .val-partial {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  line-height: 1.4;
+}
+.comparison-note {
+  margin-top: 16px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+  max-width: 760px;
+}
+
 /* ─── PLAY STORE BADGE ─── */
 .playstore-badge-link {
   display: inline-block;
@@ -1005,11 +1079,11 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </div>
       <h1>
         <span data-i18n="hero_title_1">Lift.</span>
-        <span data-i18n="hero_title_2">Log.</span>
-        <span class="accent" data-i18n="hero_title_3">Own.</span>
+        <span data-i18n="hero_title_2">Log.</span><br>
+        <span class="accent" data-i18n="hero_title_3">Own Your Data.</span>
       </h1>
       <p class="hero-desc" data-i18n="hero_desc">
-        Your fitness app sells your data, distracts you with a social feed, and breaks the moment you lose signal. THYMOS doesn't. Offline-first workout tracking for lifters who want speed, privacy, and zero bullshit.
+        Log a set in under a second. No account, no signal, no distractions — just your training. Offline-first workout tracking for lifters who take their data as seriously as their lifts.
       </p>
       <p class="fomo-line" data-i18n="fomo_cta">Lock in <strong>lifetime 40% off Pro</strong> — pricing has been adjusted based on your region's purchasing power.</p>
       <a href="https://play.google.com/store/apps/details?id=fit.thymos.app"
@@ -1056,116 +1130,6 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   </div>
 </section>
 
-<!-- PRIVACY STATEMENT -->
-<section class="privacy-statement">
-  <div class="container">
-    <div class="privacy-statement-inner">
-      <div class="privacy-content">
-        <div class="privacy-kicker anim">
-          <span class="privacy-kicker-icon">🔒</span>
-          <span data-i18n="privacy_kicker">DATA PRIVACY</span>
-        </div>
-        <h2 class="privacy-headline anim" data-i18n="privacy_headline">
-          Your fitness data can identify you<br>among <em>100&nbsp;million&nbsp;people</em> in&nbsp;6&nbsp;days.<br>Here's what we do about it.
-        </h2>
-        <p class="privacy-lead anim" data-i18n="privacy_lead">
-          Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.
-        </p>
-        <div class="privacy-pillars">
-          <div class="privacy-pillar anim">
-            <span class="privacy-pillar-icon">📱</span>
-            <div class="privacy-pillar-title" data-i18n="pp1_title">On-Device First</div>
-            <div class="privacy-pillar-desc" data-i18n="pp1_desc">Your data lives on your device. Cloud backup is optional — your phone always stays in control.</div>
-          </div>
-          <div class="privacy-pillar anim anim-delay-1">
-            <span class="privacy-pillar-icon">🚫</span>
-            <div class="privacy-pillar-title" data-i18n="pp2_title">Zero Tracking</div>
-            <div class="privacy-pillar-desc" data-i18n="pp2_desc">No behavioral analytics, no ad SDKs, no third-party data brokers. Nothing watching you lift.</div>
-          </div>
-          <div class="privacy-pillar anim anim-delay-2">
-            <span class="privacy-pillar-icon">🔐</span>
-            <div class="privacy-pillar-title" data-i18n="pp3_title">Sensitive Data Stays Local</div>
-            <div class="privacy-pillar-desc" data-i18n="pp3_desc">Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.</div>
-          </div>
-          <div class="privacy-pillar anim anim-delay-3">
-            <span class="privacy-pillar-icon">📤</span>
-            <div class="privacy-pillar-title" data-i18n="pp4_title">Full Export, Anytime</div>
-            <div class="privacy-pillar-desc" data-i18n="pp4_desc">Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.</div>
-          </div>
-        </div>
-      </div>
-      <div class="privacy-visual-col anim anim-delay-1">
-        <div class="phone-frame" style="margin:0 auto;">
-          <video data-src="assets/videos/raw_record_data_privacy.mp4" loop muted playsinline preload="none"></video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOUNDER'S NOTE -->
-<section class="founder">
-  <div class="container">
-    <div class="founder-box anim">
-      <img class="founder-img" src="assets/images/maker.jpg" alt="redglovez — Founder">
-      <div class="founder-quote">
-        <div class="section-tag" data-i18n="founder_tag">FROM THE MAKER</div>
-        <blockquote data-i18n="founder_text">I'm building THYMOS because I'm tired of fitness apps that treat your data as their product and your attention as their revenue. As a lifter and a developer, I want a tool that respects both the craft and the person behind it. Just an honest tool for honest training. If we are on the same page, welcome aboard.</blockquote>
-        <div class="founder-sig">
-          <a class="founder-name" href="https://www.instagram.com/redglovez/" target="_blank" data-umami-event="founder-instagram-click">— redglovez</a>
-          <span class="founder-divider"></span>
-          <span class="founder-role" data-i18n="founder_role">Founder & Developer</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PHILOSOPHY -->
-<section class="philosophy">
-  <div class="container">
-    <div class="philosophy-grid">
-      <div class="anim">
-        <div class="section-tag" data-i18n="phil_tag">PHILOSOPHY</div>
-        <h2 class="section-title" data-i18n="phil_title">Anti-Bullshit<br>By Design.</h2>
-        <p class="section-desc" data-i18n="phil_desc" style="margin-bottom:0">
-          Most fitness apps are built to keep you scrolling. THYMOS is built to get out of your way.
-        </p>
-      </div>
-      <div class="philosophy-points">
-        <div class="phil-point anim">
-          <div class="phil-marker">01</div>
-          <div>
-            <div class="phil-text-title" data-i18n="p1_title">No Social Feed</div>
-            <div class="phil-text-desc" data-i18n="p1_desc">No likes, no followers, no comparison anxiety. This is your training log, not a competition.</div>
-          </div>
-        </div>
-        <div class="phil-point anim anim-delay-1">
-          <div class="phil-marker">02</div>
-          <div>
-            <div class="phil-text-title" data-i18n="p2_title">No Gamification</div>
-            <div class="phil-text-desc" data-i18n="p2_desc">No streaks, no badges, no fake motivation. Your progress is the reward.</div>
-          </div>
-        </div>
-        <div class="phil-point anim anim-delay-2">
-          <div class="phil-marker">03</div>
-          <div>
-            <div class="phil-text-title" data-i18n="p3_title">No Pushy Tactics</div>
-            <div class="phil-text-desc" data-i18n="p3_desc">No push notifications begging you to come back. No premium upsell popups during your workout.</div>
-          </div>
-        </div>
-        <div class="phil-point anim anim-delay-3">
-          <div class="phil-marker">04</div>
-          <div>
-            <div class="phil-text-title" data-i18n="p4_title">No Vendor Lock-in</div>
-            <div class="phil-text-desc" data-i18n="p4_desc">Export everything, anytime. Your data is yours — we just help you organize it.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FEATURE CARDS (overview) -->
 <section class="features">
   <div class="container">
@@ -1179,20 +1143,99 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <div class="feature-icon">⚡</div>
         <h3 class="feature-title" data-i18n="f1_title">Ultra-Fast Logging</h3>
         <p class="feature-desc" data-i18n="f1_desc">Instant workout starts, custom templates, and progressive programs. Go from idea to action in seconds.</p>
+        <a href="/instant-fast/" class="feature-learn-more" data-i18n="learn_more_fast">No account needed →</a>
       </div>
       <div class="feature-card anim anim-delay-1">
         <div class="feature-icon">📡</div>
         <h3 class="feature-title" data-i18n="f4_title">Offline-First</h3>
         <p class="feature-desc" data-i18n="f4_desc">Works completely offline — always. Cloud sync is optional and only used for backup, never required.</p>
+        <a href="/offline-no-wifi-needed/" class="feature-learn-more" data-i18n="learn_more_offline">Works without WiFi →</a>
       </div>
       <div class="feature-card anim anim-delay-2">
         <div class="feature-icon">👤</div>
         <h3 class="feature-title" data-i18n="f5_title">Anonymous by Default</h3>
         <p class="feature-desc" data-i18n="f5_desc">Open the app and start lifting. No email, no account, no internet required. Link an account only when you want multi-device sync.</p>
+        <a href="/instant-fast/" class="feature-learn-more" data-i18n="learn_more_anon">Start in 3 seconds →</a>
       </div>
     </div>
   </div>
 </section>
+
+<!-- COMPARISON TABLE -->
+<section class="comparison">
+  <div class="container">
+    <div class="section-tag anim" data-i18n="comp_tag">HOW WE COMPARE</div>
+    <h2 class="section-title anim" data-i18n="comp_title">Not All Fitness Apps Are Equal.</h2>
+    <p class="section-desc anim" data-i18n="comp_desc">Most fitness apps require an account, share your data with ad partners, and lock you in. Here's what separates THYMOS.</p>
+    <div class="comparison-table-wrap anim">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="col-thymos" data-i18n="comp_thymos">THYMOS</th>
+            <th data-i18n="comp_strong">Strong</th>
+            <th data-i18n="comp_hevy">Hevy</th>
+            <th data-i18n="comp_mfp">MyFitnessPal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature-label" data-i18n="comp_feature_1">No Account to Start</td>
+            <td class="col-thymos val-yes">&#10003;</td>
+            <td class="val-no">&#10007;</td>
+            <td class="val-no">&#10007;</td>
+            <td class="val-no">&#10007;</td>
+          </tr>
+          <tr>
+            <td class="feature-label" data-i18n="comp_feature_2">100% Offline</td>
+            <td class="col-thymos val-yes">&#10003;</td>
+            <td class="val-yes">&#10003;</td>
+            <td class="val-partial" data-i18n="comp_hevy_offline">Unconfirmed</td>
+            <td class="val-no">&#10007;</td>
+          </tr>
+          <tr>
+            <td class="feature-label" data-i18n="comp_feature_3">No Social Feed</td>
+            <td class="col-thymos val-yes">&#10003;</td>
+            <td class="val-yes">&#10003;</td>
+            <td class="val-no">&#10007;</td>
+            <td class="val-no">&#10007;</td>
+          </tr>
+          <tr>
+            <td class="feature-label" data-i18n="comp_feature_4">No Ads</td>
+            <td class="col-thymos val-yes">&#10003;</td>
+            <td class="val-yes">&#10003;</td>
+            <td class="val-yes">&#10003;</td>
+            <td class="val-no">&#10007;</td>
+          </tr>
+          <tr>
+            <td class="feature-label" data-i18n="comp_feature_5">No Ad Partner Data Sharing</td>
+            <td class="col-thymos val-yes">&#10003;</td>
+            <td class="val-partial" data-i18n="comp_unknown">Not Documented</td>
+            <td class="val-no">&#10007;</td>
+            <td class="val-no">&#10007;</td>
+          </tr>
+          <tr>
+            <td class="feature-label" data-i18n="comp_feature_6">Import from Other Apps</td>
+            <td class="col-thymos val-yes">&#10003;</td>
+            <td class="val-no">&#10007;</td>
+            <td class="val-yes">&#10003;</td>
+            <td class="val-no">&#10007;</td>
+          </tr>
+          <tr>
+            <td class="feature-label" data-i18n="comp_feature_7">Free Full Data Export</td>
+            <td class="col-thymos val-yes">&#10003;</td>
+            <td class="val-yes">&#10003;</td>
+            <td class="val-yes">&#10003;</td>
+            <td class="val-partial" data-i18n="comp_mfp_export">Premium Only</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="comparison-note anim" data-i18n="comp_note">Sources: official help centers, privacy policies, and app store descriptions. Strong's data-sharing practices are not explicitly documented in their public privacy policy. Hevy's full offline capability for the main app is not confirmed in official documentation.</p>
+  </div>
+</section>
+
+
 
 <!-- SHOWCASE ROWS -->
 <section class="showcase">
@@ -1315,6 +1358,116 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- PRIVACY STATEMENT -->
+<section class="privacy-statement">
+  <div class="container">
+    <div class="privacy-statement-inner">
+      <div class="privacy-content">
+        <div class="privacy-kicker anim">
+          <span class="privacy-kicker-icon">🔒</span>
+          <span data-i18n="privacy_kicker">DATA PRIVACY</span>
+        </div>
+        <h2 class="privacy-headline anim" data-i18n="privacy_headline">
+          Your fitness data can identify you<br>among <em>100&nbsp;million&nbsp;people</em> in&nbsp;6&nbsp;days.<br>Here's what we do about it.
+        </h2>
+        <p class="privacy-lead anim" data-i18n="privacy_lead">
+          Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.
+        </p>
+        <div class="privacy-pillars">
+          <div class="privacy-pillar anim">
+            <span class="privacy-pillar-icon">📱</span>
+            <div class="privacy-pillar-title" data-i18n="pp1_title">On-Device First</div>
+            <div class="privacy-pillar-desc" data-i18n="pp1_desc">Your data lives on your device. Cloud backup is optional — your phone always stays in control.</div>
+          </div>
+          <div class="privacy-pillar anim anim-delay-1">
+            <span class="privacy-pillar-icon">🚫</span>
+            <div class="privacy-pillar-title" data-i18n="pp2_title">Zero Tracking</div>
+            <div class="privacy-pillar-desc" data-i18n="pp2_desc">No behavioral analytics, no ad SDKs, no third-party data brokers. Nothing watching you lift.</div>
+          </div>
+          <div class="privacy-pillar anim anim-delay-2">
+            <span class="privacy-pillar-icon">🔐</span>
+            <div class="privacy-pillar-title" data-i18n="pp3_title">Sensitive Data Stays Local</div>
+            <div class="privacy-pillar-desc" data-i18n="pp3_desc">Readiness scores, wellness context, and RPE signals are marked sensitive and never synced to the cloud.</div>
+          </div>
+          <div class="privacy-pillar anim anim-delay-3">
+            <span class="privacy-pillar-icon">📤</span>
+            <div class="privacy-pillar-title" data-i18n="pp4_title">Full Export, Anytime</div>
+            <div class="privacy-pillar-desc" data-i18n="pp4_desc">Export everything as CSV or JSON whenever you want. No lock-in. No asking permission.</div>
+          </div>
+        </div>
+      </div>
+      <div class="privacy-visual-col anim anim-delay-1">
+        <div class="phone-frame" style="margin:0 auto;">
+          <video data-src="assets/videos/raw_record_data_privacy.mp4" loop muted playsinline preload="none"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="container">
+    <div class="philosophy-grid">
+      <div class="anim">
+        <div class="section-tag" data-i18n="phil_tag">PHILOSOPHY</div>
+        <h2 class="section-title" data-i18n="phil_title">Anti-Bullshit<br>By Design.</h2>
+        <p class="section-desc" data-i18n="phil_desc" style="margin-bottom:0">
+          Most fitness apps are built to keep you scrolling. THYMOS is built to get out of your way.
+        </p>
+      </div>
+      <div class="philosophy-points">
+        <div class="phil-point anim">
+          <div class="phil-marker">01</div>
+          <div>
+            <div class="phil-text-title" data-i18n="p1_title">No Social Feed</div>
+            <div class="phil-text-desc" data-i18n="p1_desc">No likes, no followers, no comparison anxiety. Just you and your log.</div>
+          </div>
+        </div>
+        <div class="phil-point anim anim-delay-1">
+          <div class="phil-marker">02</div>
+          <div>
+            <div class="phil-text-title" data-i18n="p2_title">No Gamification</div>
+            <div class="phil-text-desc" data-i18n="p2_desc">No streaks, no badges, no fake motivation. Your PRs are the reward.</div>
+          </div>
+        </div>
+        <div class="phil-point anim anim-delay-2">
+          <div class="phil-marker">03</div>
+          <div>
+            <div class="phil-text-title" data-i18n="p3_title">No Pushy Tactics</div>
+            <div class="phil-text-desc" data-i18n="p3_desc">No push notifications begging you to come back. No upsell popups during your workout. We're here when you train, gone when you don't.</div>
+          </div>
+        </div>
+        <div class="phil-point anim anim-delay-3">
+          <div class="phil-marker">04</div>
+          <div>
+            <div class="phil-text-title" data-i18n="p4_title">No Vendor Lock-in</div>
+            <div class="phil-text-desc" data-i18n="p4_desc">Import your history from Strong, Hevy, or any CSV. Export everything as CSV or JSON, anytime. Your data is always portable.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER'S NOTE -->
+<section class="founder">
+  <div class="container">
+    <div class="founder-box anim">
+      <img class="founder-img" src="assets/images/maker.jpg" alt="redglovez — Founder">
+      <div class="founder-quote">
+        <div class="section-tag" data-i18n="founder_tag">FROM THE MAKER</div>
+        <blockquote data-i18n="founder_text">I'm building THYMOS because I'm tired of fitness apps that treat your data as their product and your attention as their revenue. As a lifter and a developer, I want a tool that respects both the craft and the person behind it. Just an honest tool for honest training. If we are on the same page, welcome aboard.</blockquote>
+        <div class="founder-sig">
+          <a class="founder-name" href="https://www.instagram.com/redglovez/" target="_blank" data-umami-event="founder-instagram-click">— redglovez</a>
+          <span class="founder-divider"></span>
+          <span class="founder-role" data-i18n="founder_role">Founder & Developer</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1445,8 +1598,8 @@ const translations = {
     roadmap_link: "See the Roadmap →",
     blog_cta_link: "Read the Blog →",
     hero_tag: "PLAY STORE EARLY ACCESS",
-    hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own.",
-    hero_desc: "Your fitness app sells your data, distracts you with a social feed, and breaks the moment you lose signal. THYMOS doesn't. Offline-first workout tracking for lifters who want speed, privacy, and zero bullshit.",
+    hero_title_1: "Lift.", hero_title_2: "Log.", hero_title_3: "Own Your Data.",
+    hero_desc: "Log a set in under a second. No account, no signal, no distractions — just your training. Offline-first workout tracking for lifters who take their data as seriously as their lifts.",
     fomo_cta: "Lock in <strong>lifetime 40% off Pro</strong> — pricing has been adjusted based on your region's purchasing power.",
     metric_1: "PER-SET LOGGING", metric_2: "NO INTERNET NEEDED", metric_3: "ZERO TRACKERS", metric_4: "NEEDED",
     metric_2_val: "Offline", metric_3_val: "Ads", metric_4_val: "Accounts",
@@ -1492,10 +1645,31 @@ const translations = {
     phil_tag: "PHILOSOPHY",
     phil_title: "Anti-Bullshit<br>By Design.",
     phil_desc: "Most fitness apps are built to keep you scrolling. THYMOS is built to get out of your way.",
-    p1_title: "No Social Feed", p1_desc: "No likes, no followers, no comparison anxiety. This is your training log, not a competition.",
-    p2_title: "No Gamification", p2_desc: "No streaks, no badges, no fake motivation. Your progress is the reward.",
-    p3_title: "No Pushy Tactics", p3_desc: "No push notifications begging you to come back. No premium upsell popups during your workout.",
-    p4_title: "No Vendor Lock-in", p4_desc: "Export everything, anytime. Your data is yours — we just help you organize it.",
+    p1_title: "No Social Feed", p1_desc: "No likes, no followers, no comparison anxiety. Just you and your log.",
+    p2_title: "No Gamification", p2_desc: "No streaks, no badges, no fake motivation. Your PRs are the reward.",
+    p3_title: "No Pushy Tactics", p3_desc: "No push notifications begging you to come back. No upsell popups during your workout. We're here when you train, gone when you don't.",
+    p4_title: "No Vendor Lock-in", p4_desc: "Import your history from Strong, Hevy, or any CSV. Export everything as CSV or JSON, anytime. Your data is always portable.",
+    learn_more_fast: "No account needed →",
+    learn_more_offline: "Works without WiFi →",
+    learn_more_anon: "Start in 3 seconds →",
+    comp_tag: "HOW WE COMPARE",
+    comp_title: "Not All Fitness Apps Are Equal.",
+    comp_desc: "Most fitness apps require an account, share your data with ad partners, and lock you in. Here's what separates THYMOS.",
+    comp_thymos: "THYMOS",
+    comp_strong: "Strong",
+    comp_hevy: "Hevy",
+    comp_mfp: "MyFitnessPal",
+    comp_feature_1: "No Account to Start",
+    comp_feature_2: "100% Offline",
+    comp_feature_3: "No Social Feed",
+    comp_feature_4: "No Ads",
+    comp_feature_5: "No Ad Partner Data Sharing",
+    comp_feature_6: "Import from Other Apps",
+    comp_feature_7: "Free Full Data Export",
+    comp_hevy_offline: "Unconfirmed",
+    comp_unknown: "Not Documented",
+    comp_mfp_export: "Premium Only",
+    comp_note: "Sources: official help centers, privacy policies, and app store descriptions. Strong's data-sharing practices are not explicitly documented in their public privacy policy. Hevy's full offline capability for the main app is not confirmed in official documentation.",
     cta_title: "Download THYMOS",
     cta_desc: "Early Access is open on Android. Download and train without compromise.",
     privacy_kicker: "DATA PRIVACY",
@@ -1541,8 +1715,8 @@ const translations = {
     roadmap_link: "Yol Haritasını Gör →",
     blog_cta_link: "Blogu Oku →",
     hero_tag: "PLAY STORE ERKEN ERİŞİM",
-    hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verine Sahip Ol.",
-    hero_desc: "Fitness uygulamaların verilerini satıyor, sosyal akışla dikkatini dağıtıyor ve sinyal kesilince çalışmayı bırakıyor. THYMOS böyle değil. Hız, gizlilik ve sıfır saçmalık isteyen sporcular için çevrimdışı antrenman takibi.",
+    hero_title_1: "Kaldır.", hero_title_2: "Kaydet.", hero_title_3: "Verinin Sahibi Ol.",
+    hero_desc: "Bir seti bir saniyenin altında kaydet. Hesap yok, sinyal yok, dikkat dağıtıcı yok — sadece antrenman. Verilerini çalışmaları kadar ciddiye alan sporcular için çevrimdışı antrenman takibi.",
     fomo_cta: "Pro için <strong>ömür boyu %40 indirim</strong> fırsatını yakala — fiyat bölgenin satın alma gücüne göre ayarlanmıştır.",
     metric_1: "SET BAŞINA KAYIT", metric_2: "İNTERNET GEREKMEZ", metric_3: "SIFIR TAKİP", metric_4: "GEREKLİ",
     metric_2_val: "Çevrimdışı", metric_3_val: "Reklam", metric_4_val: "Hesap",
@@ -1588,10 +1762,31 @@ const translations = {
     phil_tag: "FELSEFEMİZ",
     phil_title: "Tasarımda<br>Saçmalık Yok.",
     phil_desc: "Çoğu fitness uygulaması seni kaydırmaya devam ettirmek için yapıldı. THYMOS yolundan çekilmek için.",
-    p1_title: "Sosyal Akış Yok", p1_desc: "Beğeni yok, takipçi yok, kıyaslama stresi yok. Bu senin antrenman günlüğün, bir yarışma değil.",
-    p2_title: "Oyunlaştırma Yok", p2_desc: "Seri yok, rozet yok, sahte motivasyon yok. Asıl ödül, ilerlemek.",
-    p3_title: "Baskı Taktiği Yok", p3_desc: "\"Geri dön\" diye zorlayan bildirimler yok. Antrenman sırasında seni durduran premium satış ekranları yok.",
-    p4_title: "Zorunlu Bağlılık Yok", p4_desc: "Her şeyi istediğin zaman dışa aktar. Verin senin — biz sadece düzenlemene yardım ediyoruz.",
+    p1_title: "Sosyal Akış Yok", p1_desc: "Beğeni yok, takipçi yok, kıyaslama stresi yok. Sadece sen ve antrenman günlüğün.",
+    p2_title: "Oyunlaştırma Yok", p2_desc: "Seri yok, rozet yok, sahte motivasyon yok. Asıl ödül, PRların.",
+    p3_title: "Baskı Taktiği Yok", p3_desc: "\"Geri dön\" diye zorlayan bildirimler yok. Antrenman sırasında premium satış ekranı yok. Antrenman yaptığında buradayız, yapmadığında çekiliyoruz.",
+    p4_title: "Zorunlu Bağlılık Yok", p4_desc: "Strong, Hevy veya herhangi bir CSV'den geçmişini içe aktar. Her şeyi CSV veya JSON olarak istediğin zaman dışa aktar. Verin her zaman taşınabilir.",
+    learn_more_fast: "Hesap gerekmez →",
+    learn_more_offline: "WiFi'siz çalışır →",
+    learn_more_anon: "3 saniyede başla →",
+    comp_tag: "KARŞILAŞTIRMA",
+    comp_title: "Tüm Fitness Uygulamaları Eşit Değil.",
+    comp_desc: "Çoğu fitness uygulaması hesap zorunlu kılıyor, verini reklam ortaklarıyla paylaşıyor ve seni içinde hapsediyor. THYMOS'u farklı yapan şey budur.",
+    comp_thymos: "THYMOS",
+    comp_strong: "Strong",
+    comp_hevy: "Hevy",
+    comp_mfp: "MyFitnessPal",
+    comp_feature_1: "Hesapsız Başlangıç",
+    comp_feature_2: "Tam Çevrimdışı",
+    comp_feature_3: "Sosyal Akış Yok",
+    comp_feature_4: "Reklam Yok",
+    comp_feature_5: "Reklam Ortağı Veri Paylaşımı Yok",
+    comp_feature_6: "Diğer Uygulamalardan İçe Aktarım",
+    comp_feature_7: "Ücretsiz Tam Veri Dışa Aktarımı",
+    comp_hevy_offline: "Doğrulanmamış",
+    comp_unknown: "Belgelenmemiş",
+    comp_mfp_export: "Yalnızca Premium",
+    comp_note: "Kaynaklar: resmi yardım merkezleri, gizlilik politikaları ve uygulama mağazası açıklamaları. Strong'un veri paylaşım uygulamaları resmi gizlilik politikasında açıkça belgelenmemiştir. Hevy'nin ana uygulama için tam çevrimdışı desteği resmi dokümanlarda teyit edilmemiştir.",
     cta_title: "THYMOS'u İndir",
     cta_desc: "Android'de Erken Erişim açık. İndir ve ödün vermeden antrenman yap.",
     privacy_kicker: "VERİ GİZLİLİĞİ",

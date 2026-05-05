@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THYMOS — Start Training in Seconds. No Account Needed.</title>
+<meta name="description" content="Open THYMOS and start your workout instantly — no signup, no email, no friction. Log a set in under a second. Free on Android.">
+<meta name="google" content="notranslate">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://thymos.fit/instant-fast/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thymos.fit/instant-fast/">
+<meta property="og:title" content="THYMOS — Start Training in Seconds. No Account Needed.">
+<meta property="og:description" content="Open the app and lift. No signup, no email, no waiting. Log a set in under a second.">
+<meta property="og:image" content="https://thymos.fit/og-image.png">
+<meta property="og:site_name" content="THYMOS">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="THYMOS — Start Training in Seconds. No Account Needed.">
+<meta name="twitter:description" content="Open the app and lift. No signup, no email, no waiting. Log a set in under a second.">
+<meta name="twitter:image" content="https://thymos.fit/og-image.png">
+<link rel="alternate" hreflang="en" href="https://thymos.fit/instant-fast/">
+<link rel="alternate" hreflang="tr" href="https://thymos.fit/instant-fast/">
+<link rel="alternate" hreflang="x-default" href="https://thymos.fit/instant-fast/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="a1f4c123-dfae-448b-bce1-f8b4e8e5f8fa"></script>
+<style>
+:root {
+  --bg-primary: #0A0A0B;
+  --bg-secondary: #111113;
+  --bg-card: #161618;
+  --bg-card-hover: #1C1C1F;
+  --border: #2A2A2E;
+  --border-accent: #3A3A3F;
+  --text-primary: #F0EDE8;
+  --text-secondary: #8E8C87;
+  --text-muted: #5A5856;
+  --accent: #C8553D;
+  --accent-glow: rgba(200, 85, 61, 0.15);
+  --accent-hover: #D4634C;
+  --gold: #BFA36D;
+  --gold-dim: rgba(191, 163, 109, 0.1);
+  --success: #4A9E6D;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-display);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+section { position: relative; z-index: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.anim.visible { opacity: 1; transform: translateY(0); }
+.anim-delay-1 { transition-delay: 0.1s; }
+.anim-delay-2 { transition-delay: 0.2s; }
+.anim-delay-3 { transition-delay: 0.3s; }
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+nav.scrolled { border-bottom-color: var(--border); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--text-primary); text-decoration: none; letter-spacing: -0.02em; }
+.logo span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.lang-toggle { display: flex; gap: 4px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
+.lang-btn { background: none; border: none; color: var(--text-muted); font-family: var(--font-mono); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.lang-btn.active { background: var(--accent); color: white; }
+.nav-link { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.nav-link:hover { color: var(--text-primary); }
+.nav-cta { background: var(--accent); color: white; text-decoration: none; padding: 8px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; transition: background 0.2s, transform 0.2s; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.nav-cta.visible { opacity: 1; pointer-events: auto; }
+.nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+@media(max-width:600px) { .nav-link { display: none; } }
+
+/* HERO */
+.hero {
+  padding: 160px 0 100px;
+  text-align: center;
+}
+.hero-glow {
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse at center, rgba(200,85,61,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 100px; padding: 6px 14px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  color: var(--text-muted); letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+.hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero-desc {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.playstore-badge-link { display: inline-block; margin-bottom: 12px; transition: opacity 0.2s, transform 0.2s; }
+.playstore-badge-link:hover { opacity: 0.85; transform: translateY(-2px); }
+.playstore-badge { height: 72px; width: auto; display: block; }
+.hero-note { color: var(--text-muted); font-size: 13px; font-family: var(--font-mono); }
+.fomo-line {
+  color: var(--gold);
+  font-size: 14px;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+}
+
+/* METRICS */
+.metrics { padding: 20px 0 60px; }
+.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.metric-item { background: var(--bg-card); padding: 28px 20px; text-align: center; }
+.metric-value { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
+.unit { font-size: 0.5em; font-weight: 600; color: var(--text-secondary); }
+.metric-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+@media(max-width:600px) { .metrics-grid { grid-template-columns: 1fr; } }
+
+/* SECTION SHARED */
+.section-tag { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px; }
+.section-desc { font-size: 1.05rem; color: var(--text-secondary); max-width: 560px; line-height: 1.7; margin-bottom: 48px; }
+
+/* FEATURE CARDS */
+.features { padding: 80px 0; }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--accent); transform: scaleX(0); transition: transform 0.3s;
+}
+.feature-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); transform: translateY(-2px); }
+.feature-card:hover::before { transform: scaleX(1); }
+.feature-icon { font-size: 28px; margin-bottom: 16px; }
+.feature-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+.feature-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+@media(max-width:900px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:600px) { .features-grid { grid-template-columns: 1fr; } }
+
+/* SHOWCASE */
+.showcase { padding: 60px 0; }
+.showcase-row {
+  display: grid;
+  grid-template-columns: 1fr 410px;
+  gap: 80px;
+  align-items: center;
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+.showcase-row:last-child { border-bottom: none; }
+.showcase-row.reverse { grid-template-columns: 410px 1fr; }
+.showcase-row.reverse .showcase-visual { order: -1; }
+.showcase-eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+.showcase-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.showcase-eyebrow span:last-child { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+.showcase-title { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 20px; }
+.showcase-body { font-size: 1rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 28px; }
+.showcase-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font-family: var(--font-mono); font-size: 11px; padding: 5px 12px; border: 1px solid var(--border); border-radius: 100px; color: var(--text-muted); }
+.pill.accent { border-color: var(--accent); color: var(--accent); }
+.phone-frame {
+  position: relative;
+  max-width: 350px;
+  border: 6px solid #1a1a1a;
+  border-radius: 36px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 0 0 2px #2a2a2a,
+    0 20px 60px rgba(0,0,0,0.6),
+    0 8px 20px rgba(0,0,0,0.4);
+}
+@media(max-width:768px) { .phone-frame { max-width: 260px; margin: 0 auto; } }
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 22px;
+  background: #1a1a1a;
+  border-radius: 0 0 14px 14px;
+  z-index: 2;
+}
+.phone-frame video { width: 100%; height: auto; display: block; }
+@media(max-width:860px) {
+  .showcase-row, .showcase-row.reverse { grid-template-columns: 1fr; gap: 40px; }
+  .showcase-row.reverse .showcase-visual { order: 0; }
+}
+
+/* CALLOUT */
+.callout-section { padding: 60px 0; }
+.callout-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 16px;
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.callout-icon { font-size: 28px; flex-shrink: 0; }
+.callout-text { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; }
+.callout-text strong { color: var(--text-primary); }
+@media(max-width:600px) { .callout-box { flex-direction: column; padding: 24px; } }
+
+/* CTA */
+.cta-section { padding: 100px 0; }
+.cta-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 64px 48px;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.cta-title { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+.cta-desc { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6; }
+.fomo-line { color: var(--gold); font-size: 14px; margin-bottom: 28px; font-family: var(--font-mono); }
+.cta-note { color: var(--text-muted); font-size: 13px; font-family: var(--font-mono); margin-top: 12px; }
+.cta-links { display: flex; gap: 16px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+.roadmap-btn { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.roadmap-btn:hover { color: var(--text-primary); }
+@media(max-width:600px) { .cta-box { padding: 40px 24px; } }
+
+/* FOOTER */
+footer { padding: 40px 0; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-left { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
+.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--text-primary); }
+.footer-note { font-size: 12px; color: var(--text-muted); margin-top: 8px; max-width: 480px; line-height: 1.6; font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container nav-inner">
+    <a href="../" class="logo">THYMOS<span>.</span></a>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')" data-umami-event="lang-switch-en">EN</button>
+        <button class="lang-btn" data-lang="tr" onclick="setLang('tr')" data-umami-event="lang-switch-tr">TR</button>
+      </div>
+      <a href="../roadmap.html" class="nav-link" data-i18n="nav_roadmap">Roadmap</a>
+      <a href="../blog/en/" class="nav-link" data-href-en="../blog/en/" data-href-tr="../blog/tr/" data-i18n="nav_blog">Blog</a>
+      <a href="https://play.google.com/store/apps/details?id=fit.thymos.app" class="nav-cta" data-i18n="nav_cta" target="_blank" rel="noopener" data-umami-event="nav-playstore-click">Download</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      <span data-i18n="hero_tag">PLAY STORE EARLY ACCESS</span>
+    </div>
+    <h1>
+      <span data-i18n="hero_title_1">Start Training</span><br>
+      <span class="accent" data-i18n="hero_title_2">in 3 Seconds.</span>
+    </h1>
+    <p class="hero-desc" data-i18n="hero_desc">
+      No signup. No email. No waiting. Open THYMOS and your first set is ready to log before you finish putting your phone down.
+    </p>
+    <p class="fomo-line" data-i18n="fomo_cta">Lock in <strong>lifetime 40% off Pro</strong> — pricing adjusted for your region.</p>
+    <a href="https://play.google.com/store/apps/details?id=fit.thymos.app"
+       class="playstore-badge-link"
+       target="_blank"
+       rel="noopener"
+       data-umami-event="if-hero-playstore-click">
+      <img class="playstore-badge"
+           src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+           alt="Get it on Google Play"
+           height="72">
+    </a>
+    <p class="hero-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics">
+  <div class="container">
+    <div class="metrics-grid">
+      <div class="metric-item anim">
+        <div class="metric-value">&lt;0.5<span class="unit">s</span></div>
+        <div class="metric-label" data-i18n="metric_1">PER-SET LOGGING</div>
+      </div>
+      <div class="metric-item anim anim-delay-1">
+        <div class="metric-value">0 <span class="unit" data-i18n="metric_accounts_val">Accounts</span></div>
+        <div class="metric-label" data-i18n="metric_accounts">NEEDED TO START</div>
+      </div>
+      <div class="metric-item anim anim-delay-2">
+        <div class="metric-value">0 <span class="unit" data-i18n="metric_email_val">Emails</span></div>
+        <div class="metric-label" data-i18n="metric_email">REQUIRED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE CARDS -->
+<section class="features">
+  <div class="container">
+    <div class="section-tag anim" data-i18n="features_tag">WHY IT'S FASTER</div>
+    <h2 class="section-title anim" data-i18n="features_title">Built for People Who Just Want to Lift.</h2>
+    <p class="section-desc anim" data-i18n="features_desc">Every second you spend navigating menus is a second you're not training. THYMOS eliminates the friction.</p>
+    <div class="features-grid">
+      <div class="feature-card anim">
+        <div class="feature-icon">&#9889;</div>
+        <h3 class="feature-title" data-i18n="f1_title">Instant Start</h3>
+        <p class="feature-desc" data-i18n="f1_desc">Open the app and you're in a workout. No onboarding screens, no account prompts. Your last session is right there waiting.</p>
+      </div>
+      <div class="feature-card anim anim-delay-1">
+        <div class="feature-icon">&#128196;</div>
+        <h3 class="feature-title" data-i18n="f2_title">Custom Templates</h3>
+        <p class="feature-desc" data-i18n="f2_desc">Build your program once, start any session in one tap. Progressive overload is automatic — you just lift.</p>
+      </div>
+      <div class="feature-card anim anim-delay-2">
+        <div class="feature-icon">&#9201;</div>
+        <h3 class="feature-title" data-i18n="f3_title">Log a Set in &lt;0.5s</h3>
+        <p class="feature-desc" data-i18n="f3_desc">Tap the weight, tap the reps, done. The app moves out of the way so you can get back to training.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE: Fast Logging -->
+<section class="showcase">
+  <div class="container">
+    <div class="showcase-row">
+      <div class="showcase-text anim">
+        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s1_eyebrow">SPEED DEMO</span></div>
+        <h2 class="showcase-title" data-i18n="s1_title">Watch How Fast<br>a Set Gets Logged.</h2>
+        <p class="showcase-body" data-i18n="s1_body">From locked phone to logged set — under 3 seconds. THYMOS keeps the logging surface minimal by design: weight, reps, RPE. That's it. No scrolling, no search, no mandatory rest timer.</p>
+        <div class="showcase-pills">
+          <span class="pill accent" data-i18n="pill_1">Sub-0.5s Per Set</span>
+          <span class="pill" data-i18n="pill_2">Auto Weight Suggestion</span>
+          <span class="pill" data-i18n="pill_3">Progressive Overload</span>
+        </div>
+      </div>
+      <div class="showcase-visual anim anim-delay-1">
+        <div class="phone-frame">
+          <video data-src="../assets/videos/raw_record_rpe_suggestion.mp4" loop muted playsinline preload="none"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALLOUT: vs. competitors -->
+<section class="callout-section">
+  <div class="container">
+    <div class="callout-box anim">
+      <div class="callout-icon">&#128274;</div>
+      <p class="callout-text" data-i18n="callout_text">
+        <strong>Strong, Hevy, and MyFitnessPal all require an account before you can log a single set.</strong> THYMOS doesn't. Open the app, start lifting. Link an account later only if you want multi-device sync.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="download">
+  <div class="container">
+    <div class="cta-box anim">
+      <h2 class="cta-title" data-i18n="cta_title">Download THYMOS</h2>
+      <p class="cta-desc" data-i18n="cta_desc">Early Access is open on Android. No account needed — just download and lift.</p>
+      <p class="fomo-line" data-i18n="fomo_cta">Lock in <strong>lifetime 40% off Pro</strong> — pricing adjusted for your region.</p>
+      <a href="https://play.google.com/store/apps/details?id=fit.thymos.app"
+         class="playstore-badge-link"
+         target="_blank"
+         rel="noopener"
+         data-umami-event="if-cta-playstore-click">
+        <img class="playstore-badge"
+             src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+             alt="Get it on Google Play"
+             height="72">
+      </a>
+      <p class="cta-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
+      <div class="cta-links">
+        <a href="../" class="roadmap-btn" data-i18n="main_link">&#8592; Back to Main Site</a>
+        <a href="../roadmap.html" class="roadmap-btn" data-i18n="roadmap_link">See the Roadmap &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-left">&copy; 2026 THYMOS</div>
+    <div class="footer-links">
+      <a href="../roadmap.html" data-umami-event="if-footer-roadmap" data-i18n="nav_roadmap">Roadmap</a>
+      <a href="../blog/en/" data-href-en="../blog/en/" data-href-tr="../blog/tr/" data-umami-event="if-footer-blog" data-i18n="nav_blog">Blog</a>
+      <a href="../privacy.html" data-umami-event="if-footer-privacy" data-i18n="footer_privacy">Privacy</a>
+      <a href="../terms.html" data-umami-event="if-footer-terms" data-i18n="footer_terms">Terms</a>
+      <a href="mailto:hello@thymos.fit" data-umami-event="if-footer-email">hello@thymos.fit</a>
+    </div>
+    <p class="footer-note" data-i18n="footer_note">The THYMOS app itself uses no ads or behavioral analytics. This website uses privacy-first, cookie-less analytics to measure visits.</p>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  en: {
+    nav_cta: "Download", nav_roadmap: "Roadmap", nav_blog: "Blog",
+    hero_tag: "PLAY STORE EARLY ACCESS",
+    hero_title_1: "Start Training", hero_title_2: "in 3 Seconds.",
+    hero_desc: "No signup. No email. No waiting. Open THYMOS and your first set is ready to log before you finish putting your phone down.",
+    fomo_cta: "Lock in <strong>lifetime 40% off Pro</strong> — pricing adjusted for your region.",
+    metric_1: "PER-SET LOGGING",
+    metric_accounts: "NEEDED TO START", metric_accounts_val: "Accounts",
+    metric_email: "REQUIRED", metric_email_val: "Emails",
+    features_tag: "WHY IT'S FASTER",
+    features_title: "Built for People Who Just Want to Lift.",
+    features_desc: "Every second you spend navigating menus is a second you're not training. THYMOS eliminates the friction.",
+    f1_title: "Instant Start",
+    f1_desc: "Open the app and you're in a workout. No onboarding screens, no account prompts. Your last session is right there waiting.",
+    f2_title: "Custom Templates",
+    f2_desc: "Build your program once, start any session in one tap. Progressive overload is automatic — you just lift.",
+    f3_title: "Log a Set in <0.5s",
+    f3_desc: "Tap the weight, tap the reps, done. The app moves out of the way so you can get back to training.",
+    s1_eyebrow: "SPEED DEMO",
+    s1_title: "Watch How Fast<br>a Set Gets Logged.",
+    s1_body: "From locked phone to logged set — under 3 seconds. THYMOS keeps the logging surface minimal by design: weight, reps, RPE. That's it. No scrolling, no search, no mandatory rest timer.",
+    pill_1: "Sub-0.5s Per Set", pill_2: "Auto Weight Suggestion", pill_3: "Progressive Overload",
+    callout_text: "<strong>Strong, Hevy, and MyFitnessPal all require an account before you can log a single set.</strong> THYMOS doesn't. Open the app, start lifting. Link an account later only if you want multi-device sync.",
+    cta_title: "Download THYMOS",
+    cta_desc: "Early Access is open on Android. No account needed — just download and lift.",
+    cta_platform: "Available on Android. iOS coming soon.",
+    main_link: "&#8592; Back to Main Site",
+    roadmap_link: "See the Roadmap &#8594;",
+    footer_privacy: "Privacy", footer_terms: "Terms",
+    footer_note: "The THYMOS app itself uses no ads or behavioral analytics. This website uses privacy-first, cookie-less analytics to measure visits."
+  },
+  tr: {
+    nav_cta: "İndir", nav_roadmap: "Yol Haritası", nav_blog: "Blog",
+    hero_tag: "PLAY STORE ERKEN ERİŞİM",
+    hero_title_1: "Antrenmanı Başlat", hero_title_2: "3 Saniyede.",
+    hero_desc: "Kayıt yok. E-posta yok. Bekleme yok. THYMOS'u aç ve ilk setini telefonu yerine koymadan önce kayıt etmeye hazır ol.",
+    fomo_cta: "Pro için <strong>ömür boyu %40 indirim</strong> — fiyat bölgene göre ayarlandı.",
+    metric_1: "SET BAŞINA KAYIT",
+    metric_accounts: "BAŞLAMAK İÇİN GEREKLİ", metric_accounts_val: "Hesap",
+    metric_email: "GEREKLİ", metric_email_val: "E-posta",
+    features_tag: "NEDEN DAHA HIZLI",
+    features_title: "Sadece Kaldırmak İsteyenler İçin.",
+    features_desc: "Menülerde geçirdiğin her saniye, antrenman yapmadığın bir saniye. THYMOS tüm sürtünmeyi ortadan kaldırır.",
+    f1_title: "Anında Başla",
+    f1_desc: "Uygulamayı aç ve antremanın başlasın. Tanıtım ekranı yok, hesap ekranı yok. Son setin seni bekliyor.",
+    f2_title: "Özel Şablonlar",
+    f2_desc: "Programını bir kez oluştur, her seferinde tek dokunuşla başla. Progresif yükleme otomatik — sen sadece kaldırırsın.",
+    f3_title: "Bir Seti 0.5s'den Hızlı Kaydet",
+    f3_desc: "Ağırlığa dokun, tekrara dokun, bitti. Uygulama yolunu çekiyor ki sen antrenmanına devam edesin.",
+    s1_eyebrow: "HIZ DEMOsu",
+    s1_title: "Bir Setin Ne Kadar<br>Hızlı Kaydedildiğini İzle.",
+    s1_body: "Kilitli telefondan kaydedilmiş sete — 3 saniyenin altında. THYMOS kayıt yüzeyini kasıtlı olarak minimal tutar: ağırlık, tekrar, RPE. Hepsi bu. Kaydırma yok, arama yok, zorunlu dinlenme sayacı yok.",
+    pill_1: "Set Başına 0.5s Altı", pill_2: "Otomatik Ağırlık Önerisi", pill_3: "Progresif Yükleme",
+    callout_text: "<strong>Strong, Hevy ve MyFitnessPal tek bir set kaydetmeden önce hesap açmanı zorunlu kılar.</strong> THYMOS kılmaz. Uygulamayı aç, kaldırmaya başla. Çoklu cihaz senkronu istersen daha sonra hesap bağla.",
+    cta_title: "THYMOS'u İndir",
+    cta_desc: "Android'de Erken Erişim açık. Hesap gerekmez — sadece indir ve kaldır.",
+    cta_platform: "Android'de mevcut. iOS yakında.",
+    main_link: "&#8592; Ana Sayfaya Dön",
+    roadmap_link: "Yol Haritasını Gör &#8594;",
+    footer_privacy: "Gizlilik", footer_terms: "Koşullar",
+    footer_note: "THYMOS uygulamasının kendisi reklam veya davranışsal analitik kullanmaz. Bu web sitesi yalnızca ziyaretleri ölçmek için gizlilik odaklı, çerezsiz analitik kullanır."
+  }
+};
+
+let currentLang = 'en';
+
+const playstoreBadge = {
+  en: { src: 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png', alt: 'Get it on Google Play' },
+  tr: { src: 'https://play.google.com/intl/tr/badges/static/images/badges/tr_badge_web_generic.png', alt: "Google Play'den edinin" }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.innerHTML = t[k];
+  });
+  document.querySelectorAll('[data-href-en][data-href-tr]').forEach(el => {
+    el.href = el.getAttribute(`data-href-${lang}`);
+  });
+  const badge = playstoreBadge[lang] || playstoreBadge.en;
+  document.querySelectorAll('.playstore-badge').forEach(img => {
+    img.src = badge.src;
+    img.alt = badge.alt;
+  });
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+const videoObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const video = e.target;
+      video.src = video.dataset.src;
+      video.play();
+      videoObserver.unobserve(video);
+    }
+  });
+}, { rootMargin: '200px' });
+document.querySelectorAll('video[data-src]').forEach(v => videoObserver.observe(v));
+
+const navCta = document.querySelector('.nav-cta');
+const heroObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => navCta.classList.toggle('visible', !e.isIntersecting));
+}, { threshold: 0 });
+const heroContent = document.querySelector('.hero .container');
+if (heroContent) heroObserver.observe(heroContent);
+</script>
+</body>
+</html>
