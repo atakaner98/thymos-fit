@@ -355,6 +355,18 @@ nav.scrolled { border-bottom-color: var(--border); }
   max-width: 520px;
 }
 .hero-success.show { display: flex; }
+.hero-error {
+  display: none;
+  align-items: center; gap: 10px;
+  padding: 14px 20px;
+  background: rgba(226, 82, 65, 0.12);
+  border: 1px solid rgba(226, 82, 65, 0.28);
+  border-radius: 10px;
+  color: #ffb4aa;
+  font-size: 14px; font-weight: 500;
+  max-width: 520px;
+}
+.hero-error.show { display: flex; }
 
 /* Hero phone */
 .hero-visual {
@@ -951,6 +963,17 @@ nav.scrolled { border-bottom-color: var(--border); }
   max-width: 520px; margin: 0 auto;
 }
 .cta-success.show { display: flex; }
+.cta-error {
+  display: none;
+  align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 20px;
+  background: rgba(226, 82, 65, 0.12);
+  border: 1px solid rgba(226, 82, 65, 0.28);
+  border-radius: 10px;
+  color: #ffb4aa; font-size: 14px; font-weight: 500;
+  max-width: 520px; margin: 0 auto;
+}
+.cta-error.show { display: flex; }
 .cta-note { font-size: 12px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 8px; }
 .cta-links {
   display: flex;
@@ -1160,6 +1183,10 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <div class="hero-success" id="heroSuccess">
           <span>✓</span>
           <span data-i18n="waitlist_success">You're in. We'll send your TestFlight invite when it's ready.</span>
+        </div>
+        <div class="hero-error" id="heroError">
+          <span>!</span>
+          <span data-i18n="waitlist_error">Something went wrong. Please try again.</span>
         </div>
       </div>
     </div>
@@ -1646,6 +1673,10 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <span>✓</span>
         <span data-i18n="waitlist_success">You're in. We'll send your TestFlight invite when it's ready.</span>
       </div>
+      <div class="cta-error" id="ctaError">
+        <span>!</span>
+        <span data-i18n="waitlist_error">Something went wrong. Please try again.</span>
+      </div>
       <p class="cta-note" data-i18n="ios_feedback_note">Beta testers who send feedback get <strong>Lifetime Pro for free</strong>.</p>
       <div class="cta-links">
         <a href="roadmap.html" class="roadmap-btn" data-i18n="roadmap_link" data-umami-event="cta-roadmap-click">See the Roadmap →</a>
@@ -1762,6 +1793,7 @@ const translations = {
     tf_badge_top: "Join the beta on",
     email_placeholder: "Your email",
     waitlist_success: "You're in. We'll send your TestFlight invite when it's ready.",
+    waitlist_error: "Something went wrong. Please try again.",
     ios_feedback_note: "Beta testers who send feedback get <strong>Lifetime Pro for free</strong>.",
     privacy_kicker: "DATA PRIVACY",
     privacy_headline: "Your fitness data can identify you<br>among <em>100&nbsp;million&nbsp;people</em> in&nbsp;6&nbsp;days.<br>Here's what we do about it.",
@@ -1886,6 +1918,7 @@ const translations = {
     tf_badge_top: "Beta'ya katıl",
     email_placeholder: "E-posta adresin",
     waitlist_success: "Listeye alındın. TestFlight davetini hazır olduğunda göndereceğiz.",
+    waitlist_error: "Bir hata oluştu. Lütfen tekrar dene.",
     ios_feedback_note: "Geri bildirim paylaşan beta kullanıcılarına <strong>Lifetime Pro hediye</strong>.",
     privacy_kicker: "VERİ GİZLİLİĞİ",
     privacy_headline: "Fitness verilerin seni 100 milyon kişi arasından<br>6 günde tanımlayabilir.<br><em>Biz ne yapıyoruz?</em>",
@@ -1956,16 +1989,18 @@ function setLang(lang) {
 }
 
 const SUPABASE_URL  = 'https://fxdlscqifuicpawdzcdg.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZGxzY3FpZnVpY3Bhd2R6Y2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTY2MDcsImV4cCI6MjA4ODEzMjYwN30.X_LCrL2i1FVNVMdrO7hIYa33vtJCHjxmDT8Xf-';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZGxzY3FpZnVpY3Bhd2R6Y2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTY2MDcsImV4cCI6MjA4ODEzMjYwN30.X_LCrL2i1FVNVMdrO7hIYa33vtJCHjxmDT8Xf-GM5DE';
 
 async function submitWaitlist(e, slot) {
   e.preventDefault();
   const isHero   = slot === 'hero';
   const emailEl  = document.getElementById(isHero ? 'heroEmail' : 'ctaEmail');
   const successEl = document.getElementById(isHero ? 'heroSuccess' : 'ctaSuccess');
+  const errorEl  = document.getElementById(isHero ? 'heroError' : 'ctaError');
   const btn      = e.target.querySelector('button[type=submit]');
   const email    = emailEl.value.trim();
   if (!email) return false;
+  errorEl.classList.remove('show');
   btn.disabled = true;
   btn.textContent = '...';
   try {
@@ -1981,12 +2016,15 @@ async function submitWaitlist(e, slot) {
     });
     if (res.ok || res.status === 409) {
       e.target.style.display = 'none';
+      errorEl.classList.remove('show');
       successEl.classList.add('show');
     } else {
+      errorEl.classList.add('show');
       btn.disabled = false;
       btn.textContent = translations[currentLang]?.ios_join_btn || 'Get early access';
     }
   } catch {
+    errorEl.classList.add('show');
     btn.disabled = false;
     btn.textContent = translations[currentLang]?.ios_join_btn || 'Get early access';
   }
