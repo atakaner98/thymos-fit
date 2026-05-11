@@ -598,17 +598,62 @@ nav.scrolled { border-bottom-color: var(--border); }
 .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
 .feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
 .feature-learn-more {
-  display: inline-block;
-  margin-top: 14px;
+  display: block;
+  margin-top: 20px;
+  padding: 10px 16px;
   font-size: 13px;
   font-family: var(--font-mono);
   color: var(--accent);
   text-decoration: none;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  transition: opacity 0.2s;
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(200, 85, 61, 0.35);
+  border-radius: 8px;
+  text-align: center;
+  transition: background 0.2s, border-color 0.2s;
 }
-.feature-learn-more:hover { opacity: 0.75; }
+.feature-learn-more:hover {
+  background: rgba(200, 85, 61, 0.08);
+  border-color: var(--accent);
+}
+.feature-card--featured::before { opacity: 0.4 !important; }
+.ios-waitlist-block { margin-top: 24px; }
+.ios-waitlist-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+}
+.ios-cta-divider {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 24px 0 16px;
+}
+.testflight-badge-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.testflight-badge-link:hover { opacity: 0.85; transform: translateY(-2px); }
+.testflight-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 10px 20px;
+  height: 72px;
+  box-sizing: border-box;
+}
+.tf-apple-icon { width: 26px; height: auto; flex-shrink: 0; }
+.tf-badge-text { display: flex; flex-direction: column; text-align: left; }
+.tf-badge-top { font-size: 11px; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; line-height: 1; margin-bottom: 3px; }
+.tf-badge-main { font-size: 22px; font-weight: 600; color: #fff; letter-spacing: -0.01em; line-height: 1.15; }
 
 /* ─── SHOWCASE rows ─── */
 .showcase { padding: 60px 0; }
@@ -1096,7 +1141,27 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
              alt="Get it on Google Play"
              height="72">
       </a>
-      <p class="hero-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
+      <div class="ios-waitlist-block">
+        <a class="testflight-badge-link" href="#waitlist" data-umami-event="hero-testflight-badge">
+          <div class="testflight-badge">
+            <svg class="tf-apple-icon" viewBox="0 0 814 1000" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269.5-317.3 71.2 0 130.5 46.8 174.9 46.8 42.8 0 109.7-49.6 193.5-49.6 31.3 0 108.2 2.6 173.4 80.4zm-128-161.5c-36.2 43.2-96.3 76.7-155.5 76.7-7.2 0-14.1-.6-19.6-1.9 1.3-59.6 41.2-120.8 79.2-159.9 42.2-43.9 110.8-78.1 166.5-80 1.3 6.5 1.9 13 1.9 19.6 0 56.4-24.3 116.8-72.5 145.5z"/></svg>
+            <div class="tf-badge-text">
+              <span class="tf-badge-top" data-i18n="tf_badge_top">Join the beta on</span>
+              <span class="tf-badge-main">TestFlight</span>
+            </div>
+          </div>
+        </a>
+        <p class="ios-waitlist-label" data-i18n="ios_waitlist_label">iOS coming soon. Join the TestFlight waitlist.</p>
+        <form class="hero-form" id="heroForm" onsubmit="return submitWaitlist(event,'hero')">
+          <input class="hero-input" type="email" id="heroEmail"
+                 data-i18n-placeholder="email_placeholder" placeholder="Your email" required>
+          <button class="hero-submit" type="submit" data-i18n="ios_join_btn">Get early access</button>
+        </form>
+        <div class="hero-success" id="heroSuccess">
+          <span>✓</span>
+          <span data-i18n="waitlist_success">You're in. We'll send your TestFlight invite when it's ready.</span>
+        </div>
+      </div>
     </div>
     <div class="hero-visual">
       <div class="phone-hero">
@@ -1145,17 +1210,17 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <p class="feature-desc" data-i18n="f1_desc">Instant workout starts, custom templates, and progressive programs. Go from idea to action in seconds.</p>
         <a href="/instant-fast/" class="feature-learn-more" data-i18n="learn_more_fast">No account needed →</a>
       </div>
-      <div class="feature-card anim anim-delay-1">
+      <div class="feature-card feature-card--featured anim anim-delay-1">
         <div class="feature-icon">📡</div>
         <h3 class="feature-title" data-i18n="f4_title">Offline-First</h3>
         <p class="feature-desc" data-i18n="f4_desc">Works completely offline — always. Cloud sync is optional and only used for backup, never required.</p>
-        <a href="/offline-no-wifi-needed/" class="feature-learn-more" data-i18n="learn_more_offline">Works without WiFi →</a>
+        <a href="/offline-no-wifi-needed/" class="feature-learn-more" data-i18n="learn_more_offline">How offline works →</a>
       </div>
-      <div class="feature-card anim anim-delay-2">
+      <div class="feature-card feature-card--featured anim anim-delay-2">
         <div class="feature-icon">👤</div>
         <h3 class="feature-title" data-i18n="f5_title">Anonymous by Default</h3>
         <p class="feature-desc" data-i18n="f5_desc">Open the app and start lifting. No email, no account, no internet required. Link an account only when you want multi-device sync.</p>
-        <a href="/instant-fast/" class="feature-learn-more" data-i18n="learn_more_anon">Start in 3 seconds →</a>
+        <a href="/instant-fast/" class="feature-learn-more" data-i18n="learn_more_anon">How anonymity works →</a>
       </div>
     </div>
   </div>
@@ -1562,7 +1627,26 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
              alt="Get it on Google Play"
              height="72">
       </a>
-      <p class="cta-note" data-i18n="cta_platform">Available on Android. iOS coming soon.</p>
+      <div class="ios-cta-divider" data-i18n="ios_cta_divider">iOS coming soon</div>
+      <a class="testflight-badge-link" href="#waitlist" data-umami-event="cta-testflight-badge" style="display:block;margin-bottom:16px;">
+        <div class="testflight-badge" style="max-width:260px;margin:0 auto;">
+          <svg class="tf-apple-icon" viewBox="0 0 814 1000" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269.5-317.3 71.2 0 130.5 46.8 174.9 46.8 42.8 0 109.7-49.6 193.5-49.6 31.3 0 108.2 2.6 173.4 80.4zm-128-161.5c-36.2 43.2-96.3 76.7-155.5 76.7-7.2 0-14.1-.6-19.6-1.9 1.3-59.6 41.2-120.8 79.2-159.9 42.2-43.9 110.8-78.1 166.5-80 1.3 6.5 1.9 13 1.9 19.6 0 56.4-24.3 116.8-72.5 145.5z"/></svg>
+          <div class="tf-badge-text">
+            <span class="tf-badge-top" data-i18n="tf_badge_top">Join the beta on</span>
+            <span class="tf-badge-main">TestFlight</span>
+          </div>
+        </div>
+      </a>
+      <form class="cta-form" id="ctaForm" onsubmit="return submitWaitlist(event,'cta')">
+        <input class="cta-input" type="email" id="ctaEmail"
+               data-i18n-placeholder="email_placeholder" placeholder="Your email" required>
+        <button class="cta-submit" type="submit" data-i18n="ios_join_btn">Get early access</button>
+      </form>
+      <div class="cta-success" id="ctaSuccess">
+        <span>✓</span>
+        <span data-i18n="waitlist_success">You're in. We'll send your TestFlight invite when it's ready.</span>
+      </div>
+      <p class="cta-note" data-i18n="ios_feedback_note">Beta testers who send feedback get <strong>Lifetime Pro for free</strong>.</p>
       <div class="cta-links">
         <a href="roadmap.html" class="roadmap-btn" data-i18n="roadmap_link" data-umami-event="cta-roadmap-click">See the Roadmap →</a>
         <a href="blog/en/" class="roadmap-btn" data-href-en="blog/en/" data-href-tr="blog/tr/" data-i18n="blog_cta_link" data-umami-event="cta-blog-click">Read the Blog →</a>
@@ -1650,8 +1734,8 @@ const translations = {
     p3_title: "No Pushy Tactics", p3_desc: "No push notifications begging you to come back. No upsell popups during your workout. We're here when you train, gone when you don't.",
     p4_title: "No Vendor Lock-in", p4_desc: "Import your history from Strong, Hevy, or any CSV. Export everything as CSV or JSON, anytime. Your data is always portable.",
     learn_more_fast: "No account needed →",
-    learn_more_offline: "Works without WiFi →",
-    learn_more_anon: "Start in 3 seconds →",
+    learn_more_offline: "How offline works →",
+    learn_more_anon: "How anonymity works →",
     comp_tag: "HOW WE COMPARE",
     comp_title: "Not All Fitness Apps Are Equal.",
     comp_desc: "Most fitness apps require an account, share your data with ad partners, and lock you in. Here's what separates THYMOS.",
@@ -1672,6 +1756,13 @@ const translations = {
     comp_note: "Sources: official help centers, privacy policies, and app store descriptions. Strong's data-sharing practices are not explicitly documented in their public privacy policy. Hevy's full offline capability for the main app is not confirmed in official documentation.",
     cta_title: "Download THYMOS",
     cta_desc: "Early Access is open on Android. Download and train without compromise.",
+    ios_waitlist_label: "iOS coming soon. Join the TestFlight waitlist.",
+    ios_join_btn: "Get early access",
+    ios_cta_divider: "iOS coming soon",
+    tf_badge_top: "Join the beta on",
+    email_placeholder: "Your email",
+    waitlist_success: "You're in. We'll send your TestFlight invite when it's ready.",
+    ios_feedback_note: "Beta testers who send feedback get <strong>Lifetime Pro for free</strong>.",
     privacy_kicker: "DATA PRIVACY",
     privacy_headline: "Your fitness data can identify you<br>among <em>100&nbsp;million&nbsp;people</em> in&nbsp;6&nbsp;days.<br>Here's what we do about it.",
     privacy_lead: "Workout logs aren't just numbers — they're a biometric fingerprint of your body, habits, and schedule. Most fitness apps treat that data as a product. <strong>THYMOS treats it as yours.</strong> Everything stays on your device by default. No behavioral tracking. No third-party data sharing. Sensitive fields — like readiness scores and wellness context — never leave your phone, ever.",
@@ -1767,8 +1858,8 @@ const translations = {
     p3_title: "Baskı Taktiği Yok", p3_desc: "\"Geri dön\" diye zorlayan bildirimler yok. Antrenman sırasında premium satış ekranı yok. Antrenman yaptığında buradayız, yapmadığında çekiliyoruz.",
     p4_title: "Zorunlu Bağlılık Yok", p4_desc: "Strong, Hevy veya herhangi bir CSV'den geçmişini içe aktar. Her şeyi CSV veya JSON olarak istediğin zaman dışa aktar. Verin her zaman taşınabilir.",
     learn_more_fast: "Hesap gerekmez →",
-    learn_more_offline: "WiFi'siz çalışır →",
-    learn_more_anon: "3 saniyede başla →",
+    learn_more_offline: "Çevrimdışı nasıl çalışır →",
+    learn_more_anon: "Anonim nasıl çalışır →",
     comp_tag: "KARŞILAŞTIRMA",
     comp_title: "Tüm Fitness Uygulamaları Eşit Değil.",
     comp_desc: "Çoğu fitness uygulaması hesap zorunlu kılıyor, verini reklam ortaklarıyla paylaşıyor ve seni içinde hapsediyor. THYMOS'u farklı yapan şey budur.",
@@ -1789,6 +1880,13 @@ const translations = {
     comp_note: "Kaynaklar: resmi yardım merkezleri, gizlilik politikaları ve uygulama mağazası açıklamaları. Strong'un veri paylaşım uygulamaları resmi gizlilik politikasında açıkça belgelenmemiştir. Hevy'nin ana uygulama için tam çevrimdışı desteği resmi dokümanlarda teyit edilmemiştir.",
     cta_title: "THYMOS'u İndir",
     cta_desc: "Android'de Erken Erişim açık. İndir ve ödün vermeden antrenman yap.",
+    ios_waitlist_label: "iOS yakında. TestFlight listesine katıl.",
+    ios_join_btn: "Erken erişim al",
+    ios_cta_divider: "iOS yakında",
+    tf_badge_top: "Beta'ya katıl",
+    email_placeholder: "E-posta adresin",
+    waitlist_success: "Listeye alındın. TestFlight davetini hazır olduğunda göndereceğiz.",
+    ios_feedback_note: "Geri bildirim paylaşan beta kullanıcılarına <strong>Lifetime Pro hediye</strong>.",
     privacy_kicker: "VERİ GİZLİLİĞİ",
     privacy_headline: "Fitness verilerin seni 100 milyon kişi arasından<br>6 günde tanımlayabilir.<br><em>Biz ne yapıyoruz?</em>",
     privacy_lead: "Antrenman günlükleri sadece sayılar değil — vücudunun, alışkanlıklarının ve programının biyometrik parmak izi. Çoğu fitness uygulaması bu veriyi ürün olarak görür. <strong>THYMOS onu sana ait olarak görür.</strong> Her şey varsayılan olarak cihazında kalır. Davranışsal takip yok. Üçüncü taraf veri paylaşımı yok. Yorgunluk verileri ve sağlık bağlamı gibi hassas alanlar asla telefonundan çıkmaz.",
@@ -1855,6 +1953,44 @@ function setLang(lang) {
     img.src = badge.src;
     img.alt = badge.alt;
   });
+}
+
+const SUPABASE_URL  = 'https://fxdlscqifuicpawdzcdg.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZGxzY3FpZnVpY3Bhd2R6Y2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTY2MDcsImV4cCI6MjA4ODEzMjYwN30.X_LCrL2i1FVNVMdrO7hIYa33vtJCHjxmDT8Xf-';
+
+async function submitWaitlist(e, slot) {
+  e.preventDefault();
+  const isHero   = slot === 'hero';
+  const emailEl  = document.getElementById(isHero ? 'heroEmail' : 'ctaEmail');
+  const successEl = document.getElementById(isHero ? 'heroSuccess' : 'ctaSuccess');
+  const btn      = e.target.querySelector('button[type=submit]');
+  const email    = emailEl.value.trim();
+  if (!email) return false;
+  btn.disabled = true;
+  btn.textContent = '...';
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON,
+        'Authorization': `Bearer ${SUPABASE_ANON}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email })
+    });
+    if (res.ok || res.status === 409) {
+      e.target.style.display = 'none';
+      successEl.classList.add('show');
+    } else {
+      btn.disabled = false;
+      btn.textContent = translations[currentLang]?.ios_join_btn || 'Get early access';
+    }
+  } catch {
+    btn.disabled = false;
+    btn.textContent = translations[currentLang]?.ios_join_btn || 'Get early access';
+  }
+  return false;
 }
 
 window.addEventListener('scroll', () => {
