@@ -756,7 +756,7 @@ nav.scrolled { border-bottom-color: var(--border); }
   pointer-events: none;
 }
 .showcase-tab.is-active .showcase-tab-bar {
-  animation: showcase-tab-progress 6s linear forwards;
+  animation: showcase-tab-progress 15s linear forwards;
 }
 .showcase.is-paused .showcase-tab.is-active .showcase-tab-bar {
   animation-play-state: paused;
@@ -766,16 +766,24 @@ nav.scrolled { border-bottom-color: var(--border); }
   to { width: 100%; }
 }
 
-/* Panel container */
-.showcase-panels { position: relative; }
+/* Panel container — all panels stack in the same grid cell so cross-fades work */
+.showcase-panels {
+  display: grid;
+  grid-template-areas: "stack";
+}
 .showcase-panel {
-  display: none;
+  grid-area: stack;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.45s ease, visibility 0.45s ease, transform 0.45s ease;
 }
 .showcase-panel.is-active {
-  display: block;
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .showcase-row {
@@ -787,9 +795,9 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 
 @media(min-width:860px) {
-  .showcase-row { grid-template-columns: 320px 1fr; gap: 56px; align-items: center; }
+  .showcase-row { grid-template-columns: 320px 1fr; gap: 56px; align-items: start; }
   .showcase-row .showcase-visual { order: 1; }
-  .showcase-row .showcase-text { order: 2; }
+  .showcase-row .showcase-text { order: 2; padding-top: 8px; }
   .showcase-row .phone-frame { max-width: 300px; }
 }
 
@@ -1934,7 +1942,7 @@ const translations = {
     features_desc: "Not another fitness app with a social feed. THYMOS is a precision instrument for people who take training seriously.",
     showcase_tag: "EXPLORE THE APP",
     showcase_title: "See It In Action.",
-    showcase_desc: "Six things THYMOS does differently. Tap a tab to switch — or just watch them rotate.",
+    showcase_desc: "Six things THYMOS does differently. Tap a tab to switch — or just watch them play.",
     f1_title: "Ultra-Fast Logging",
     f1_desc: "Instant workout starts, custom templates, and progressive programs. Go from idea to action in seconds.",
     f2_title: "Privacy First",
@@ -2298,8 +2306,8 @@ document.querySelectorAll('video[data-src]').forEach(v => {
   const panels = Array.from(root.querySelectorAll('.showcase-panel'));
   if (tabs.length === 0 || tabs.length !== panels.length) return;
 
-  const TICK_MS = 6000;
-  const MANUAL_PAUSE_MS = 12000;
+  const TICK_MS = 15000;
+  const MANUAL_PAUSE_MS = 20000;
 
   let current = 0;
   let timerId = null;
