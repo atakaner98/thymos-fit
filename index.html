@@ -704,7 +704,7 @@ nav.scrolled { border-bottom-color: var(--border); }
 .showcase-header {
   text-align: center;
   margin: 0 auto 40px;
-  max-width: 640px;
+  max-width: 760px;
 }
 .showcase-header .section-tag { margin-bottom: 12px; }
 .showcase-header .section-title { margin-bottom: 12px; }
@@ -713,13 +713,21 @@ nav.scrolled { border-bottom-color: var(--border); }
 /* Tab bar */
 .showcase-tabs {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
   margin-bottom: 32px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
   padding: 4px 0 8px;
-  scroll-snap-type: x mandatory;
+}
+@media(max-width:768px) {
+  .showcase-tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+  }
 }
 .showcase-tabs::-webkit-scrollbar { display: none; }
 .showcase-tab {
