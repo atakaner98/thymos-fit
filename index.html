@@ -392,8 +392,10 @@ nav.scrolled { border-bottom-color: var(--border); }
   width: 340px;
   position: relative; z-index: 1;
 }
-.phone-hero img,
-.phone-hero video {
+.phone-hero .phone-frame {
+  max-width: 100%;
+}
+.phone-hero img {
   width: 100%; height: auto; display: block;
   border-radius: 36px;
   background: #000;
@@ -1267,10 +1269,12 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     </div>
     <div class="hero-visual">
       <div class="phone-hero">
-        <video src="assets/videos/raw_record_workout_logging.mp4"
-               autoplay muted loop playsinline preload="metadata"
-               poster="assets/images/actvive_workout_logging.png"
-               aria-label="Logging a set in THYMOS"></video>
+        <div class="phone-frame">
+          <video src="assets/videos/raw_record_workout_logging.mp4"
+                 autoplay muted loop playsinline preload="metadata"
+                 poster="assets/images/actvive_workout_logging.png"
+                 aria-label="Logging a set in THYMOS"></video>
+        </div>
       </div>
     </div>
   </div>
