@@ -782,14 +782,15 @@ nav.scrolled { border-bottom-color: var(--border); }
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
-  align-items: center;
+  align-items: start;
   padding: 24px 0;
 }
 
 @media(min-width:860px) {
-  .showcase-row { grid-template-columns: 410px 1fr; gap: 64px; }
+  .showcase-row { grid-template-columns: 320px 1fr; gap: 56px; align-items: center; }
   .showcase-row .showcase-visual { order: 1; }
   .showcase-row .showcase-text { order: 2; }
+  .showcase-row .phone-frame { max-width: 300px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -819,6 +820,7 @@ nav.scrolled { border-bottom-color: var(--border); }
   line-height: 1.15;
   margin-bottom: 18px;
 }
+.showcase-title .accent { color: var(--accent); }
 .showcase-body {
   font-size: 16px;
   color: var(--text-secondary);
@@ -1946,27 +1948,27 @@ const translations = {
     f6_title: "Easy Migration",
     f6_desc: "Import from Strong, Hevy, FitNotes, or Excel. Export anytime as CSV or JSON. Your history, always yours.",
     s1_eyebrow: "SMART COACHING",
-    s1_title: "Lift Smarter.<br>Not Just Heavier.",
+    s1_title: "Lift Smarter.<br><span class=\"accent\">Not Just Heavier.</span>",
     s1_body: "THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow. Don't want a suggestion? Dismiss it with one tap and enter your own weight.",
     pill_auto_suggest: "Auto Weight Suggestion", pill_progressive: "Progressive Overload",
     s2_eyebrow: "READINESS",
-    s2_title: "Prime Every Session.<br>Scientifically.",
+    s2_title: "Prime Every Session.<br><span class=\"accent\">Scientifically.</span>",
     s2_body: "Evidence-based warm-up prescriptions, built automatically from your working weight. THYMOS ramps you up with the right loads at the right intensities — so you walk into every working set fully prepared.",
     pill_warmup_auto: "Auto Warm-Up Builder", pill_evidence: "Evidence-Based", pill_fatigue: "Minimizes Fatigue",
     s3_eyebrow: "PRECISION LOADING",
-    s3_title: "Load Smarter,<br>Faster.",
+    s3_title: "Load Smarter,<br><span class=\"accent\">Faster.</span>",
     s3_body: "Enter your target weight and get an instant, balanced plate setup — no mental math, no guesswork, just bar-ready precision. Log what you actually lift by selecting the plates on the bar. The app calculates total load automatically for cleaner tracking.",
     pill_plate_calc: "Plate Calculator", pill_plate_log: "Plate-Based Logging", pill_bar_ready: "Bar-Ready Precision",
     s4_eyebrow: "BODY ANALYSIS",
-    s4_title: "See What<br>You're Building.",
+    s4_title: "See What<br><span class=\"accent\">You're Building.</span>",
     s4_body: "Muscle distribution heatmaps show you exactly which muscles you've trained, how intensely, and what's been neglected. Turn your sessions into a clear map of your training balance — and guide what to push next.",
     pill_heatmap: "Muscle Heatmap", pill_balance: "Training Balance", pill_weekly: "7 / 30 / 90 Day View",
     s5_eyebrow: "PROGRESS TRACKING",
-    s5_title: "Real Data.<br>Clear Trends.",
+    s5_title: "Real Data.<br><span class=\"accent\">Clear Trends.</span>",
     s5_body: "Trends, estimated 1RM, set volume, and full workout history — all in one place. Measured data stays measured. Estimated data is clearly marked. We never mix the two to make numbers look better than they are.",
     pill_1rm: "Estimated 1RM", pill_volume: "Volume Tracking", pill_trends: "Long-Term Trends",
     s6_eyebrow: "MIGRATION",
-    s6_title: "Bring Your<br>History With You.",
+    s6_title: "Bring Your<br><span class=\"accent\">History With You.</span>",
     s6_body: "Import from Strong, Hevy, FitNotes, or Excel — all your previous training data comes with you. And when you want to leave, export everything as CSV or JSON. Your data is always portable. Always yours.",
     pill_export: "CSV / JSON Export",
     phil_tag: "PHILOSOPHY",
@@ -2078,27 +2080,27 @@ const translations = {
     f6_title: "Kolay Geçiş",
     f6_desc: "Strong, Hevy, FitNotes veya Excel'den içe aktar. CSV veya JSON olarak dışa aktar. Geçmişin her zaman seninle.",
     s1_eyebrow: "AKILLI ANTRENMAN",
-    s1_title: "Sadece Daha Ağır Kaldırma.<br>Daha Akıllı Antrenman Yap.",
+    s1_title: "Sadece Daha Ağır Kaldırma.<br><span class=\"accent\">Daha Akıllı Antrenman Yap.</span>",
     s1_body: "THYMOS, her sette kaydettiğin RPE ve RIR değerlerini okuyarak bir sonraki çalışma ağırlığını otomatik önerir. Tahmin yok, hesap tablosu yok — iş akışına yerleşik, veriye dayalı ilerleme. Öneriyi beğenmedin mi? Tek dokunuşla kapat, kendi ağırlığın ile devam et.",
     pill_auto_suggest: "Otomatik Ağırlık Önerisi", pill_progressive: "Progresif Yükleme",
     s2_eyebrow: "HAZIRLIK",
-    s2_title: "Her Antrenmana<br>Bilimsel Hazırlan.",
+    s2_title: "Her Antrenmana<br><span class=\"accent\">Bilimsel Hazırlan.</span>",
     s2_body: "Çalışma ağırlığından otomatik oluşan, otomatik, bilimsel ısınma setleri. THYMOS seni doğru yük ve yoğunlukla ile ısıtarak her çalışma setine tam hazır girmen için yönlendirir.",
     pill_warmup_auto: "Otomatik Isınma Setleri", pill_evidence: "Bilimsel Temelli", pill_fatigue: "Yorgunluğu Azaltır",
     s3_eyebrow: "HASSAS YÜKLEME",
-    s3_title: "Daha Akıllı,<br>Daha Hızlı Yükle.",
+    s3_title: "Daha Akıllı,<br><span class=\"accent\">Daha Hızlı Yükle.</span>",
     s3_body: "Hedef ağırlığını gir, anında dengeli plaka dizilimi al — zihinsel hesap yok, tahmin yok, sadece barını hazırla ve setini tamamla. Bara koyduğun plakaları seçerek set ağırlığını kaydet, THYMOS toplam yükü otomatik hesaplar.",
     pill_plate_calc: "Plaka Hesaplayıcı", pill_plate_log: "Plaka Bazlı Kayıt", pill_bar_ready: "Barın Anında Hazır",
     s4_eyebrow: "VÜCUT ANALİZİ",
-    s4_title: "Ne İnşa Ettiğini<br>Gör.",
+    s4_title: "Ne İnşa Ettiğini<br><span class=\"accent\">Gör.</span>",
     s4_body: "Kas dağılımı haritaları hangi kasları, ne yoğunlukta çalıştırdığını ve neleri ihmal ettiğini tam olarak gösterir. Kas haritası ile antrenmanlarını net bir şekilde dengele.",
     pill_heatmap: "Kas Haritası", pill_balance: "Dengeli Antrenman", pill_weekly: "7 / 30 / 90 Gün Görünümü",
     s5_eyebrow: "İLERLEME TAKİBİ",
-    s5_title: "Gerçek Veri.<br>Net Trendler.",
+    s5_title: "Gerçek Veri.<br><span class=\"accent\">Net Trendler.</span>",
     s5_body: "Trendler, tahmini 1RM, set hacmi ve tam antrenman geçmişi — tek bir yerde. Ölçülen veri ölçülen olarak kalır. Tahmini veri açıkça işaretlenir. Sayıları daha iyi göstermek için ikisini asla karıştırmayız.",
     pill_1rm: "Tahmini 1RM", pill_volume: "Hacim Takibi", pill_trends: "Uzun Vadeli Trendler",
     s6_eyebrow: "GEÇİŞ",
-    s6_title: "Antrenman<br>Geçmişini Getir.",
+    s6_title: "Antrenman<br><span class=\"accent\">Geçmişini Getir.</span>",
     s6_body: "Strong, Hevy, FitNotes veya Excel'den içe aktar — önceki tüm antrenman verilerin seninle gelir. Ayrılmak istediğinde her şeyi CSV veya JSON olarak dışa aktar. Verin her zaman taşınabilir.",
     pill_export: "CSV / JSON Dışa Aktarım",
     phil_tag: "FELSEFEMİZ",
@@ -2296,7 +2298,6 @@ document.querySelectorAll('video[data-src]').forEach(v => {
   const panels = Array.from(root.querySelectorAll('.showcase-panel'));
   if (tabs.length === 0 || tabs.length !== panels.length) return;
 
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TICK_MS = 6000;
   const MANUAL_PAUSE_MS = 12000;
 
@@ -2351,7 +2352,7 @@ document.querySelectorAll('video[data-src]').forEach(v => {
   }
 
   function startTimer() {
-    if (timerId || prefersReducedMotion) return;
+    if (timerId) return;
     if (Date.now() < manualPauseUntil) return;
     timerId = setInterval(() => {
       if (Date.now() < manualPauseUntil) return;
