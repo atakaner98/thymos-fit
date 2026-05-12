@@ -695,24 +695,92 @@ nav.scrolled { border-bottom-color: var(--border); }
 .tf-badge-main { font-size: 22px; font-weight: 600; color: #fff; letter-spacing: -0.01em; line-height: 1.15; }
 
 /* ─── SHOWCASE rows ─── */
-.showcase { padding: 60px 0; }
+.showcase { padding: 80px 0 60px; }
 .showcase + .showcase { padding-top: 0; }
+
+/* Tab bar */
+.showcase-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px 0 8px;
+  scroll-snap-type: x mandatory;
+}
+.showcase-tabs::-webkit-scrollbar { display: none; }
+.showcase-tab {
+  position: relative;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  padding: 10px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  overflow: hidden;
+}
+.showcase-tab:hover { color: var(--text-primary); border-color: var(--border-accent); }
+.showcase-tab.is-active {
+  color: var(--accent);
+  background: var(--accent-glow);
+  border-color: rgba(200, 85, 61, 0.35);
+}
+.showcase-tab-bar {
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.showcase-tab.is-active .showcase-tab-bar {
+  animation: showcase-tab-progress 6s linear forwards;
+}
+.showcase.is-paused .showcase-tab.is-active .showcase-tab-bar {
+  animation-play-state: paused;
+}
+@keyframes showcase-tab-progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* Panel container */
+.showcase-panels { position: relative; }
+.showcase-panel {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.showcase-panel.is-active {
+  display: block;
+  opacity: 1;
+}
 
 .showcase-row {
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
   align-items: center;
-  padding: 72px 0;
-  border-top: 1px solid var(--border);
+  padding: 24px 0;
 }
-.showcase-row:last-child { border-bottom: 1px solid var(--border); }
 
 @media(min-width:860px) {
   .showcase-row { grid-template-columns: 1fr 410px; gap: 64px; }
-  .showcase-row.reverse { grid-template-columns: 410px 1fr; }
-  .showcase-row.reverse .showcase-text { order: 2; }
-  .showcase-row.reverse .showcase-visual { order: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-tab.is-active .showcase-tab-bar { animation: none; width: 100%; }
+  .showcase-panel { transition: none; }
 }
 
 .showcase-eyebrow {
@@ -1418,125 +1486,138 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 
 
 
-<!-- SHOWCASE ROWS -->
-<section class="showcase">
+<!-- SHOWCASE (tabbed) -->
+<section class="showcase" id="showcase">
   <div class="container">
 
-    <!-- RPE / RIR Smart Suggestion -->
-    <div class="showcase-row">
-      <div class="showcase-text anim">
-        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s1_eyebrow">SMART COACHING</span></div>
-        <h2 class="showcase-title" data-i18n="s1_title">Lift Smarter.<br>Not Just Heavier.</h2>
-        <p class="showcase-body" data-i18n="s1_body">THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow. Don't want a suggestion? Dismiss it with one tap and enter your own weight.</p>
-        <div class="showcase-pills">
-          <span class="pill accent">RPE</span>
-          <span class="pill accent">RIR</span>
-          <span class="pill" data-i18n="pill_auto_suggest">Auto Weight Suggestion</span>
-          <span class="pill" data-i18n="pill_progressive">Progressive Overload</span>
-        </div>
-      </div>
-      <div class="showcase-visual anim anim-delay-1">
-        <div class="phone-frame">
-          <video data-src="assets/videos/raw_record_rpe_suggestion.mp4" loop muted playsinline preload="none"></video>
-        </div>
-      </div>
+    <div class="showcase-tabs anim" role="tablist" aria-label="Features">
+      <button class="showcase-tab is-active" role="tab" data-tab="0" id="showcase-tab-0" aria-selected="true" aria-controls="showcase-panel-0"><span class="showcase-tab-label" data-i18n="s1_eyebrow">SMART COACHING</span><span class="showcase-tab-bar"></span></button>
+      <button class="showcase-tab" role="tab" data-tab="1" id="showcase-tab-1" aria-selected="false" aria-controls="showcase-panel-1" tabindex="-1"><span class="showcase-tab-label" data-i18n="s2_eyebrow">READINESS</span><span class="showcase-tab-bar"></span></button>
+      <button class="showcase-tab" role="tab" data-tab="2" id="showcase-tab-2" aria-selected="false" aria-controls="showcase-panel-2" tabindex="-1"><span class="showcase-tab-label" data-i18n="s3_eyebrow">PRECISION LOADING</span><span class="showcase-tab-bar"></span></button>
+      <button class="showcase-tab" role="tab" data-tab="3" id="showcase-tab-3" aria-selected="false" aria-controls="showcase-panel-3" tabindex="-1"><span class="showcase-tab-label" data-i18n="s4_eyebrow">BODY ANALYSIS</span><span class="showcase-tab-bar"></span></button>
+      <button class="showcase-tab" role="tab" data-tab="4" id="showcase-tab-4" aria-selected="false" aria-controls="showcase-panel-4" tabindex="-1"><span class="showcase-tab-label" data-i18n="s5_eyebrow">PROGRESS TRACKING</span><span class="showcase-tab-bar"></span></button>
+      <button class="showcase-tab" role="tab" data-tab="5" id="showcase-tab-5" aria-selected="false" aria-controls="showcase-panel-5" tabindex="-1"><span class="showcase-tab-label" data-i18n="s6_eyebrow">MIGRATION</span><span class="showcase-tab-bar"></span></button>
     </div>
 
-    <!-- Warm-up -->
-    <div class="showcase-row reverse">
-      <div class="showcase-visual anim">
-        <div class="phone-frame">
-          <video data-src="assets/videos/raw_record_warmup.mp4" loop muted playsinline preload="none"></video>
-        </div>
-      </div>
-      <div class="showcase-text anim anim-delay-1">
-        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s2_eyebrow">READINESS</span></div>
-        <h2 class="showcase-title" data-i18n="s2_title">Prime Every Session.<br>Scientifically.</h2>
-        <p class="showcase-body" data-i18n="s2_body">Evidence-based warm-up prescriptions, built automatically from your working weight. THYMOS ramps you up with the right loads at the right intensities — so you walk into every working set fully prepared.</p>
-        <div class="showcase-pills">
-          <span class="pill" data-i18n="pill_warmup_auto">Auto Warm-Up Builder</span>
-          <span class="pill" data-i18n="pill_evidence">Evidence-Based</span>
-          <span class="pill" data-i18n="pill_fatigue">Minimizes Fatigue</span>
-        </div>
-      </div>
-    </div>
+    <div class="showcase-panels">
 
-    <!-- Plate Calculator -->
-    <div class="showcase-row">
-      <div class="showcase-text anim">
-        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s3_eyebrow">PRECISION LOADING</span></div>
-        <h2 class="showcase-title" data-i18n="s3_title">Load Smarter,<br>Faster.</h2>
-        <p class="showcase-body" data-i18n="s3_body">Enter your target weight and get an instant, balanced plate setup — no mental math, no guesswork, just bar-ready precision. Log what you actually lift by selecting the plates on the bar. The app calculates total load automatically for cleaner tracking.</p>
-        <div class="showcase-pills">
-          <span class="pill" data-i18n="pill_plate_calc">Plate Calculator</span>
-          <span class="pill" data-i18n="pill_plate_log">Plate-Based Logging</span>
-          <span class="pill" data-i18n="pill_bar_ready">Bar-Ready Precision</span>
+      <div class="showcase-panel is-active" role="tabpanel" id="showcase-panel-0" aria-labelledby="showcase-tab-0" data-panel="0">
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <h2 class="showcase-title" data-i18n="s1_title">Lift Smarter.<br>Not Just Heavier.</h2>
+            <p class="showcase-body" data-i18n="s1_body">THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow. Don't want a suggestion? Dismiss it with one tap and enter your own weight.</p>
+            <div class="showcase-pills">
+              <span class="pill accent">RPE</span>
+              <span class="pill accent">RIR</span>
+              <span class="pill" data-i18n="pill_auto_suggest">Auto Weight Suggestion</span>
+              <span class="pill" data-i18n="pill_progressive">Progressive Overload</span>
+            </div>
+          </div>
+          <div class="showcase-visual">
+            <div class="phone-frame">
+              <video data-src="assets/videos/raw_record_rpe_suggestion.mp4" loop muted playsinline preload="none"></video>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="showcase-visual anim anim-delay-1">
-        <div class="phone-frame">
-          <video data-src="assets/videos/raw_record_plate_calculator.mp4" loop muted playsinline preload="none"></video>
-        </div>
-      </div>
-    </div>
 
-    <!-- Muscle Heatmap -->
-    <div class="showcase-row reverse">
-      <div class="showcase-visual anim">
-        <div class="phone-frame">
-          <video data-src="assets/videos/row_records_heatmap.mp4" loop muted playsinline preload="none"></video>
+      <div class="showcase-panel" role="tabpanel" id="showcase-panel-1" aria-labelledby="showcase-tab-1" data-panel="1">
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <h2 class="showcase-title" data-i18n="s2_title">Prime Every Session.<br>Scientifically.</h2>
+            <p class="showcase-body" data-i18n="s2_body">Evidence-based warm-up prescriptions, built automatically from your working weight. THYMOS ramps you up with the right loads at the right intensities — so you walk into every working set fully prepared.</p>
+            <div class="showcase-pills">
+              <span class="pill" data-i18n="pill_warmup_auto">Auto Warm-Up Builder</span>
+              <span class="pill" data-i18n="pill_evidence">Evidence-Based</span>
+              <span class="pill" data-i18n="pill_fatigue">Minimizes Fatigue</span>
+            </div>
+          </div>
+          <div class="showcase-visual">
+            <div class="phone-frame">
+              <video data-src="assets/videos/raw_record_warmup.mp4" loop muted playsinline preload="none"></video>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="showcase-text anim anim-delay-1">
-        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s4_eyebrow">BODY ANALYSIS</span></div>
-        <h2 class="showcase-title" data-i18n="s4_title">See What<br>You're Building.</h2>
-        <p class="showcase-body" data-i18n="s4_body">Muscle distribution heatmaps show you exactly which muscles you've trained, how intensely, and what's been neglected. Turn your sessions into a clear map of your training balance — and guide what to push next.</p>
-        <div class="showcase-pills">
-          <span class="pill" data-i18n="pill_heatmap">Muscle Heatmap</span>
-          <span class="pill" data-i18n="pill_balance">Training Balance</span>
-          <span class="pill" data-i18n="pill_weekly">7 / 30 / 90 Day View</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Analytics Summary -->
-    <div class="showcase-row">
-      <div class="showcase-text anim">
-        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s5_eyebrow">PROGRESS TRACKING</span></div>
-        <h2 class="showcase-title" data-i18n="s5_title">Real Data.<br>Clear Trends.</h2>
-        <p class="showcase-body" data-i18n="s5_body">Trends, estimated 1RM, set volume, and full workout history — all in one place. Measured data stays measured. Estimated data is clearly marked. We never mix the two to make numbers look better than they are.</p>
-        <div class="showcase-pills">
-          <span class="pill" data-i18n="pill_1rm">Estimated 1RM</span>
-          <span class="pill" data-i18n="pill_volume">Volume Tracking</span>
-          <span class="pill" data-i18n="pill_trends">Long-Term Trends</span>
+      <div class="showcase-panel" role="tabpanel" id="showcase-panel-2" aria-labelledby="showcase-tab-2" data-panel="2">
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <h2 class="showcase-title" data-i18n="s3_title">Load Smarter,<br>Faster.</h2>
+            <p class="showcase-body" data-i18n="s3_body">Enter your target weight and get an instant, balanced plate setup — no mental math, no guesswork, just bar-ready precision. Log what you actually lift by selecting the plates on the bar. The app calculates total load automatically for cleaner tracking.</p>
+            <div class="showcase-pills">
+              <span class="pill" data-i18n="pill_plate_calc">Plate Calculator</span>
+              <span class="pill" data-i18n="pill_plate_log">Plate-Based Logging</span>
+              <span class="pill" data-i18n="pill_bar_ready">Bar-Ready Precision</span>
+            </div>
+          </div>
+          <div class="showcase-visual">
+            <div class="phone-frame">
+              <video data-src="assets/videos/raw_record_plate_calculator.mp4" loop muted playsinline preload="none"></video>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="showcase-visual anim anim-delay-1">
-        <div class="phone-frame">
-          <video data-src="assets/videos/row_record_trends.mp4" loop muted playsinline preload="none"></video>
-        </div>
-      </div>
-    </div>
 
-    <!-- CSV Import -->
-    <div class="showcase-row reverse">
-      <div class="showcase-visual anim">
-        <div class="phone-frame">
-          <video data-src="assets/videos/raw_record_csv_import.mp4" loop muted playsinline preload="none"></video>
+      <div class="showcase-panel" role="tabpanel" id="showcase-panel-3" aria-labelledby="showcase-tab-3" data-panel="3">
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <h2 class="showcase-title" data-i18n="s4_title">See What<br>You're Building.</h2>
+            <p class="showcase-body" data-i18n="s4_body">Muscle distribution heatmaps show you exactly which muscles you've trained, how intensely, and what's been neglected. Turn your sessions into a clear map of your training balance — and guide what to push next.</p>
+            <div class="showcase-pills">
+              <span class="pill" data-i18n="pill_heatmap">Muscle Heatmap</span>
+              <span class="pill" data-i18n="pill_balance">Training Balance</span>
+              <span class="pill" data-i18n="pill_weekly">7 / 30 / 90 Day View</span>
+            </div>
+          </div>
+          <div class="showcase-visual">
+            <div class="phone-frame">
+              <video data-src="assets/videos/row_records_heatmap.mp4" loop muted playsinline preload="none"></video>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="showcase-text anim anim-delay-1">
-        <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s6_eyebrow">MIGRATION</span></div>
-        <h2 class="showcase-title" data-i18n="s6_title">Bring Your<br>History With You.</h2>
-        <p class="showcase-body" data-i18n="s6_body">Import from Strong, Hevy, FitNotes, or Excel — all your previous training data comes with you. And when you want to leave, export everything as CSV or JSON. Your data is always portable. Always yours.</p>
-        <div class="showcase-pills">
-          <span class="pill">Strong</span>
-          <span class="pill">Hevy</span>
-          <span class="pill">FitNotes</span>
-          <span class="pill">Excel</span>
-          <span class="pill accent" data-i18n="pill_export">CSV / JSON Export</span>
+
+      <div class="showcase-panel" role="tabpanel" id="showcase-panel-4" aria-labelledby="showcase-tab-4" data-panel="4">
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <h2 class="showcase-title" data-i18n="s5_title">Real Data.<br>Clear Trends.</h2>
+            <p class="showcase-body" data-i18n="s5_body">Trends, estimated 1RM, set volume, and full workout history — all in one place. Measured data stays measured. Estimated data is clearly marked. We never mix the two to make numbers look better than they are.</p>
+            <div class="showcase-pills">
+              <span class="pill" data-i18n="pill_1rm">Estimated 1RM</span>
+              <span class="pill" data-i18n="pill_volume">Volume Tracking</span>
+              <span class="pill" data-i18n="pill_trends">Long-Term Trends</span>
+            </div>
+          </div>
+          <div class="showcase-visual">
+            <div class="phone-frame">
+              <video data-src="assets/videos/row_record_trends.mp4" loop muted playsinline preload="none"></video>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div class="showcase-panel" role="tabpanel" id="showcase-panel-5" aria-labelledby="showcase-tab-5" data-panel="5">
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <h2 class="showcase-title" data-i18n="s6_title">Bring Your<br>History With You.</h2>
+            <p class="showcase-body" data-i18n="s6_body">Import from Strong, Hevy, FitNotes, or Excel — all your previous training data comes with you. And when you want to leave, export everything as CSV or JSON. Your data is always portable. Always yours.</p>
+            <div class="showcase-pills">
+              <span class="pill">Strong</span>
+              <span class="pill">Hevy</span>
+              <span class="pill">FitNotes</span>
+              <span class="pill">Excel</span>
+              <span class="pill accent" data-i18n="pill_export">CSV / JSON Export</span>
+            </div>
+          </div>
+          <div class="showcase-visual">
+            <div class="phone-frame">
+              <video data-src="assets/videos/raw_record_csv_import.mp4" loop muted playsinline preload="none"></video>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -2159,7 +2240,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.anim').forEach(el => observer.observe(el));
 
-// Lazy load videos when they enter viewport
+// Lazy load videos when they enter viewport (excluding showcase tabs, which control their own playback)
 const videoObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -2170,7 +2251,161 @@ const videoObserver = new IntersectionObserver(entries => {
     }
   });
 }, { rootMargin: '200px' });
-document.querySelectorAll('video[data-src]').forEach(v => videoObserver.observe(v));
+document.querySelectorAll('video[data-src]').forEach(v => {
+  if (v.closest('.showcase-panel')) return;
+  videoObserver.observe(v);
+});
+
+// Showcase tabs — auto-advancing tab system with single-active-video playback
+(function showcaseTabs() {
+  const root = document.querySelector('.showcase');
+  if (!root) return;
+  const tabs = Array.from(root.querySelectorAll('.showcase-tab'));
+  const panels = Array.from(root.querySelectorAll('.showcase-panel'));
+  if (tabs.length === 0 || tabs.length !== panels.length) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TICK_MS = 6000;
+  const MANUAL_PAUSE_MS = 12000;
+
+  let current = 0;
+  let timerId = null;
+  let manualPauseUntil = 0;
+  let inView = false;
+
+  function pauseAllVideos() {
+    panels.forEach(p => {
+      const v = p.querySelector('video');
+      if (v && !v.paused) v.pause();
+    });
+  }
+
+  function playActiveVideo() {
+    const panel = panels[current];
+    if (!panel) return;
+    const v = panel.querySelector('video');
+    if (!v) return;
+    if (!v.src && v.dataset.src) v.src = v.dataset.src;
+    const p = v.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  }
+
+  function setActive(index, { restartProgress = true } = {}) {
+    if (index === current && !restartProgress) return;
+    tabs.forEach((t, i) => {
+      const active = i === index;
+      t.classList.toggle('is-active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((p, i) => p.classList.toggle('is-active', i === index));
+    if (restartProgress) {
+      // Restart the progress-bar animation by forcing a reflow on the active tab's bar.
+      const bar = tabs[index].querySelector('.showcase-tab-bar');
+      if (bar) {
+        bar.style.animation = 'none';
+        // eslint-disable-next-line no-unused-expressions
+        bar.offsetWidth;
+        bar.style.animation = '';
+      }
+    }
+    current = index;
+    pauseAllVideos();
+    playActiveVideo();
+  }
+
+  function advance() {
+    setActive((current + 1) % tabs.length);
+  }
+
+  function startTimer() {
+    if (timerId || prefersReducedMotion) return;
+    if (!inView) return;
+    if (Date.now() < manualPauseUntil) return;
+    timerId = setInterval(() => {
+      if (Date.now() < manualPauseUntil) return;
+      if (!inView) return;
+      advance();
+    }, TICK_MS);
+  }
+
+  function stopTimer() {
+    if (timerId) { clearInterval(timerId); timerId = null; }
+  }
+
+  // Click handling
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = Number(tab.dataset.tab);
+      manualPauseUntil = Date.now() + MANUAL_PAUSE_MS;
+      stopTimer();
+      setActive(idx);
+      if (window.umami) {
+        try { umami.track('showcase-tab-click', { tab: idx }); } catch {}
+      }
+      // Restart after manual pause window
+      setTimeout(() => { startTimer(); }, MANUAL_PAUSE_MS + 50);
+    });
+  });
+
+  // Keyboard navigation (arrow keys / Home / End)
+  root.querySelector('.showcase-tabs').addEventListener('keydown', e => {
+    const idx = tabs.indexOf(document.activeElement);
+    if (idx === -1) return;
+    let next = idx;
+    if (e.key === 'ArrowRight') next = (idx + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft') next = (idx - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = tabs.length - 1;
+    else return;
+    e.preventDefault();
+    tabs[next].focus();
+    tabs[next].click();
+  });
+
+  // Hover/focus pause
+  root.addEventListener('mouseenter', () => { root.classList.add('is-paused'); stopTimer(); });
+  root.addEventListener('mouseleave', () => { root.classList.remove('is-paused'); startTimer(); });
+  root.addEventListener('focusin', () => { root.classList.add('is-paused'); stopTimer(); });
+  root.addEventListener('focusout', () => {
+    if (!root.contains(document.activeElement)) {
+      root.classList.remove('is-paused');
+      startTimer();
+    }
+  });
+
+  // Pause when tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { stopTimer(); pauseAllVideos(); }
+    else { startTimer(); playActiveVideo(); }
+  });
+
+  function restartProgressBar() {
+    const bar = tabs[current].querySelector('.showcase-tab-bar');
+    if (!bar) return;
+    bar.style.animation = 'none';
+    // eslint-disable-next-line no-unused-expressions
+    bar.offsetWidth;
+    bar.style.animation = '';
+  }
+
+  // Only auto-advance / play video when the showcase is in view
+  let hasEnteredView = false;
+  const inViewObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      inView = e.isIntersecting;
+      if (inView) {
+        if (!hasEnteredView) { restartProgressBar(); hasEnteredView = true; }
+        playActiveVideo();
+        startTimer();
+      } else {
+        pauseAllVideos();
+        stopTimer();
+      }
+    });
+  }, { threshold: 0.15 });
+  inViewObserver.observe(root);
+})();
 
 // Show nav CTA after hero content scrolls out of view
 const navCta = document.querySelector('.nav-cta');
