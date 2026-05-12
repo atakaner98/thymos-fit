@@ -2224,7 +2224,18 @@ function setLang(lang) {
     img.src = badge.src;
     img.alt = badge.alt;
   });
+  try { localStorage.setItem('thymos_lang', lang); } catch {}
 }
+
+// Run translations on page load so the JS-side strings (including the
+// accent spans inside titles and the latest copy edits) actually replace
+// the HTML fallback values. Without this, the HTML defaults render and
+// the JS translations never fire until the user clicks EN/TR.
+(function initLang() {
+  let saved = null;
+  try { saved = localStorage.getItem('thymos_lang'); } catch {}
+  setLang(saved === 'tr' ? 'tr' : 'en');
+})();
 
 const SUPABASE_URL  = 'https://fxdlscqifuicpawdzcdg.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZGxzY3FpZnVpY3Bhd2R6Y2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTY2MDcsImV4cCI6MjA4ODEzMjYwN30.X_LCrL2i1FVNVMdrO7hIYa33vtJCHjxmDT8Xf-GM5DE';
