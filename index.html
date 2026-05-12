@@ -700,6 +700,16 @@ nav.scrolled { border-bottom-color: var(--border); }
 .showcase { padding: 80px 0 60px; }
 .showcase + .showcase { padding-top: 0; }
 
+/* Section header above the tab bar */
+.showcase-header {
+  text-align: center;
+  margin: 0 auto 40px;
+  max-width: 640px;
+}
+.showcase-header .section-tag { margin-bottom: 12px; }
+.showcase-header .section-title { margin-bottom: 12px; }
+.showcase-header .section-desc { margin: 0; }
+
 /* Tab bar */
 .showcase-tabs {
   display: flex;
@@ -777,7 +787,9 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 
 @media(min-width:860px) {
-  .showcase-row { grid-template-columns: 1fr 410px; gap: 64px; }
+  .showcase-row { grid-template-columns: 410px 1fr; gap: 64px; }
+  .showcase-row .showcase-visual { order: 1; }
+  .showcase-row .showcase-text { order: 2; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1492,6 +1504,12 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 <section class="showcase" id="showcase">
   <div class="container">
 
+    <div class="showcase-header anim">
+      <div class="section-tag" data-i18n="showcase_tag">EXPLORE THE APP</div>
+      <h2 class="section-title" data-i18n="showcase_title">See It In Action.</h2>
+      <p class="section-desc" data-i18n="showcase_desc">Six things THYMOS does differently. Tap a tab to switch — or just watch them rotate.</p>
+    </div>
+
     <div class="showcase-tabs anim" role="tablist" aria-label="Features">
       <button class="showcase-tab is-active" role="tab" data-tab="0" id="showcase-tab-0" aria-selected="true" aria-controls="showcase-panel-0"><span class="showcase-tab-label" data-i18n="s1_eyebrow">SMART COACHING</span><span class="showcase-tab-bar"></span></button>
       <button class="showcase-tab" role="tab" data-tab="1" id="showcase-tab-1" aria-selected="false" aria-controls="showcase-panel-1" tabindex="-1"><span class="showcase-tab-label" data-i18n="s2_eyebrow">READINESS</span><span class="showcase-tab-bar"></span></button>
@@ -1912,6 +1930,9 @@ const translations = {
     features_tag: "FEATURES",
     features_title: "What's Under the Hood.",
     features_desc: "Not another fitness app with a social feed. THYMOS is a precision instrument for people who take training seriously.",
+    showcase_tag: "EXPLORE THE APP",
+    showcase_title: "See It In Action.",
+    showcase_desc: "Six things THYMOS does differently. Tap a tab to switch — or just watch them rotate.",
     f1_title: "Ultra-Fast Logging",
     f1_desc: "Instant workout starts, custom templates, and progressive programs. Go from idea to action in seconds.",
     f2_title: "Privacy First",
@@ -2041,6 +2062,9 @@ const translations = {
     features_tag: "ÖZELLİKLER",
     features_title: "İçinde Neler Var.",
     features_desc: "Sosyal akışlı bir fitness uygulaması değil. THYMOS, antrenmanı ciddiye alanlar için hassas bir araç.",
+    showcase_tag: "UYGULAMAYI KEŞFET",
+    showcase_title: "İş Başında Gör.",
+    showcase_desc: "THYMOS'un farklı yaptığı altı şey. Sekmeye dokunup geç — veya kendiliğinden dönmesini izle.",
     f1_title: "Ultra-Hızlı Kayıt",
     f1_desc: "Anında antrenman başlatma, özel şablonlar ve progresif programlar. Saniyeler içinde fikirden aksiyona.",
     f2_title: "Önce Gizlilik",
@@ -2328,11 +2352,9 @@ document.querySelectorAll('video[data-src]').forEach(v => {
 
   function startTimer() {
     if (timerId || prefersReducedMotion) return;
-    if (!inView) return;
     if (Date.now() < manualPauseUntil) return;
     timerId = setInterval(() => {
       if (Date.now() < manualPauseUntil) return;
-      if (!inView) return;
       advance();
     }, TICK_MS);
   }
@@ -2397,22 +2419,22 @@ document.querySelectorAll('video[data-src]').forEach(v => {
     bar.style.animation = '';
   }
 
-  // Only auto-advance / play video when the showcase is in view
-  let hasEnteredView = false;
+  // Pause/resume video playback based on visibility. Tab advancement always runs
+  // so the carousel stays "live" -- if we gated the timer on visibility, a
+  // failed/late observer firing would silently freeze it.
   const inViewObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
       inView = e.isIntersecting;
-      if (inView) {
-        if (!hasEnteredView) { restartProgressBar(); hasEnteredView = true; }
-        playActiveVideo();
-        startTimer();
-      } else {
-        pauseAllVideos();
-        stopTimer();
-      }
+      if (inView) { playActiveVideo(); }
+      else { pauseAllVideos(); }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0 });
   inViewObserver.observe(root);
+
+  // Kick off the timer immediately and try to play the active video (autoplay-
+  // policy will allow it because the video is muted).
+  playActiveVideo();
+  startTimer();
 })();
 
 // Show nav CTA after hero content scrolls out of view
