@@ -251,6 +251,8 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 @media(min-width:900px) {
   .hero-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
+  .hero-visual { order: 1; }
+  .hero-content { order: 2; }
 }
 .hero-content { animation: fadeUp 0.8s ease both; }
 .hero-tag {
@@ -1283,7 +1285,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
         <span data-i18n="hero_tag">FREE ON GOOGLE PLAY</span>
       </div>
       <h1>
-        <span data-i18n="hero_title_1">The workout tracker that</span>
+        <span data-i18n="hero_title_1">The workout tracker that</span><br>
         <span class="accent" data-i18n="hero_title_3">gets out of your way.</span>
       </h1>
       <p class="hero-desc" data-i18n="hero_desc">
@@ -1504,6 +1506,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="showcase-panel is-active" role="tabpanel" id="showcase-panel-0" aria-labelledby="showcase-tab-0" data-panel="0">
         <div class="showcase-row">
           <div class="showcase-text">
+            <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s1_eyebrow">SMART COACHING</span></div>
             <h2 class="showcase-title" data-i18n="s1_title">Lift Smarter.<br>Not Just Heavier.</h2>
             <p class="showcase-body" data-i18n="s1_body">THYMOS reads the RPE and RIR you log during each set and automatically suggests the right weight for your next working set. No guesswork, no spreadsheets — just data-driven progression built into your workflow. Don't want a suggestion? Dismiss it with one tap and enter your own weight.</p>
             <div class="showcase-pills">
@@ -1524,6 +1527,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="showcase-panel" role="tabpanel" id="showcase-panel-1" aria-labelledby="showcase-tab-1" data-panel="1">
         <div class="showcase-row">
           <div class="showcase-text">
+            <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s2_eyebrow">READINESS</span></div>
             <h2 class="showcase-title" data-i18n="s2_title">Prime Every Session.<br>Scientifically.</h2>
             <p class="showcase-body" data-i18n="s2_body">Evidence-based warm-up prescriptions, built automatically from your working weight. THYMOS ramps you up with the right loads at the right intensities — so you walk into every working set fully prepared.</p>
             <div class="showcase-pills">
@@ -1543,6 +1547,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="showcase-panel" role="tabpanel" id="showcase-panel-2" aria-labelledby="showcase-tab-2" data-panel="2">
         <div class="showcase-row">
           <div class="showcase-text">
+            <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s3_eyebrow">PRECISION LOADING</span></div>
             <h2 class="showcase-title" data-i18n="s3_title">Load Smarter,<br>Faster.</h2>
             <p class="showcase-body" data-i18n="s3_body">Enter your target weight and get an instant, balanced plate setup — no mental math, no guesswork, just bar-ready precision. Log what you actually lift by selecting the plates on the bar. The app calculates total load automatically for cleaner tracking.</p>
             <div class="showcase-pills">
@@ -1562,6 +1567,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="showcase-panel" role="tabpanel" id="showcase-panel-3" aria-labelledby="showcase-tab-3" data-panel="3">
         <div class="showcase-row">
           <div class="showcase-text">
+            <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s4_eyebrow">BODY ANALYSIS</span></div>
             <h2 class="showcase-title" data-i18n="s4_title">See What<br>You're Building.</h2>
             <p class="showcase-body" data-i18n="s4_body">Muscle distribution heatmaps show you exactly which muscles you've trained, how intensely, and what's been neglected. Turn your sessions into a clear map of your training balance — and guide what to push next.</p>
             <div class="showcase-pills">
@@ -1581,6 +1587,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="showcase-panel" role="tabpanel" id="showcase-panel-4" aria-labelledby="showcase-tab-4" data-panel="4">
         <div class="showcase-row">
           <div class="showcase-text">
+            <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s5_eyebrow">PROGRESS TRACKING</span></div>
             <h2 class="showcase-title" data-i18n="s5_title">Real Data.<br>Clear Trends.</h2>
             <p class="showcase-body" data-i18n="s5_body">Trends, estimated 1RM, set volume, and full workout history — all in one place. Measured data stays measured. Estimated data is clearly marked. We never mix the two to make numbers look better than they are.</p>
             <div class="showcase-pills">
@@ -1600,6 +1607,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       <div class="showcase-panel" role="tabpanel" id="showcase-panel-5" aria-labelledby="showcase-tab-5" data-panel="5">
         <div class="showcase-row">
           <div class="showcase-text">
+            <div class="showcase-eyebrow"><span class="showcase-eyebrow-dot"></span><span data-i18n="s6_eyebrow">MIGRATION</span></div>
             <h2 class="showcase-title" data-i18n="s6_title">Bring Your<br>History With You.</h2>
             <p class="showcase-body" data-i18n="s6_body">Import from Strong, Hevy, FitNotes, or Excel — all your previous training data comes with you. And when you want to leave, export everything as CSV or JSON. Your data is always portable. Always yours.</p>
             <div class="showcase-pills">
@@ -2363,9 +2371,9 @@ document.querySelectorAll('video[data-src]').forEach(v => {
     tabs[next].click();
   });
 
-  // Hover/focus pause
-  root.addEventListener('mouseenter', () => { root.classList.add('is-paused'); stopTimer(); });
-  root.addEventListener('mouseleave', () => { root.classList.remove('is-paused'); startTimer(); });
+  // Keyboard-focus pause only. Mouse-hover pause is intentionally NOT wired up:
+  // mouseenter fires when the section scrolls under a stationary cursor, which
+  // would silently freeze auto-advance for most desktop visitors.
   root.addEventListener('focusin', () => { root.classList.add('is-paused'); stopTimer(); });
   root.addEventListener('focusout', () => {
     if (!root.contains(document.activeElement)) {
