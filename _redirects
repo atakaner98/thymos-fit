@@ -4,3 +4,6 @@
 /hn  /?utm_source=hackernews&utm_medium=post   302
 /blog  /blog/en/                              302
 /blog/ /blog/en/                              302
+# Web routine builder SPA fallback (200 rewrite: only applies when no real
+# asset matches, so built assets and /builder/auth/index.html are unaffected).
+/builder/* /builder/index.html 200
