@@ -415,12 +415,11 @@ nav {
 
 /* "You are here" progress dot — sits on the timeline at the current work
    front (between Form Video Recording and Deep Analytics & Insights).
-   Mobile: on the left rail. Desktop: in the column gap = center line. */
-@keyframes now-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(200, 85, 61, 0.5); }
-  70% { box-shadow: 0 0 0 16px rgba(200, 85, 61, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(200, 85, 61, 0); }
-}
+   Mobile: on the left rail. Desktop: in the column gap = center line.
+   The host card gets z-index above its siblings: each card is its own
+   stacking context (entry animation), so without this the next card paints
+   over the half of the dot that reaches into the column gap. */
+.feature-card--now { z-index: 3; }
 .now-dot {
   position: absolute;
   left: -54px;
@@ -430,15 +429,32 @@ nav {
   height: 22px;
   border-radius: 50%;
   background: var(--accent);
-  border: 3px solid var(--accent);
-  animation: now-pulse 2.2s ease-out infinite;
-  z-index: 2;
+  box-shadow: 0 0 16px var(--accent-glow), 0 0 32px var(--accent-glow);
+  z-index: 4;
+}
+@keyframes now-ring {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.now-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  animation: now-ring 2s ease-out infinite;
 }
 @media(min-width:768px) {
   .now-dot { left: auto; right: -17px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .now-dot { animation: none; box-shadow: 0 0 16px var(--accent-glow); }
+  /* Keep a gentle, non-moving pulse: opacity only, no scaling. */
+  @keyframes now-ring {
+    0% { transform: none; opacity: 0.15; }
+    50% { transform: none; opacity: 0.75; }
+    100% { transform: none; opacity: 0.15; }
+  }
+  .now-dot::after { inset: -6px; animation: now-ring 3s ease-in-out infinite; }
 }
 
 /* ─── CTA BANNER ─── */
@@ -617,7 +633,7 @@ footer {
               <p data-i18n="f_v1_2d">Create and manage routines from your browser, sync to your phone.</p>
             </div>
           </div>
-          <div class="feature-card anim anim-delay-2">
+          <div class="feature-card feature-card--now anim anim-delay-2">
             <div class="now-dot" aria-hidden="true"></div>
             <div class="feature-card-text">
               <h4 data-i18n="f_v1_3">Form Video Recording</h4>
