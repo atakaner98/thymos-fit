@@ -2,8 +2,11 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { missingConfigKeys } from "./config";
 import { useSession, sessionEmail } from "./auth/useSession";
 import { getSupabase } from "./auth/supabaseClient";
+import { BuilderProvider } from "./state/BuilderContext";
 import LoginPage from "./pages/LoginPage";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
+import TemplateListPage from "./pages/TemplateListPage";
+import TemplateEditorPage from "./pages/TemplateEditorPage";
 
 function ConfigErrorScreen({ keys }: { keys: string[] }) {
   return (
@@ -28,18 +31,6 @@ function LoadingScreen() {
           Checking your session…
         </p>
       </div>
-    </main>
-  );
-}
-
-function HomePlaceholder({ email }: { email: string | null }) {
-  return (
-    <main className="page">
-      <h1>Your Templates</h1>
-      <p className="muted">
-        Signed in as {email ?? "unknown"}. Template list arrives in the next
-        build step.
-      </p>
     </main>
   );
 }
@@ -80,13 +71,22 @@ export default function App() {
       )}
       <Routes>
         <Route path="/auth" element={<AuthCallbackPage />} />
-        <Route
-          path="/"
-          element={
-            signedIn ? <HomePlaceholder email={email} /> : <LoginPage />
-          }
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {signedIn && state.session ? (
+          <Route
+            path="*"
+            element={
+              <BuilderProvider userId={state.session.user.id}>
+                <Routes>
+                  <Route path="/" element={<TemplateListPage />} />
+                  <Route path="/edit/:id" element={<TemplateEditorPage />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </BuilderProvider>
+            }
+          />
+        ) : (
+          <Route path="*" element={<LoginPage />} />
+        )}
       </Routes>
     </>
   );

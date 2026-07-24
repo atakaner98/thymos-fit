@@ -1,0 +1,177 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useBuilder } from "../state/BuilderContext";
+
+function originLabel(channel: string): string {
+  switch (channel) {
+    case "web_app":
+      return "web";
+    case "phone_app":
+      return "phone";
+    case "watch_app":
+      return "watch";
+    default:
+      return channel;
+  }
+}
+
+export default function TemplateListPage() {
+  const {
+    hydration,
+    pushState,
+    templates,
+    pending,
+    hydrate,
+    deleteTemplate,
+    pushPending,
+  } = useBuilder();
+  const navigate = useNavigate();
+
+  return (
+    <main className="page">
+      <div className="list-header">
+        <h1>Your Templates</h1>
+        <div style={{ display: "flex", gap: 10 }}>
+          <button
+            type="button"
+            className="button button--ghost"
+            onClick={() => void hydrate()}
+            disabled={hydration.kind === "loading"}
+          >
+            Refresh
+          </button>
+          <button
+            type="button"
+            className="button"
+            onClick={() => navigate("/edit/new")}
+          >
+            + New template
+          </button>
+        </div>
+      </div>
+
+      {pending.length > 0 && (
+        <div className="push-panel">
+          <div>
+            <strong>{pending.length}</strong> change(s) waiting to be pushed to
+            your phone:
+            <ul className="push-panel__list">
+              {pending.map((item) => (
+                <li key={item.envelope.header.lastMutationId}>
+                  {item.label}
+                  {item.lastFailure && (
+                    <span className="push-panel__failure">
+                      {" "}
+                      — rejected: {item.lastFailure.errorCode}
+                      {item.lastFailure.message
+                        ? ` (${item.lastFailure.message})`
+                        : ""}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <button
+            type="button"
+            className="button"
+            onClick={() => void pushPending()}
+            disabled={pushState.kind === "pushing"}
+          >
+            {pushState.kind === "pushing" ? "Pushing…" : "Push to phone"}
+          </button>
+        </div>
+      )}
+
+      {pushState.kind === "done" && (
+        <div className="ok-banner">
+          {pushState.accepted} change(s) pushed. Open THYMOS on your phone and
+          run Sync to receive them.
+        </div>
+      )}
+      {pushState.kind === "error" && (
+        <div className="error-banner">
+          {pushState.message}
+          {pushState.retryAfterSeconds !== undefined &&
+            ` Try again in ~${pushState.retryAfterSeconds}s.`}
+        </div>
+      )}
+
+      {hydration.kind === "loading" && (
+        <div className="card" role="status">
+          <div className="spinner" aria-hidden="true" />
+          <p className="muted" style={{ textAlign: "center" }}>
+            Loading your templates from sync…
+          </p>
+        </div>
+      )}
+
+      {hydration.kind === "error" && (
+        <div className="error-banner">
+          Could not load templates: {hydration.message}{" "}
+          <button
+            type="button"
+            className="button button--ghost"
+            onClick={() => void hydrate()}
+          >
+            Retry
+          </button>
+        </div>
+      )}
+
+      {hydration.kind === "ready" && templates.length === 0 && (
+        <div className="card">
+          <p className="muted">
+            No templates yet. Create your first one — it will appear on your
+            phone after you push and sync.
+          </p>
+        </div>
+      )}
+
+      <ul className="template-list">
+        {templates.map((template) => (
+          <li key={template.entityId} className="template-row">
+            <div className="template-row__main">
+              <Link
+                to={`/edit/${template.entityId}`}
+                className="template-row__name"
+              >
+                {template.name}
+              </Link>
+              <span className="muted">
+                {template.exerciseCount} exercise(s) ·{" "}
+                {new Date(template.lastModifiedAtEpochMs).toLocaleString()} ·
+                from {originLabel(template.originInputChannel)}
+                {template.hasPendingChanges && (
+                  <span className="badge badge--pending">not pushed yet</span>
+                )}
+              </span>
+            </div>
+            <div style={{ display: "flex", gap: 8 }}>
+              <Link
+                className="button button--ghost"
+                to={`/edit/${template.entityId}`}
+              >
+                Edit
+              </Link>
+              <button
+                type="button"
+                className="button button--danger"
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      `Delete "${template.name}"? The deletion is applied to your phone on its next sync.`,
+                    )
+                  ) {
+                    deleteTemplate(template.entityId, template.name);
+                  }
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+}
