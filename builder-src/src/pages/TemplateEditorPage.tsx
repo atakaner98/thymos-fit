@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useBuilder } from "../state/BuilderContext";
 import {
@@ -221,7 +221,13 @@ export default function TemplateEditorPage() {
         />
       </div>
 
-      {draft.exercises.map((exercise, exerciseIndex) => (
+      {draft.exercises.map((exercise, exerciseIndex) => {
+        // The extras column only exists when a set type actually uses it
+        // (dropset: drop % + stages, superset: group id).
+        const needsExtras = (exercise.prescribedSets ?? []).some(
+          (set) => set.setType === "dropset" || set.setType === "superset",
+        );
+        return (
         <section
           key={`${exercise.exerciseId}-${exerciseIndex}`}
           className="exercise-card"
@@ -266,12 +272,12 @@ export default function TemplateEditorPage() {
                   <th>Type</th>
                   <th>Reps min</th>
                   <th>Reps max</th>
-                  <th>Weight (kg)</th>
-                  <th>Time (s)</th>
-                  <th>Rest (s)</th>
+                  <th>Weight kg</th>
+                  <th>Time s</th>
+                  <th>Rest s</th>
                   <th>RPE</th>
                   <th>RIR</th>
-                  <th>Extras</th>
+                  {needsExtras && <th>Extras</th>}
                   <th></th>
                 </tr>
               </thead>
@@ -352,6 +358,7 @@ export default function TemplateEditorPage() {
                         { label: "Target RIR", width: 60 },
                       )}
                     </td>
+                    {needsExtras && (
                     <td>
                       {set.setType === "dropset" && (
                         <span className="extras">
@@ -390,12 +397,12 @@ export default function TemplateEditorPage() {
                         </span>
                       )}
                     </td>
+                    )}
                     <td>
-                      <div style={{ display: "flex", gap: 6 }}>
+                      <div style={{ display: "flex", gap: 4 }}>
                         <button
                           type="button"
-                          className="button button--ghost"
-                          title="Move set up"
+                          className="button button--ghost button--icon" title="Move set up"
                           disabled={setIndex === 0}
                           onClick={() =>
                             mutateSets(exerciseIndex, (sets) => {
@@ -411,8 +418,7 @@ export default function TemplateEditorPage() {
                         </button>
                         <button
                           type="button"
-                          className="button button--ghost"
-                          title="Move set down"
+                          className="button button--ghost button--icon" title="Move set down"
                           disabled={
                             setIndex ===
                             (exercise.prescribedSets?.length ?? 0) - 1
@@ -431,8 +437,7 @@ export default function TemplateEditorPage() {
                         </button>
                         <button
                           type="button"
-                          className="button button--ghost"
-                          title="Duplicate set"
+                          className="button button--ghost button--icon" title="Duplicate set"
                           onClick={() =>
                             mutateSets(exerciseIndex, (sets) => {
                               sets.splice(setIndex + 1, 0, { ...set });
@@ -444,8 +449,7 @@ export default function TemplateEditorPage() {
                         </button>
                         <button
                           type="button"
-                          className="button button--danger"
-                          title="Remove set"
+                          className="button button--danger button--icon" title="Remove set"
                           onClick={() =>
                             mutateSets(exerciseIndex, (sets) => {
                               sets.splice(setIndex, 1);
@@ -477,7 +481,8 @@ export default function TemplateEditorPage() {
             + Add set
           </button>
         </section>
-      ))}
+        );
+      })}
     </main>
   );
 }

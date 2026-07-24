@@ -420,7 +420,7 @@ button:focus-visible {
 .set-table {
   border-collapse: collapse;
   width: 100%;
-  min-width: 820px;
+  min-width: 700px;
 }
 
 .set-table th {
@@ -432,11 +432,25 @@ button:focus-visible {
   letter-spacing: 0.1em;
   color: var(--text-secondary);
   padding: 8px;
+  white-space: nowrap;
 }
 
 .set-table td {
   padding: 6px 8px;
   border-top: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.set-table th:first-child,
+.set-table td:first-child {
+  width: 28px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.set-table td:last-child {
+  white-space: nowrap;
 }
 
 .set-table input,
