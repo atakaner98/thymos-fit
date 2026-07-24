@@ -58,7 +58,7 @@ export default function App() {
             THYMOS <span>Builder</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <span className="muted">{email}</span>
+            <span className="topbar__email">{email}</span>
             <button
               type="button"
               className="button button--ghost"

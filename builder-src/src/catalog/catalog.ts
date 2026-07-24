@@ -48,36 +48,71 @@ export function isUnknownExercise(id: string): boolean {
   return findExercise(id) === undefined;
 }
 
-export function searchExercises(
-  query: string,
-  limit = 30,
-): CatalogExercise[] {
-  const needle = query.trim().toLowerCase();
-  if (!needle) return catalog.exercises.slice(0, limit);
+function sortedUnique(values: string[]): string[] {
+  return [...new Set(values)].sort((a, b) => a.localeCompare(b));
+}
+
+/** Facet options for the browser filters, derived from the catalog itself. */
+export const allMuscles: readonly string[] = sortedUnique(
+  catalog.exercises.flatMap((exercise) => exercise.primaryMuscles),
+);
+
+export const allEquipment: readonly string[] = sortedUnique(
+  catalog.exercises.flatMap((exercise) => exercise.equipment),
+);
+
+export interface ExerciseFilter {
+  query?: string;
+  muscle?: string;
+  equipment?: string;
+}
+
+/**
+ * Returns ALL matching exercises (no arbitrary cap) — the browser list is
+ * scrollable and the full catalog must be reachable without typing.
+ * Text matches rank name-prefix first, then name/alias/muscle substring.
+ */
+export function filterExercises(filter: ExerciseFilter): CatalogExercise[] {
+  const needle = (filter.query ?? "").trim().toLowerCase();
 
   const scored: Array<{ exercise: CatalogExercise; score: number }> = [];
   for (const exercise of catalog.exercises) {
-    const name = exercise.name.toLowerCase();
-    let score = -1;
-    if (name.startsWith(needle)) {
-      score = 0;
-    } else if (name.includes(needle)) {
-      score = 1;
-    } else if (exercise.aliases.some((alias) => alias.includes(needle))) {
-      score = 2;
-    } else if (
-      exercise.primaryMuscles.some((muscle) => muscle.includes(needle)) ||
-      exercise.displayCategories.some((category) =>
-        category.toLowerCase().includes(needle),
-      )
+    if (
+      filter.muscle &&
+      !exercise.primaryMuscles.includes(filter.muscle) &&
+      !exercise.secondaryMuscles.includes(filter.muscle)
     ) {
-      score = 3;
+      continue;
     }
-    if (score >= 0) scored.push({ exercise, score });
+    if (filter.equipment && !exercise.equipment.includes(filter.equipment)) {
+      continue;
+    }
+
+    let score = 4;
+    if (needle) {
+      const name = exercise.name.toLowerCase();
+      if (name.startsWith(needle)) {
+        score = 0;
+      } else if (name.includes(needle)) {
+        score = 1;
+      } else if (exercise.aliases.some((alias) => alias.includes(needle))) {
+        score = 2;
+      } else if (
+        exercise.primaryMuscles.some((muscle) => muscle.includes(needle)) ||
+        exercise.displayCategories.some((category) =>
+          category.toLowerCase().includes(needle),
+        )
+      ) {
+        score = 3;
+      } else {
+        continue;
+      }
+    }
+    scored.push({ exercise, score });
   }
   scored.sort(
     (a, b) =>
       a.score - b.score || a.exercise.name.localeCompare(b.exercise.name),
   );
-  return scored.slice(0, limit).map((entry) => entry.exercise);
+  return scored.map((entry) => entry.exercise);
 }

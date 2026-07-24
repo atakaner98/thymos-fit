@@ -29,7 +29,12 @@ export default function TemplateListPage() {
   return (
     <main className="page">
       <div className="list-header">
-        <h1>Your Templates</h1>
+        <div>
+          <h1>Your Templates</h1>
+          <p className="muted">
+            Build here, push to your phone, train anywhere.
+          </p>
+        </div>
         <div style={{ display: "flex", gap: 10 }}>
           <button
             type="button"
@@ -137,10 +142,16 @@ export default function TemplateListPage() {
               >
                 {template.name}
               </Link>
-              <span className="muted">
-                {template.exerciseCount} exercise(s) ·{" "}
-                {new Date(template.lastModifiedAtEpochMs).toLocaleString()} ·
-                from {originLabel(template.originInputChannel)}
+              <span className="template-row__meta">
+                <span>{template.exerciseCount} exercises</span>
+                <span>
+                  {new Date(
+                    template.lastModifiedAtEpochMs,
+                  ).toLocaleDateString()}
+                </span>
+                <span className="badge badge--origin">
+                  {originLabel(template.originInputChannel)}
+                </span>
                 {template.hasPendingChanges && (
                   <span className="badge badge--pending">not pushed yet</span>
                 )}
