@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useSession } from "../auth/useSession";
+import { t } from "../i18n/locale";
 
 /**
  * Lands on https://thymos.fit/builder/auth/ after the user clicks the magic
@@ -31,13 +32,10 @@ export default function AuthCallbackPage() {
     return (
       <main className="page page--narrow">
         <div className="card">
-          <h1>Sign-in failed</h1>
-          <div className="error-banner">
-            {urlError ??
-              "The sign-in link did not produce a session. Links are single-use and expire — request a new one."}
-          </div>
+          <h1>{t("signInFailed")}</h1>
+          <div className="error-banner">{urlError ?? t("linkNoSession")}</div>
           <a className="button" href="/builder/">
-            Back to sign-in
+            {t("backToSignIn")}
           </a>
         </div>
       </main>
@@ -47,10 +45,10 @@ export default function AuthCallbackPage() {
   return (
     <main className="page page--narrow">
       <div className="card" role="status" aria-live="polite">
-        <h1>Signing you in…</h1>
+        <h1>{t("signingIn")}</h1>
         <div className="spinner" aria-hidden="true" />
         <p className="muted" style={{ textAlign: "center" }}>
-          Completing authentication.
+          {t("completingAuth")}
         </p>
       </div>
     </main>

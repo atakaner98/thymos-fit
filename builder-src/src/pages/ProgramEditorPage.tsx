@@ -15,6 +15,33 @@ import {
 } from "../models/programWire";
 import { dartUtcIso } from "../models/wire";
 import { getOrCreateDeviceId } from "../state/deviceId";
+import { t } from "../i18n/locale";
+import type { MessageKey } from "../i18n/messages";
+
+/** Display labels only — wire values stay canonical enum strings. */
+const CATEGORY_LABEL_KEYS: Record<string, MessageKey> = {
+  bodybuilding: "catBodybuilding",
+  powerlifting: "catPowerlifting",
+  calisthenics: "catCalisthenics",
+};
+const LEVEL_LABEL_KEYS: Record<string, MessageKey> = {
+  beginner: "levelBeginner",
+  intermediate: "levelIntermediate",
+  advanced: "levelAdvanced",
+};
+const GOAL_LABEL_KEYS: Record<string, MessageKey> = {
+  hypertrophy: "goalHypertrophy",
+  strength: "goalStrength",
+  endurance: "goalEndurance",
+};
+
+function optionLabel(
+  map: Record<string, MessageKey>,
+  value: string,
+): string {
+  const key = map[value];
+  return key ? t(key) : value;
+}
 
 /** One assignable day cell in the week × day grid. */
 interface SlotState {
@@ -92,13 +119,13 @@ export default function ProgramEditorPage() {
           </div>
         ) : (
           <div className="error-banner">
-            Program not found. It may not have been pushed/synced yet.{" "}
+            {t("programNotFound")}{" "}
             <button
               type="button"
               className="button button--ghost"
               onClick={() => navigate("/")}
             >
-              Back to list
+              {t("backToList")}
             </button>
           </div>
         )}
@@ -161,7 +188,7 @@ export default function ProgramEditorPage() {
     if (!draft) return;
     const name = draft.name.trim();
     if (!name) {
-      setValidationError("Give the program a name before saving.");
+      setValidationError(t("validationProgramName"));
       return;
     }
     const now = dartUtcIso(new Date());
@@ -185,9 +212,7 @@ export default function ProgramEditorPage() {
       });
     });
     if (sessions.length === 0) {
-      setValidationError(
-        "Assign a template to at least one day before saving.",
-      );
+      setValidationError(t("validationAssignDay"));
       return;
     }
     saveProgram({ ...draft, name, updatedAt: now, sessions });
@@ -197,17 +222,17 @@ export default function ProgramEditorPage() {
   return (
     <main className="page">
       <div className="list-header">
-        <h1>{id === "new" ? "New Program" : "Edit Program"}</h1>
+        <h1>{id === "new" ? t("newProgramTitle") : t("editProgramTitle")}</h1>
         <div style={{ display: "flex", gap: 10 }}>
           <button
             type="button"
             className="button button--ghost"
             onClick={() => navigate("/")}
           >
-            Cancel
+            {t("cancel")}
           </button>
           <button type="button" className="button" onClick={save}>
-            Save (queues for push)
+            {t("saveQueues")}
           </button>
         </div>
       </div>
@@ -217,20 +242,20 @@ export default function ProgramEditorPage() {
       <div className="program-meta">
         <div>
           <label className="field-label" htmlFor="program-name">
-            Program name
+            {t("programNameLabel")}
           </label>
           <input
             id="program-name"
             type="text"
             value={draft.name}
-            placeholder="e.g. PPL 8-Week"
+            placeholder={t("programNamePh")}
             style={{ width: "100%" }}
             onChange={(event) => patchDraft({ name: event.target.value })}
           />
         </div>
         <div>
           <label className="field-label" htmlFor="program-description">
-            Description (optional)
+            {t("descriptionLabel")}
           </label>
           <input
             id="program-description"
@@ -243,9 +268,9 @@ export default function ProgramEditorPage() {
           />
         </div>
         <div>
-          <span className="field-label">Category</span>
+          <span className="field-label">{t("categoryLabel")}</span>
           <select
-            aria-label="Category"
+            aria-label={t("categoryLabel")}
             value={draft.category}
             onChange={(event) =>
               patchDraft({
@@ -256,15 +281,15 @@ export default function ProgramEditorPage() {
           >
             {PROGRAM_CATEGORIES.map((option) => (
               <option key={option} value={option}>
-                {option}
+                {optionLabel(CATEGORY_LABEL_KEYS, option)}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <span className="field-label">Level</span>
+          <span className="field-label">{t("levelLabel")}</span>
           <select
-            aria-label="Level"
+            aria-label={t("levelLabel")}
             value={draft.level}
             onChange={(event) =>
               patchDraft({
@@ -274,13 +299,13 @@ export default function ProgramEditorPage() {
           >
             {PROGRAM_LEVELS.map((option) => (
               <option key={option} value={option}>
-                {option}
+                {optionLabel(LEVEL_LABEL_KEYS, option)}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <span className="field-label">Goals</span>
+          <span className="field-label">{t("goalsLabel")}</span>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {PROGRAM_GOALS.map((goal) => {
               const selected = draft.goals.includes(goal);
@@ -302,16 +327,16 @@ export default function ProgramEditorPage() {
                     }
                   }}
                 >
-                  {goal}
+                  {optionLabel(GOAL_LABEL_KEYS, goal)}
                 </button>
               );
             })}
           </div>
         </div>
         <div>
-          <span className="field-label">Weeks</span>
+          <span className="field-label">{t("weeksLabel")}</span>
           <select
-            aria-label="Duration weeks"
+            aria-label={t("weeksLabel")}
             value={draft.durationWeeks}
             onChange={(event) =>
               setDimensions(Number(event.target.value), draft.sessionsPerWeek)
@@ -327,9 +352,9 @@ export default function ProgramEditorPage() {
           </select>
         </div>
         <div>
-          <span className="field-label">Sessions / week</span>
+          <span className="field-label">{t("sessionsPerWeekLabel")}</span>
           <select
-            aria-label="Sessions per week"
+            aria-label={t("sessionsPerWeekLabel")}
             value={draft.sessionsPerWeek}
             onChange={(event) =>
               setDimensions(draft.durationWeeks, Number(event.target.value))
@@ -347,32 +372,31 @@ export default function ProgramEditorPage() {
       </div>
 
       <div className="list-header" style={{ marginTop: 24 }}>
-        <h2 style={{ margin: 0 }}>Schedule</h2>
+        <h2 style={{ margin: 0 }}>{t("scheduleTitle")}</h2>
         <button
           type="button"
           className="button button--ghost"
           onClick={copyWeekOneToAll}
           disabled={draft.durationWeeks < 2}
         >
-          Copy week 1 to all weeks
+          {t("copyWeek1")}
         </button>
       </div>
       {templates.length === 0 && (
-        <div className="error-banner">
-          You have no templates yet — program days are built from your
-          templates. Create a template first.
-        </div>
+        <div className="error-banner">{t("noTemplatesWarn")}</div>
       )}
 
       {grid.map((weekSlots, week) => (
         <section key={week} className="week-card">
-          <span className="mono-label">Week {week + 1}</span>
+          <span className="mono-label">{t("weekN", { n: week + 1 })}</span>
           <div className="week-card__days">
             {weekSlots.map((slot, day) => (
               <div key={day} className="day-slot">
-                <span className="day-slot__label">Day {day + 1}</span>
+                <span className="day-slot__label">
+                  {t("dayN", { n: day + 1 })}
+                </span>
                 <select
-                  aria-label={`Week ${week + 1} day ${day + 1} template`}
+                  aria-label={`${t("weekN", { n: week + 1 })} ${t("dayN", { n: day + 1 })}`}
                   value={slot?.templateId ?? ""}
                   onChange={(event) => {
                     const templateId = event.target.value;
@@ -389,7 +413,7 @@ export default function ProgramEditorPage() {
                     });
                   }}
                 >
-                  <option value="">— rest —</option>
+                  <option value="">{t("restOption")}</option>
                   {templates.map((template) => (
                     <option key={template.entityId} value={template.entityId}>
                       {template.name}
@@ -399,7 +423,7 @@ export default function ProgramEditorPage() {
                 {slot && (
                   <input
                     type="text"
-                    aria-label={`Week ${week + 1} day ${day + 1} title`}
+                    aria-label={`${t("weekN", { n: week + 1 })} ${t("dayN", { n: day + 1 })} — ${t("programNameLabel")}`}
                     placeholder={templateName(slot.templateId)}
                     value={slot.title}
                     onChange={(event) =>
@@ -411,11 +435,8 @@ export default function ProgramEditorPage() {
                   />
                 )}
                 {slot && slot.prescriptions.length > 0 && (
-                  <span
-                    className="badge badge--origin"
-                    title="This day has explicit per-session prescriptions (edited in the app). They are preserved by web edits."
-                  >
-                    rx from app
+                  <span className="badge badge--origin" title={t("rxTooltip")}>
+                    {t("rxFromApp")}
                   </span>
                 )}
               </div>

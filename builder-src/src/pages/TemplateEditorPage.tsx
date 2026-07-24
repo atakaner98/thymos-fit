@@ -16,6 +16,8 @@ import {
   isUnknownExercise,
 } from "../catalog/catalog";
 import ExercisePicker from "../components/ExercisePicker";
+import { t } from "../i18n/locale";
+import type { MessageKey } from "../i18n/messages";
 
 // Phase 1 set types. EMOM / rest-pause / myo-rep prescriptions are modeled in
 // the wire format but deliberately not editable yet (plan: Phase 2).
@@ -29,6 +31,23 @@ const EDITABLE_SET_TYPES: readonly SetTypeWire[] = [
   "superset",
   "cooldown",
 ];
+
+/** Display labels only — the wire keeps canonical enum values. */
+const SET_TYPE_LABEL_KEYS: Record<string, MessageKey> = {
+  warmup: "setWarmup",
+  working: "setWorking",
+  backoff: "setBackoff",
+  dropset: "setDropset",
+  amrap: "setAmrap",
+  failure: "setFailure",
+  superset: "setSuperset",
+  cooldown: "setCooldown",
+};
+
+function setTypeLabel(setType: SetTypeWire): string {
+  const key = SET_TYPE_LABEL_KEYS[setType];
+  return key ? t(key) : setType;
+}
 
 const DEFAULT_SET: TemplateSetPrescriptionDraft = {
   orderIndex: 0,
@@ -92,13 +111,13 @@ export default function TemplateEditorPage() {
           </div>
         ) : (
           <div className="error-banner">
-            Template not found. It may not have been pushed/synced yet.{" "}
+            {t("templateNotFound")}{" "}
             <button
               type="button"
               className="button button--ghost"
               onClick={() => navigate("/")}
             >
-              Back to list
+              {t("backToList")}
             </button>
           </div>
         )}
@@ -146,11 +165,11 @@ export default function TemplateEditorPage() {
     if (!draft) return;
     const name = draft.name.trim();
     if (!name) {
-      setValidationError("Give the template a name before saving.");
+      setValidationError(t("validationTemplateName"));
       return;
     }
     if (draft.exercises.length === 0) {
-      setValidationError("Add at least one exercise before saving.");
+      setValidationError(t("validationAddExercise"));
       return;
     }
     saveTemplate({ ...draft, name });
@@ -160,17 +179,17 @@ export default function TemplateEditorPage() {
   return (
     <main className="page">
       <div className="list-header">
-        <h1>{id === "new" ? "New Template" : "Edit Template"}</h1>
+        <h1>{id === "new" ? t("newTemplateTitle") : t("editTemplateTitle")}</h1>
         <div style={{ display: "flex", gap: 10 }}>
           <button
             type="button"
             className="button button--ghost"
             onClick={() => navigate("/")}
           >
-            Cancel
+            {t("cancel")}
           </button>
           <button type="button" className="button" onClick={save}>
-            Save (queues for push)
+            {t("saveQueues")}
           </button>
         </div>
       </div>
@@ -180,13 +199,13 @@ export default function TemplateEditorPage() {
       )}
 
       <label className="field-label" htmlFor="template-name">
-        Template name
+        {t("templateNameLabel")}
       </label>
       <input
         id="template-name"
         type="text"
         value={draft.name}
-        placeholder="e.g. Push Day A"
+        placeholder={t("templateNamePh")}
         style={{ width: "100%", maxWidth: 520 }}
         onChange={(event) =>
           setDraft((current) =>
@@ -236,11 +255,8 @@ export default function TemplateEditorPage() {
             <h2>
               {exerciseDisplayName(exercise.exerciseId)}
               {isUnknownExercise(exercise.exerciseId) && (
-                <span
-                  className="badge badge--pending"
-                  title="This exercise is not in the built-in catalog (probably a custom exercise created on your phone — custom exercises do not sync yet). It still works on your phone."
-                >
-                  unknown here
+                <span className="badge badge--pending" title={t("unknownTooltip")}>
+                  {t("unknownHere")}
                 </span>
               )}
             </h2>
@@ -260,7 +276,7 @@ export default function TemplateEditorPage() {
                 )
               }
             >
-              Remove exercise
+              {t("removeExercise")}
             </button>
           </div>
 
@@ -269,15 +285,15 @@ export default function TemplateEditorPage() {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Type</th>
-                  <th>Reps min</th>
-                  <th>Reps max</th>
-                  <th>Weight kg</th>
-                  <th>Time s</th>
-                  <th>Rest s</th>
-                  <th>RPE</th>
-                  <th>RIR</th>
-                  {needsExtras && <th>Extras</th>}
+                  <th>{t("thType")}</th>
+                  <th>{t("thRepsMin")}</th>
+                  <th>{t("thRepsMax")}</th>
+                  <th>{t("thWeightKg")}</th>
+                  <th>{t("thTimeS")}</th>
+                  <th>{t("thRestS")}</th>
+                  <th>{t("thRpe")}</th>
+                  <th>{t("thRir")}</th>
+                  {needsExtras && <th>{t("thExtras")}</th>}
                   <th></th>
                 </tr>
               </thead>
@@ -301,7 +317,7 @@ export default function TemplateEditorPage() {
                       >
                         {EDITABLE_SET_TYPES.map((type) => (
                           <option key={type} value={type}>
-                            {type}
+                            {setTypeLabel(type)}
                           </option>
                         ))}
                       </select>
@@ -362,14 +378,14 @@ export default function TemplateEditorPage() {
                     <td>
                       {set.setType === "dropset" && (
                         <span className="extras">
-                          drop&nbsp;%
+                          {t("dropPct")}
                           {numberInput(set.dropPercent, (next) =>
                             updateSet(exerciseIndex, setIndex, {
                               dropPercent: next,
                             }),
                             { label: "Drop percent", width: 60 },
                           )}
-                          stages
+                          {t("dropStages")}
                           {numberInput(set.dropStages, (next) =>
                             updateSet(exerciseIndex, setIndex, {
                               dropStages: next,
@@ -380,7 +396,7 @@ export default function TemplateEditorPage() {
                       )}
                       {set.setType === "superset" && (
                         <span className="extras">
-                          group
+                          {t("supersetGroup")}
                           <input
                             type="text"
                             aria-label="Superset group"
@@ -402,7 +418,7 @@ export default function TemplateEditorPage() {
                       <div style={{ display: "flex", gap: 4 }}>
                         <button
                           type="button"
-                          className="button button--ghost button--icon" title="Move set up"
+                          className="button button--ghost button--icon" title={t("moveSetUp")}
                           disabled={setIndex === 0}
                           onClick={() =>
                             mutateSets(exerciseIndex, (sets) => {
@@ -418,7 +434,7 @@ export default function TemplateEditorPage() {
                         </button>
                         <button
                           type="button"
-                          className="button button--ghost button--icon" title="Move set down"
+                          className="button button--ghost button--icon" title={t("moveSetDown")}
                           disabled={
                             setIndex ===
                             (exercise.prescribedSets?.length ?? 0) - 1
@@ -437,7 +453,7 @@ export default function TemplateEditorPage() {
                         </button>
                         <button
                           type="button"
-                          className="button button--ghost button--icon" title="Duplicate set"
+                          className="button button--ghost button--icon" title={t("duplicateSet")}
                           onClick={() =>
                             mutateSets(exerciseIndex, (sets) => {
                               sets.splice(setIndex + 1, 0, { ...set });
@@ -449,7 +465,7 @@ export default function TemplateEditorPage() {
                         </button>
                         <button
                           type="button"
-                          className="button button--danger button--icon" title="Remove set"
+                          className="button button--danger button--icon" title={t("removeSet")}
                           onClick={() =>
                             mutateSets(exerciseIndex, (sets) => {
                               sets.splice(setIndex, 1);
@@ -478,7 +494,7 @@ export default function TemplateEditorPage() {
               })
             }
           >
-            + Add set
+            {t("addSet")}
           </button>
         </section>
         );

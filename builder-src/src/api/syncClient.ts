@@ -5,6 +5,7 @@
 
 import { getSupabase } from "../auth/supabaseClient";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "../config";
+import { t } from "../i18n/locale";
 
 export interface SyncRecordHeaderWire {
   principalId: string;
@@ -58,7 +59,7 @@ async function callSyncFunction<T>(
     return {
       ok: false,
       errorCode: "unauthorized",
-      message: "Your session expired. Sign in again.",
+      message: t("errSessionExpired"),
     };
   }
 
@@ -79,8 +80,7 @@ async function callSyncFunction<T>(
     return {
       ok: false,
       errorCode: "network_error",
-      message:
-        error instanceof Error ? error.message : "Network request failed.",
+      message: error instanceof Error ? error.message : t("errNetworkFailed"),
     };
   }
 

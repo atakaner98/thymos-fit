@@ -3,6 +3,7 @@ import { missingConfigKeys } from "./config";
 import { useSession, sessionEmail } from "./auth/useSession";
 import { getSupabase } from "./auth/supabaseClient";
 import { BuilderProvider } from "./state/BuilderContext";
+import { t } from "./i18n/locale";
 import LoginPage from "./pages/LoginPage";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
 import TemplateListPage from "./pages/TemplateListPage";
@@ -13,10 +14,9 @@ function ConfigErrorScreen({ keys }: { keys: string[] }) {
   return (
     <main className="page page--narrow">
       <div className="card">
-        <h1>Configuration missing</h1>
+        <h1>{t("configMissingTitle")}</h1>
         <p className="muted">
-          This build is missing required configuration values:{" "}
-          {keys.join(", ")}. The builder cannot start without them.
+          {t("configMissingBody", { keys: keys.join(", ") })}
         </p>
       </div>
     </main>
@@ -29,7 +29,7 @@ function LoadingScreen() {
       <div className="card" role="status" aria-live="polite">
         <div className="spinner" aria-hidden="true" />
         <p className="muted" style={{ textAlign: "center" }}>
-          Checking your session…
+          {t("checkingSession")}
         </p>
       </div>
     </main>
@@ -58,14 +58,14 @@ export default function App() {
           <div className="topbar__brand">
             THYMOS <span>Builder</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div className="topbar__account">
             <span className="topbar__email">{email}</span>
             <button
               type="button"
               className="button button--ghost"
               onClick={() => void getSupabase().auth.signOut()}
             >
-              Sign out
+              {t("signOut")}
             </button>
           </div>
         </header>

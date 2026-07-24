@@ -5,6 +5,7 @@ import {
   filterExercises,
   type CatalogExercise,
 } from "../catalog/catalog";
+import { t } from "../i18n/locale";
 
 /**
  * Full-catalog exercise browser in a modal: search + muscle/equipment
@@ -68,7 +69,7 @@ export default function ExercisePicker({
   if (!open) {
     return (
       <button type="button" className="button" onClick={() => setOpen(true)}>
-        + Add exercise
+        {t("addExercise")}
       </button>
     );
   }
@@ -76,7 +77,7 @@ export default function ExercisePicker({
   return (
     <>
       <button type="button" className="button" onClick={() => setOpen(true)}>
-        + Add exercise
+        {t("addExercise")}
       </button>
       <div
         className="browser-backdrop"
@@ -91,20 +92,20 @@ export default function ExercisePicker({
           aria-label="Exercise browser"
         >
           <div className="browser__head">
-            <h2>Add exercises</h2>
+            <h2>{t("addExercisesTitle")}</h2>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               {lastAdded && (
                 <span className="browser__added" aria-live="polite">
-                  ✓ added {lastAdded}
+                  {t("addedName", { name: lastAdded })}
                 </span>
               )}
               <button
                 type="button"
                 className="button button--ghost button--icon"
-                aria-label="Close exercise browser"
+                aria-label={t("closeBrowser")}
                 onClick={() => setOpen(false)}
               >
-                ✕ Close
+                {t("closeBrowser")}
               </button>
             </div>
           </div>
@@ -113,8 +114,8 @@ export default function ExercisePicker({
             <input
               ref={searchRef}
               type="text"
-              placeholder="Search exercises…"
-              aria-label="Search exercises"
+              placeholder={t("searchExercisesPh")}
+              aria-label={t("searchExercisesAria")}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               onKeyDown={(event) => {
@@ -138,7 +139,7 @@ export default function ExercisePicker({
               value={muscle}
               onChange={(event) => setMuscle(event.target.value)}
             >
-              <option value="">All muscles</option>
+              <option value="">{t("allMuscles")}</option>
               {allMuscles.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -150,7 +151,7 @@ export default function ExercisePicker({
               value={equipment}
               onChange={(event) => setEquipment(event.target.value)}
             >
-              <option value="">All equipment</option>
+              <option value="">{t("allEquipment")}</option>
               {allEquipment.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -160,14 +161,11 @@ export default function ExercisePicker({
           </div>
 
           <div className="browser__count">
-            {results.length} exercise{results.length === 1 ? "" : "s"}
+            {t("exercisesFound", { n: results.length })}
           </div>
 
           {results.length === 0 ? (
-            <div className="browser__empty">
-              Nothing matches these filters. Clear the search or filters to see
-              the full catalog.
-            </div>
+            <div className="browser__empty">{t("emptyBrowser")}</div>
           ) : (
             <ul className="browser__list" ref={listRef}>
               {results.map((exercise, index) => (
@@ -194,7 +192,7 @@ export default function ExercisePicker({
                           .join(" · ")}
                       </span>
                     </span>
-                    <span className="browser__row-add">add</span>
+                    <span className="browser__row-add">{t("addRow")}</span>
                   </button>
                 </li>
               ))}

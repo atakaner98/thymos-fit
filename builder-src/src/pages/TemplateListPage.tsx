@@ -1,14 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useBuilder } from "../state/BuilderContext";
+import { t } from "../i18n/locale";
 
 function originLabel(channel: string): string {
   switch (channel) {
     case "web_app":
-      return "web";
+      return t("originWeb");
     case "phone_app":
-      return "phone";
+      return t("originPhone");
     case "watch_app":
-      return "watch";
+      return t("originWatch");
     default:
       return channel;
   }
@@ -32,10 +33,8 @@ export default function TemplateListPage() {
     <main className="page">
       <div className="list-header">
         <div>
-          <h1>Your Templates</h1>
-          <p className="muted">
-            Build here, push to your phone, train anywhere.
-          </p>
+          <h1>{t("yourTemplates")}</h1>
+          <p className="muted">{t("listTagline")}</p>
         </div>
         <div style={{ display: "flex", gap: 10 }}>
           <button
@@ -44,14 +43,14 @@ export default function TemplateListPage() {
             onClick={() => void hydrate()}
             disabled={hydration.kind === "loading"}
           >
-            Refresh
+            {t("refresh")}
           </button>
           <button
             type="button"
             className="button"
             onClick={() => navigate("/edit/new")}
           >
-            + New template
+            {t("newTemplate")}
           </button>
         </div>
       </div>
@@ -59,8 +58,7 @@ export default function TemplateListPage() {
       {pending.length > 0 && (
         <div className="push-panel">
           <div>
-            <strong>{pending.length}</strong> change(s) waiting to be pushed to
-            your phone:
+            {t("pendingHeader", { n: pending.length })}
             <ul className="push-panel__list">
               {pending.map((item) => (
                 <li key={item.envelope.header.lastMutationId}>
@@ -68,7 +66,7 @@ export default function TemplateListPage() {
                   {item.lastFailure && (
                     <span className="push-panel__failure">
                       {" "}
-                      — rejected: {item.lastFailure.errorCode}
+                      — {t("rejectedLabel", { code: item.lastFailure.errorCode })}
                       {item.lastFailure.message
                         ? ` (${item.lastFailure.message})`
                         : ""}
@@ -84,22 +82,21 @@ export default function TemplateListPage() {
             onClick={() => void pushPending()}
             disabled={pushState.kind === "pushing"}
           >
-            {pushState.kind === "pushing" ? "Pushing…" : "Push to phone"}
+            {pushState.kind === "pushing" ? t("pushing") : t("pushToPhone")}
           </button>
         </div>
       )}
 
       {pushState.kind === "done" && (
         <div className="ok-banner">
-          {pushState.accepted} change(s) pushed. Open THYMOS on your phone and
-          run Sync to receive them.
+          {t("pushedDone", { n: pushState.accepted })}
         </div>
       )}
       {pushState.kind === "error" && (
         <div className="error-banner">
           {pushState.message}
           {pushState.retryAfterSeconds !== undefined &&
-            ` Try again in ~${pushState.retryAfterSeconds}s.`}
+            ` ${t("retryInSec", { s: pushState.retryAfterSeconds })}`}
         </div>
       )}
 
@@ -107,30 +104,27 @@ export default function TemplateListPage() {
         <div className="card" role="status">
           <div className="spinner" aria-hidden="true" />
           <p className="muted" style={{ textAlign: "center" }}>
-            Loading your templates from sync…
+            {t("loadingTemplates")}
           </p>
         </div>
       )}
 
       {hydration.kind === "error" && (
         <div className="error-banner">
-          Could not load templates: {hydration.message}{" "}
+          {t("loadFailed", { message: hydration.message })}{" "}
           <button
             type="button"
             className="button button--ghost"
             onClick={() => void hydrate()}
           >
-            Retry
+            {t("retry")}
           </button>
         </div>
       )}
 
       {hydration.kind === "ready" && templates.length === 0 && (
         <div className="card">
-          <p className="muted">
-            No templates yet. Create your first one — it will appear on your
-            phone after you push and sync.
-          </p>
+          <p className="muted">{t("emptyTemplates")}</p>
         </div>
       )}
 
@@ -145,7 +139,7 @@ export default function TemplateListPage() {
                 {template.name}
               </Link>
               <span className="template-row__meta">
-                <span>{template.exerciseCount} exercises</span>
+                <span>{t("exercisesCount", { n: template.exerciseCount })}</span>
                 <span>
                   {new Date(
                     template.lastModifiedAtEpochMs,
@@ -155,7 +149,9 @@ export default function TemplateListPage() {
                   {originLabel(template.originInputChannel)}
                 </span>
                 {template.hasPendingChanges && (
-                  <span className="badge badge--pending">not pushed yet</span>
+                  <span className="badge badge--pending">
+                    {t("notPushedYet")}
+                  </span>
                 )}
               </span>
             </div>
@@ -164,7 +160,7 @@ export default function TemplateListPage() {
                 className="button button--ghost"
                 to={`/edit/${template.entityId}`}
               >
-                Edit
+                {t("edit")}
               </Link>
               <button
                 type="button"
@@ -172,14 +168,14 @@ export default function TemplateListPage() {
                 onClick={() => {
                   if (
                     window.confirm(
-                      `Delete "${template.name}"? The deletion is applied to your phone on its next sync.`,
+                      t("deleteTemplateConfirm", { name: template.name }),
                     )
                   ) {
                     deleteTemplate(template.entityId, template.name);
                   }
                 }}
               >
-                Delete
+                {t("deleteLabel")}
               </button>
             </div>
           </li>
@@ -188,26 +184,21 @@ export default function TemplateListPage() {
 
       <div className="list-header" style={{ marginTop: 40 }}>
         <div>
-          <h1 style={{ fontSize: "1.5rem" }}>Your Programs</h1>
-          <p className="muted">
-            Multi-week plans built from your templates (week × day schedule).
-          </p>
+          <h1 style={{ fontSize: "1.5rem" }}>{t("yourPrograms")}</h1>
+          <p className="muted">{t("programsTagline")}</p>
         </div>
         <button
           type="button"
           className="button"
           onClick={() => navigate("/programs/new")}
         >
-          + New program
+          {t("newProgram")}
         </button>
       </div>
 
       {hydration.kind === "ready" && programs.length === 0 && (
         <div className="card">
-          <p className="muted">
-            No programs yet. A program assigns your templates to a week-by-week
-            schedule and guides you through it on your phone.
-          </p>
+          <p className="muted">{t("emptyPrograms")}</p>
         </div>
       )}
 
@@ -223,14 +214,19 @@ export default function TemplateListPage() {
               </Link>
               <span className="template-row__meta">
                 <span>
-                  {program.durationWeeks} weeks · {program.sessionsPerWeek}
-                  /week · {program.sessionCount} sessions
+                  {t("programSummary", {
+                    w: program.durationWeeks,
+                    s: program.sessionsPerWeek,
+                    c: program.sessionCount,
+                  })}
                 </span>
                 <span className="badge badge--origin">
                   {originLabel(program.originInputChannel)}
                 </span>
                 {program.hasPendingChanges && (
-                  <span className="badge badge--pending">not pushed yet</span>
+                  <span className="badge badge--pending">
+                    {t("notPushedYet")}
+                  </span>
                 )}
               </span>
             </div>
@@ -239,7 +235,7 @@ export default function TemplateListPage() {
                 className="button button--ghost"
                 to={`/programs/${program.entityId}`}
               >
-                Edit
+                {t("edit")}
               </Link>
               <button
                 type="button"
@@ -247,14 +243,14 @@ export default function TemplateListPage() {
                 onClick={() => {
                   if (
                     window.confirm(
-                      `Delete "${program.name}" and its sessions? The deletion is applied to your phone on its next sync.`,
+                      t("deleteProgramConfirm", { name: program.name }),
                     )
                   ) {
                     deleteProgram(program.entityId, program.name);
                   }
                 }}
               >
-                Delete
+                {t("deleteLabel")}
               </button>
             </div>
           </li>

@@ -27,6 +27,7 @@ import {
   buildProgramSessionWirePayload,
   type ProgressiveProgramDraft,
 } from "../models/programWire";
+import { t } from "../i18n/locale";
 
 const TEMPLATE_TYPE = "workout_template";
 const PROGRAM_TYPE = "progressive_program";
@@ -222,7 +223,7 @@ export function useTemplatesStore(userId: string | null) {
         {
           entityType: TEMPLATE_TYPE,
           entityId: draft.id,
-          label: `Save template "${draft.name}"`,
+          label: t("labelSaveTemplate", { name: draft.name }),
           payload: buildTemplateWirePayload(draft),
           isDeleted: false,
         },
@@ -237,7 +238,7 @@ export function useTemplatesStore(userId: string | null) {
         {
           entityType: TEMPLATE_TYPE,
           entityId,
-          label: `Delete template "${name}"`,
+          label: t("labelDeleteTemplate", { name }),
           payload: null,
           isDeleted: true,
         },
@@ -283,21 +284,25 @@ export function useTemplatesStore(userId: string | null) {
         {
           entityType: PROGRAM_TYPE,
           entityId: draft.id,
-          label: `Save program "${draft.name}"`,
+          label: t("labelSaveProgram", { name: draft.name }),
           payload: buildProgramWirePayload(draft),
           isDeleted: false,
         },
         ...draft.sessions.map((session) => ({
           entityType: SESSION_TYPE,
           entityId: session.id,
-          label: `— session W${session.weekIndex}D${session.dayIndex} "${session.title}"`,
+          label: t("labelSessionRow", {
+            w: session.weekIndex,
+            d: session.dayIndex,
+            title: session.title,
+          }),
           payload: buildProgramSessionWirePayload(session),
           isDeleted: false,
         })),
         ...removed.map((sessionId) => ({
           entityType: SESSION_TYPE,
           entityId: sessionId,
-          label: "— remove session no longer in the plan",
+          label: t("labelRemoveSession"),
           payload: null,
           isDeleted: true,
         })),
@@ -312,14 +317,14 @@ export function useTemplatesStore(userId: string | null) {
         {
           entityType: PROGRAM_TYPE,
           entityId: programId,
-          label: `Delete program "${name}"`,
+          label: t("labelDeleteProgram", { name }),
           payload: null,
           isDeleted: true,
         },
         ...[...knownSessionIds(programId)].map((sessionId) => ({
           entityType: SESSION_TYPE,
           entityId: sessionId,
-          label: "— delete its session",
+          label: t("labelDeleteItsSession"),
           payload: null,
           isDeleted: true,
         })),
@@ -364,7 +369,10 @@ export function useTemplatesStore(userId: string | null) {
     if (stillPending.length > 0) {
       setPushState({
         kind: "error",
-        message: `${accepted.size} change(s) pushed, ${stillPending.length} rejected — see details below.`,
+        message: t("pushPartial", {
+          accepted: accepted.size,
+          rejected: stillPending.length,
+        }),
         failures: result.value.failed,
       });
     } else {
