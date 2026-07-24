@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
 import TemplateListPage from "./pages/TemplateListPage";
 import TemplateEditorPage from "./pages/TemplateEditorPage";
+import ProgramEditorPage from "./pages/ProgramEditorPage";
 
 function ConfigErrorScreen({ keys }: { keys: string[] }) {
   return (
@@ -79,6 +80,7 @@ export default function App() {
                 <Routes>
                   <Route path="/" element={<TemplateListPage />} />
                   <Route path="/edit/:id" element={<TemplateEditorPage />} />
+                  <Route path="/programs/:id" element={<ProgramEditorPage />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </BuilderProvider>

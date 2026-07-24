@@ -1,9 +1,15 @@
-// Template read-model + pending-change outbox for the web builder.
+// Read-model + pending-change outbox for the web builder (templates AND
+// progressive programs).
 //
 // Model (mirrors the mobile manual-sync product): edits queue locally as
 // pending mutations; an explicit "Push to phone" sends them to the journal.
 // Failures are always surfaced — no silent catch (Data Integrity rules).
 // Pending mutations survive a page refresh via localStorage.
+//
+// Program convention (mirrors mobile saveProgram): the program envelope
+// carries sessions: []; each session is its own program_session mutation.
+// On edit, sessions removed from the grid get tombstones — the phone would
+// otherwise keep showing orphaned sessions.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -16,8 +22,15 @@ import { replayJournal, liveRecords, type EntityRecord } from "./journal";
 import { getOrCreateDeviceId } from "./deviceId";
 import { buildTemplateWirePayload } from "../models/templatePayload";
 import type { WorkoutTemplateDraft } from "../models/wire";
+import {
+  buildProgramWirePayload,
+  buildProgramSessionWirePayload,
+  type ProgressiveProgramDraft,
+} from "../models/programWire";
 
-const ENTITY_TYPE = "workout_template";
+const TEMPLATE_TYPE = "workout_template";
+const PROGRAM_TYPE = "progressive_program";
+const SESSION_TYPE = "program_session";
 const PENDING_STORAGE_PREFIX = "thymos_builder_pending_v1:";
 
 export type HydrationState =
@@ -52,6 +65,28 @@ export interface TemplateListItem {
   originInputChannel: string;
   hasPendingChanges: boolean;
   payload: Record<string, unknown> | null;
+}
+
+export interface ProgramListItem {
+  entityId: string;
+  name: string;
+  durationWeeks: number;
+  sessionsPerWeek: number;
+  sessionCount: number;
+  lastModifiedAtEpochMs: number;
+  originInputChannel: string;
+  hasPendingChanges: boolean;
+  payload: Record<string, unknown> | null;
+  /** Latest known session payloads for this program (journal + pending). */
+  sessionPayloads: Record<string, unknown>[];
+}
+
+interface EnqueueItem {
+  entityType: string;
+  entityId: string;
+  label: string;
+  payload: Record<string, unknown> | null;
+  isDeleted: boolean;
 }
 
 function pendingStorageKey(principalId: string): string {
@@ -117,9 +152,12 @@ export function useTemplatesStore(userId: string | null) {
       cursor = result.value.nextCursor;
     }
 
-    const latest = replayJournal(envelopes, ENTITY_TYPE);
+    const latest = replayJournal(envelopes);
     for (const record of latest.values()) {
-      versionsRef.current.set(record.entityId, record.localVersion);
+      versionsRef.current.set(
+        `${record.entityType}:${record.entityId}`,
+        record.localVersion,
+      );
     }
     setJournalRecords(liveRecords(latest));
     setHydration({ kind: "ready" });
@@ -131,42 +169,48 @@ export function useTemplatesStore(userId: string | null) {
     void hydrate();
   }, [principalId, hydrate]);
 
-  const enqueue = useCallback(
-    (args: {
-      entityId: string;
-      label: string;
-      payload: Record<string, unknown> | null;
-      isDeleted: boolean;
-    }) => {
-      if (!principalId) return;
+  /** Queue several mutations atomically (single pending-state update). */
+  const enqueueMany = useCallback(
+    (items: EnqueueItem[]) => {
+      if (!principalId || items.length === 0) return;
       const now = Date.now();
-      const nextVersion =
-        (versionsRef.current.get(args.entityId) ?? 0) + 1;
-      versionsRef.current.set(args.entityId, nextVersion);
-
-      const envelope: SyncEnvelopeWire = {
-        header: {
-          principalId,
-          entityType: ENTITY_TYPE,
-          entityId: args.entityId,
-          localVersion: nextVersion,
-          lastModifiedAtEpochMs: now,
-          lastModifiedDeviceId: deviceId,
-          // Batch identity must never come from shared timestamps.
-          lastMutationId: crypto.randomUUID(),
-          originInputChannel: "web_app",
-          originDataSource: "manual",
-          isDeleted: args.isDeleted,
-          ...(args.isDeleted ? { deletedAtEpochMs: now } : {}),
-        },
-        payload: args.payload,
-      };
+      const additions: PendingMutation[] = items.map((item) => {
+        const versionKey = `${item.entityType}:${item.entityId}`;
+        const nextVersion = (versionsRef.current.get(versionKey) ?? 0) + 1;
+        versionsRef.current.set(versionKey, nextVersion);
+        return {
+          envelope: {
+            header: {
+              principalId,
+              entityType: item.entityType,
+              entityId: item.entityId,
+              localVersion: nextVersion,
+              lastModifiedAtEpochMs: now,
+              lastModifiedDeviceId: deviceId,
+              // Batch identity must never come from shared timestamps.
+              lastMutationId: crypto.randomUUID(),
+              originInputChannel: "web_app",
+              originDataSource: "manual",
+              isDeleted: item.isDeleted,
+              ...(item.isDeleted ? { deletedAtEpochMs: now } : {}),
+            },
+            payload: item.payload,
+          },
+          label: item.label,
+        };
+      });
 
       // One pending mutation per entity: a newer edit replaces the queued one.
-      const remaining = pending.filter(
-        (item) => item.envelope.header.entityId !== args.entityId,
+      const replaced = new Set(
+        items.map((item) => `${item.entityType}:${item.entityId}`),
       );
-      setPending([...remaining, { envelope, label: args.label }]);
+      const remaining = pending.filter(
+        (entry) =>
+          !replaced.has(
+            `${entry.envelope.header.entityType}:${entry.envelope.header.entityId}`,
+          ),
+      );
+      setPending([...remaining, ...additions]);
       setPushState({ kind: "idle" });
     },
     [principalId, deviceId, pending, setPending],
@@ -174,26 +218,114 @@ export function useTemplatesStore(userId: string | null) {
 
   const saveTemplate = useCallback(
     (draft: WorkoutTemplateDraft) => {
-      enqueue({
-        entityId: draft.id,
-        label: `Save "${draft.name}"`,
-        payload: buildTemplateWirePayload(draft),
-        isDeleted: false,
-      });
+      enqueueMany([
+        {
+          entityType: TEMPLATE_TYPE,
+          entityId: draft.id,
+          label: `Save template "${draft.name}"`,
+          payload: buildTemplateWirePayload(draft),
+          isDeleted: false,
+        },
+      ]);
     },
-    [enqueue],
+    [enqueueMany],
   );
 
   const deleteTemplate = useCallback(
     (entityId: string, name: string) => {
-      enqueue({
-        entityId,
-        label: `Delete "${name}"`,
-        payload: null,
-        isDeleted: true,
-      });
+      enqueueMany([
+        {
+          entityType: TEMPLATE_TYPE,
+          entityId,
+          label: `Delete template "${name}"`,
+          payload: null,
+          isDeleted: true,
+        },
+      ]);
     },
-    [enqueue],
+    [enqueueMany],
+  );
+
+  /** Session ids currently known for a program (journal + pending upserts). */
+  const knownSessionIds = useCallback(
+    (programId: string): Set<string> => {
+      const ids = new Set<string>();
+      for (const record of journalRecords) {
+        if (
+          record.entityType === SESSION_TYPE &&
+          record.payload?.programId === programId
+        ) {
+          ids.add(record.entityId);
+        }
+      }
+      for (const entry of pending) {
+        const header = entry.envelope.header;
+        if (
+          header.entityType === SESSION_TYPE &&
+          !header.isDeleted &&
+          entry.envelope.payload?.programId === programId
+        ) {
+          ids.add(header.entityId);
+        }
+      }
+      return ids;
+    },
+    [journalRecords, pending],
+  );
+
+  const saveProgram = useCallback(
+    (draft: ProgressiveProgramDraft) => {
+      const keptIds = new Set(draft.sessions.map((session) => session.id));
+      const removed = [...knownSessionIds(draft.id)].filter(
+        (id) => !keptIds.has(id),
+      );
+      enqueueMany([
+        {
+          entityType: PROGRAM_TYPE,
+          entityId: draft.id,
+          label: `Save program "${draft.name}"`,
+          payload: buildProgramWirePayload(draft),
+          isDeleted: false,
+        },
+        ...draft.sessions.map((session) => ({
+          entityType: SESSION_TYPE,
+          entityId: session.id,
+          label: `— session W${session.weekIndex}D${session.dayIndex} "${session.title}"`,
+          payload: buildProgramSessionWirePayload(session),
+          isDeleted: false,
+        })),
+        ...removed.map((sessionId) => ({
+          entityType: SESSION_TYPE,
+          entityId: sessionId,
+          label: "— remove session no longer in the plan",
+          payload: null,
+          isDeleted: true,
+        })),
+      ]);
+    },
+    [enqueueMany, knownSessionIds],
+  );
+
+  const deleteProgram = useCallback(
+    (programId: string, name: string) => {
+      enqueueMany([
+        {
+          entityType: PROGRAM_TYPE,
+          entityId: programId,
+          label: `Delete program "${name}"`,
+          payload: null,
+          isDeleted: true,
+        },
+        ...[...knownSessionIds(programId)].map((sessionId) => ({
+          entityType: SESSION_TYPE,
+          entityId: sessionId,
+          label: "— delete its session",
+          payload: null,
+          isDeleted: true,
+        })),
+      ]);
+    },
+    [enqueueMany, knownSessionIds],
   );
 
   const pushPending = useCallback(async () => {
@@ -242,13 +374,21 @@ export function useTemplatesStore(userId: string | null) {
     await hydrate();
   }, [principalId, deviceId, pending, setPending, hydrate]);
 
-  const templates: TemplateListItem[] = useMemo(() => {
-    const pendingByEntity = new Map(
-      pending.map((item) => [item.envelope.header.entityId, item]),
-    );
+  const pendingByEntity = useMemo(
+    () =>
+      new Map(
+        pending.map((item) => [
+          `${item.envelope.header.entityType}:${item.envelope.header.entityId}`,
+          item,
+        ]),
+      ),
+    [pending],
+  );
 
+  const templates: TemplateListItem[] = useMemo(() => {
     const byId = new Map<string, TemplateListItem>();
     for (const record of journalRecords) {
+      if (record.entityType !== TEMPLATE_TYPE) continue;
       const payload = record.payload;
       byId.set(record.entityId, {
         entityId: record.entityId,
@@ -258,13 +398,16 @@ export function useTemplatesStore(userId: string | null) {
           : 0,
         lastModifiedAtEpochMs: record.lastModifiedAtEpochMs,
         originInputChannel: record.originInputChannel,
-        hasPendingChanges: pendingByEntity.has(record.entityId),
+        hasPendingChanges: pendingByEntity.has(
+          `${TEMPLATE_TYPE}:${record.entityId}`,
+        ),
         payload,
       });
     }
     // Overlay queued (not yet pushed) creations/edits/deletes.
     for (const item of pending) {
       const header = item.envelope.header;
+      if (header.entityType !== TEMPLATE_TYPE) continue;
       if (header.isDeleted) {
         byId.delete(header.entityId);
         continue;
@@ -285,16 +428,118 @@ export function useTemplatesStore(userId: string | null) {
     return [...byId.values()].sort(
       (a, b) => b.lastModifiedAtEpochMs - a.lastModifiedAtEpochMs,
     );
-  }, [journalRecords, pending]);
+  }, [journalRecords, pending, pendingByEntity]);
+
+  const programs: ProgramListItem[] = useMemo(() => {
+    // Latest session payloads per program (journal, then pending overlay).
+    const sessionsByProgram = new Map<
+      string,
+      Map<string, Record<string, unknown>>
+    >();
+    function putSession(payload: Record<string, unknown> | null) {
+      const programId = payload?.programId;
+      const sessionId = payload?.id;
+      if (typeof programId !== "string" || typeof sessionId !== "string") {
+        return;
+      }
+      const bucket =
+        sessionsByProgram.get(programId) ??
+        new Map<string, Record<string, unknown>>();
+      bucket.set(sessionId, payload!);
+      sessionsByProgram.set(programId, bucket);
+    }
+    function dropSession(sessionId: string) {
+      for (const bucket of sessionsByProgram.values()) {
+        bucket.delete(sessionId);
+      }
+    }
+    for (const record of journalRecords) {
+      if (record.entityType === SESSION_TYPE) putSession(record.payload);
+    }
+    for (const item of pending) {
+      const header = item.envelope.header;
+      if (header.entityType !== SESSION_TYPE) continue;
+      if (header.isDeleted) {
+        dropSession(header.entityId);
+      } else {
+        putSession(item.envelope.payload);
+      }
+    }
+
+    const byId = new Map<string, ProgramListItem>();
+    function putProgram(args: {
+      entityId: string;
+      payload: Record<string, unknown> | null;
+      lastModifiedAtEpochMs: number;
+      originInputChannel: string;
+      hasPendingChanges: boolean;
+    }) {
+      const payload = args.payload;
+      const sessionPayloads = [
+        ...(sessionsByProgram.get(args.entityId)?.values() ?? []),
+      ];
+      byId.set(args.entityId, {
+        entityId: args.entityId,
+        name: typeof payload?.name === "string" ? payload.name : "(unnamed)",
+        durationWeeks:
+          typeof payload?.durationWeeks === "number"
+            ? payload.durationWeeks
+            : 0,
+        sessionsPerWeek:
+          typeof payload?.sessionsPerWeek === "number"
+            ? payload.sessionsPerWeek
+            : 0,
+        sessionCount: sessionPayloads.length,
+        lastModifiedAtEpochMs: args.lastModifiedAtEpochMs,
+        originInputChannel: args.originInputChannel,
+        hasPendingChanges: args.hasPendingChanges,
+        payload,
+        sessionPayloads,
+      });
+    }
+    for (const record of journalRecords) {
+      if (record.entityType !== PROGRAM_TYPE) continue;
+      putProgram({
+        entityId: record.entityId,
+        payload: record.payload,
+        lastModifiedAtEpochMs: record.lastModifiedAtEpochMs,
+        originInputChannel: record.originInputChannel,
+        hasPendingChanges: pendingByEntity.has(
+          `${PROGRAM_TYPE}:${record.entityId}`,
+        ),
+      });
+    }
+    for (const item of pending) {
+      const header = item.envelope.header;
+      if (header.entityType !== PROGRAM_TYPE) continue;
+      if (header.isDeleted) {
+        byId.delete(header.entityId);
+        continue;
+      }
+      putProgram({
+        entityId: header.entityId,
+        payload: item.envelope.payload,
+        lastModifiedAtEpochMs: header.lastModifiedAtEpochMs,
+        originInputChannel: header.originInputChannel,
+        hasPendingChanges: true,
+      });
+    }
+    return [...byId.values()].sort(
+      (a, b) => b.lastModifiedAtEpochMs - a.lastModifiedAtEpochMs,
+    );
+  }, [journalRecords, pending, pendingByEntity]);
 
   return {
     hydration,
     pushState,
     templates,
+    programs,
     pending,
     hydrate,
     saveTemplate,
     deleteTemplate,
+    saveProgram,
+    deleteProgram,
     pushPending,
   };
 }

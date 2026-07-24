@@ -1,0 +1,3 @@
+# Cross-repo golden fixtures must stay byte-identical with the copies in
+# ironclad_app regardless of core.autocrlf — pin them to LF everywhere.
+*.golden.json text eol=lf
