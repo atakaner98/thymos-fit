@@ -396,6 +396,51 @@ nav {
   line-height: 1.5;
 }
 
+/* Shipped features */
+.feature-card { position: relative; }
+.feature-card--done { border-color: rgba(74, 158, 109, 0.35); }
+.done-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--success);
+  border: 1px solid var(--success);
+  border-radius: 100px;
+  padding: 2px 9px;
+  margin-bottom: 8px;
+  background: rgba(74, 158, 109, 0.1);
+}
+
+/* "You are here" progress dot — sits on the timeline at the current work
+   front (between Form Video Recording and Deep Analytics & Insights).
+   Mobile: on the left rail. Desktop: in the column gap = center line. */
+@keyframes now-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(200, 85, 61, 0.5); }
+  70% { box-shadow: 0 0 0 16px rgba(200, 85, 61, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(200, 85, 61, 0); }
+}
+.now-dot {
+  position: absolute;
+  left: -54px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--accent);
+  animation: now-pulse 2.2s ease-out infinite;
+  z-index: 2;
+}
+@media(min-width:768px) {
+  .now-dot { left: auto; right: -17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .now-dot { animation: none; box-shadow: 0 0 16px var(--accent-glow); }
+}
+
 /* ─── CTA BANNER ─── */
 .roadmap-cta { text-align: center; padding: 60px 0 100px; }
 .roadmap-cta-box {
@@ -547,36 +592,41 @@ footer {
     <div class="timeline-container">
 
       <!-- V1.X — CURRENT -->
+      <!-- Phase dot intentionally removed: the "you are here" now-dot below
+           marks live progress inside the feature grid instead. -->
       <div class="phase current anim">
-        <div class="phase-dot"></div>
         <div class="phase-header">
           <div class="phase-version">V1.X</div>
           <div class="phase-name" data-i18n="phase1_name">Foundation & Intelligence</div>
           <div class="phase-status" data-i18n="phase1_status">IN PROGRESS</div>
         </div>
         <div class="phase-features">
-          <div class="feature-card anim anim-delay-1">
+          <div class="feature-card feature-card--done anim anim-delay-1">
 
             <div class="feature-card-text">
+              <div class="done-badge" data-i18n="label_done">DONE</div>
               <h4 data-i18n="f_v1_1">Adaptive Program Builder</h4>
               <p data-i18n="f_v1_1d">Smart, auto-adjusting training programs that evolve with your progress.</p>
             </div>
           </div>
-          <div class="feature-card anim anim-delay-1">
+          <div class="feature-card feature-card--done anim anim-delay-1">
 
             <div class="feature-card-text">
+              <div class="done-badge" data-i18n="label_done">DONE</div>
               <h4 data-i18n="f_v1_2">Web Routine Builder</h4>
               <p data-i18n="f_v1_2d">Create and manage routines from your browser, sync to your phone.</p>
             </div>
           </div>
           <div class="feature-card anim anim-delay-2">
+            <div class="now-dot" aria-hidden="true"></div>
             <div class="feature-card-text">
               <h4 data-i18n="f_v1_3">Form Video Recording</h4>
               <p data-i18n="f_v1_3d">Record your lifts for personal review. No social sharing, just self-coaching.</p>
             </div>
           </div>
-          <div class="feature-card anim anim-delay-2">
+          <div class="feature-card feature-card--done anim anim-delay-2">
             <div class="feature-card-text">
+              <div class="done-badge" data-i18n="label_done">DONE</div>
               <h4 data-i18n="f_v1_4">Deep Analytics & Insights</h4>
               <p data-i18n="f_v1_4d">Advanced volume tracking, periodization analysis, and performance insights.</p>
             </div>
@@ -717,6 +767,7 @@ const translations = {
     roadmap_desc: "An honest look at where THYMOS is headed — without hype and vague promises, just the plan.",
     phase1_name: "Foundation & Intelligence",
     phase1_status: "IN PROGRESS",
+    label_done: "DONE",
     f_v1_1: "Adaptive Program Builder", f_v1_1d: "Smart, auto-adjusting training programs that evolve with your progress.",
     f_v1_2: "Web Routine Builder", f_v1_2d: "Create and manage routines from your browser, sync to your phone.",
     f_v1_3: "Form Video Recording", f_v1_3d: "Record your lifts for personal review. No social sharing, just self-coaching.",
@@ -751,6 +802,7 @@ const translations = {
     roadmap_desc: "THYMOS'un nereye gittiğine dürüst bir bakış — abartı ve belirsiz vaatler olmadan, sadece plan.",
     phase1_name: "Temel & Zeka",
     phase1_status: "GELİŞTİRİLİYOR",
+    label_done: "TAMAMLANDI",
     f_v1_1: "Adaptif Program Oluşturucu", f_v1_1d: "İlerlemenle birlikte evrilen akıllı, otomatik ayarlanan antrenman programları.",
     f_v1_2: "Web Rutin Oluşturucu", f_v1_2d: "Tarayıcıdan rutin oluştur ve yönet, telefonuna senkronize et.",
     f_v1_3: "Form Video Kaydı", f_v1_3d: "Kaldırışlarını kişisel inceleme için kaydet. Sosyal paylaşım yok, sadece öz-koçluk.",
