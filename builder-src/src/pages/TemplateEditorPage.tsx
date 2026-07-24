@@ -395,6 +395,43 @@ export default function TemplateEditorPage() {
                         <button
                           type="button"
                           className="button button--ghost"
+                          title="Move set up"
+                          disabled={setIndex === 0}
+                          onClick={() =>
+                            mutateSets(exerciseIndex, (sets) => {
+                              [sets[setIndex - 1], sets[setIndex]] = [
+                                sets[setIndex],
+                                sets[setIndex - 1],
+                              ];
+                              return sets;
+                            })
+                          }
+                        >
+                          ↑
+                        </button>
+                        <button
+                          type="button"
+                          className="button button--ghost"
+                          title="Move set down"
+                          disabled={
+                            setIndex ===
+                            (exercise.prescribedSets?.length ?? 0) - 1
+                          }
+                          onClick={() =>
+                            mutateSets(exerciseIndex, (sets) => {
+                              [sets[setIndex], sets[setIndex + 1]] = [
+                                sets[setIndex + 1],
+                                sets[setIndex],
+                              ];
+                              return sets;
+                            })
+                          }
+                        >
+                          ↓
+                        </button>
+                        <button
+                          type="button"
+                          className="button button--ghost"
                           title="Duplicate set"
                           onClick={() =>
                             mutateSets(exerciseIndex, (sets) => {
