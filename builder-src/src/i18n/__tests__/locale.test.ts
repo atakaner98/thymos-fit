@@ -5,27 +5,40 @@ import { messages, type MessageKey } from "../messages";
 afterEach(() => setLocaleForTests("en"));
 
 describe("resolveLocale", () => {
-  it("URL ?lang= override wins over the device language", () => {
-    expect(resolveLocale("?lang=tr", ["en-US"])).toBe("tr");
-    expect(resolveLocale("?lang=en", ["tr-TR"])).toBe("en");
-    expect(resolveLocale("?foo=1&lang=TR", ["en-US"])).toBe("tr");
+  it("URL ?lang= override wins over everything", () => {
+    expect(resolveLocale("?lang=tr", "/builder/", ["en-US"])).toBe("tr");
+    expect(resolveLocale("?lang=en", "/builder/tr/", ["tr-TR"])).toBe("en");
+    expect(resolveLocale("?foo=1&lang=TR", "/builder/", ["en-US"])).toBe("tr");
+  });
+
+  it("path segment /en or /tr overrides the device language", () => {
+    expect(resolveLocale("", "/builder/en", ["tr-TR"])).toBe("en");
+    expect(resolveLocale("", "/builder/en/", ["tr-TR"])).toBe("en");
+    expect(resolveLocale("", "/builder/tr", ["en-US"])).toBe("tr");
+    expect(resolveLocale("", "/builder/TR/", ["en-US"])).toBe("tr");
+  });
+
+  it("does not treat non-locale trailing segments as a path override", () => {
+    expect(resolveLocale("", "/builder/", ["en-US"])).toBe("en");
+    expect(resolveLocale("", "/builder/edit/new", ["en-US"])).toBe("en");
+    expect(resolveLocale("", "/builder/programs/new", ["tr-TR"])).toBe("tr");
   });
 
   it("ignores unknown overrides and falls back to the device language", () => {
-    expect(resolveLocale("?lang=de", ["tr-TR"])).toBe("tr");
-    expect(resolveLocale("?lang=", ["tr"])).toBe("tr");
+    expect(resolveLocale("?lang=de", "/builder/", ["tr-TR"])).toBe("tr");
+    expect(resolveLocale("?lang=", "/builder/", ["tr"])).toBe("tr");
   });
 
   it("device language tr (any region) resolves to tr", () => {
-    expect(resolveLocale("", ["tr-TR", "en-US"])).toBe("tr");
-    expect(resolveLocale("", ["tr"])).toBe("tr");
-    expect(resolveLocale("", ["en-US", "tr-TR"])).toBe("tr");
+    expect(resolveLocale("", "/builder/", ["tr-TR", "en-US"])).toBe("tr");
+    expect(resolveLocale("", "/builder/", ["tr"])).toBe("tr");
+    expect(resolveLocale("", "/builder/", ["en-US", "tr-TR"])).toBe("tr");
   });
 
   it("non-Turkish device languages fall back to English", () => {
-    expect(resolveLocale("", ["en-US"])).toBe("en");
-    expect(resolveLocale("", ["de-DE", "fr-FR"])).toBe("en");
-    expect(resolveLocale("", [])).toBe("en");
+    expect(resolveLocale("", "/builder/", ["en-US"])).toBe("en");
+    expect(resolveLocale("", "/builder/", ["de-DE", "fr-FR"])).toBe("en");
+    expect(resolveLocale("", "/builder/", [])).toBe("en");
   });
 });
 
