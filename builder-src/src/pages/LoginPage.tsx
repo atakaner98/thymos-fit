@@ -61,8 +61,8 @@ export default function LoginPage() {
             className="hero__mark"
             src={asset("thymos-mark.webp")}
             alt={t("brandMarkAlt")}
-            width={56}
-            height={56}
+            width={104}
+            height={104}
           />
           <span className="hero__wordmark">
             THYMOS <span>{t("loginTitle")}</span>
@@ -122,8 +122,9 @@ export default function LoginPage() {
           )}
         </div>
 
-        <a className="hero__cue" href="#how">
-          {t("howCue")}
+        {/* The only thing under the form: a pure affordance to keep scrolling.
+            The words "See how it works" belong to the section itself. */}
+        <a className="hero__cue" href="#how" aria-label={t("scrollDown")}>
           <span aria-hidden="true">↓</span>
         </a>
       </header>

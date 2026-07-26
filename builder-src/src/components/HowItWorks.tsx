@@ -224,7 +224,7 @@ function Lightbox({
       >
         <img
           className="lightbox__img"
-          src={asset(`showcase/${shot.id}@2x.webp`)}
+          src={asset(`showcase/${shot.id}-full.webp`)}
           alt={t(shot.title)}
           draggable={false}
           style={{
@@ -260,12 +260,12 @@ function Lightbox({
   );
 }
 
-/** Adds `is-in` once a step scrolls into view, so the shots arrive one by one. */
+/** Adds `is-in` once an element scrolls into view, so the page arrives in pieces. */
 function useReveal(count: number) {
-  const refs = useRef<(HTMLLIElement | null)[]>([]);
+  const refs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
-    const nodes = refs.current.filter((node): node is HTMLLIElement => !!node);
+      const nodes = refs.current.filter((node): node is HTMLElement => !!node);
     const reduced =
       typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -293,12 +293,22 @@ function useReveal(count: number) {
 
 export default function HowItWorks() {
   const [open, setOpen] = useState<number | null>(null);
-  const refs = useReveal(SHOTS.length);
+  // Slot 0 is the heading; the shots follow. Nothing here is visible until it
+  // is scrolled to — the heading's three words then stagger in on their own.
+  const refs = useReveal(SHOTS.length + 1);
 
   return (
     <section className="how" id="how">
-      <h2 className="how__title">{t("howTitle")}</h2>
-      <p className="how__sub muted">{t("howSub")}</p>
+      <h2
+        className="how__title"
+        ref={(node) => {
+          refs.current[0] = node;
+        }}
+      >
+        <span>{t("howWord1")}</span>
+        <span>{t("howWord2")}</span>
+        <span>{t("howWord3")}</span>
+      </h2>
 
       <ol className="how__steps">
         {SHOTS.map((shot, index) => (
@@ -306,7 +316,7 @@ export default function HowItWorks() {
             key={shot.id}
             className="how__step"
             ref={(node) => {
-              refs.current[index] = node;
+              refs.current[index + 1] = node;
             }}
           >
             <p className="how__index">{String(index + 1).padStart(2, "0")}</p>

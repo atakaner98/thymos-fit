@@ -33,11 +33,12 @@ const en = {
   errRateLimit:
     "Too many attempts — please wait a minute before requesting another link.",
 
-  // "See how it works" — scroll-revealed screenshots + zoomable lightbox
-  howCue: "See how it works",
-  howTitle: "See how it works",
-  howSub:
-    "Seven screens from the builder. Click any of them to open it full size and zoom in.",
+  // "See how it works" — scroll-revealed screenshots + zoomable lightbox.
+  // The heading arrives one word per line as the section scrolls in.
+  scrollDown: "Scroll down",
+  howWord1: "See",
+  howWord2: "how",
+  howWord3: "it works",
   shotOpenAria: "Open full size: {title}",
   shotWorkspaceTitle: "Your workspace",
   shotWorkspaceBody:
@@ -49,17 +50,14 @@ const en = {
   shotSetsBody:
     "Warm-up or working, reps, weight, rest, RPE and RIR — typed, duplicated and reordered in seconds.",
   shotScheduleTitle: "Schedule the block",
-  shotScheduleBody:
-    "Drop templates onto a week × day grid, then copy week 1 across the whole program.",
+  shotScheduleBody: "Drop templates onto a week × day grid.",
   shotPushTitle: "Push to your phone",
   shotPushBody:
     "Saving queues your changes; one push sends them all and tells you exactly what landed.",
   shotBlockTitle: "A whole block in one sitting",
-  shotBlockBody:
-    "Thirteen changes, one push — templates and programs travel together.",
+  shotBlockBody: "Templates and programs travel together in a single push.",
   shotDevicesTitle: "Sync, schedule, train",
-  shotDevicesBody:
-    "Open THYMOS, run Sync, and the plan is on your phone's calendar ready to start.",
+  shotDevicesBody: "Open THYMOS, run Sync, and train.",
 
   // Lightbox
   lbClose: "Close",
@@ -255,10 +253,10 @@ const tr: Record<MessageKey, string> = {
   errRateLimit:
     "Çok fazla deneme — yeni bir bağlantı istemeden önce bir dakika bekle.",
 
-  howCue: "Nasıl çalıştığını gör",
-  howTitle: "Nasıl çalıştığını gör",
-  howSub:
-    "Oluşturucudan yedi ekran. Tam boyutta açıp yakınlaştırmak için herhangi birine tıkla.",
+  scrollDown: "Aşağı kaydır",
+  howWord1: "Nasıl",
+  howWord2: "çalıştığını",
+  howWord3: "gör",
   shotOpenAria: "Tam boyutta aç: {title}",
   shotWorkspaceTitle: "Çalışma alanın",
   shotWorkspaceBody:
@@ -270,17 +268,16 @@ const tr: Record<MessageKey, string> = {
   shotSetsBody:
     "Isınma ya da çalışma, tekrar, ağırlık, dinlenme, RPE ve RIR — saniyeler içinde yaz, çoğalt, sırala.",
   shotScheduleTitle: "Bloğu planla",
-  shotScheduleBody:
-    "Şablonları hafta × gün takvimine yerleştir, sonra 1. haftayı tüm programa kopyala.",
+  shotScheduleBody: "Şablonları hafta × gün takvimine yerleştir.",
   shotPushTitle: "Telefonuna gönder",
   shotPushBody:
     "Kaydetmek değişiklikleri sıraya alır; tek gönderim hepsini yollar ve neyin ulaştığını söyler.",
   shotBlockTitle: "Tek oturuşta koca bir blok",
   shotBlockBody:
-    "On üç değişiklik, tek gönderim — şablonlar ve programlar birlikte gider.",
+    "Şablonlar ve programlar tek bir gönderimde birlikte gider.",
   shotDevicesTitle: "Senkronize et, planla, çalış",
   shotDevicesBody:
-    "THYMOS'u aç, Senkronizasyon'u çalıştır; plan telefonunun takviminde başlamaya hazır.",
+    "THYMOS'u aç, Senkronizasyon'u çalıştır ve antrenmana başla.",
 
   lbClose: "Kapat",
   lbPrev: "Önceki ekran görüntüsü",

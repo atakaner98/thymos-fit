@@ -26,6 +26,7 @@ describe("LoginPage localization", () => {
     expect(screen.getByLabelText("E-posta")).toBeTruthy();
     expect(screen.getByText("Senkronize et.")).toBeTruthy();
     expect(screen.getByText("Çalışma alanın")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Aşağı kaydır" })).toBeTruthy();
   });
 
   it("renders English UI when the locale is en", () => {
@@ -46,6 +47,23 @@ describe("LoginPage localization", () => {
 });
 
 describe("see how it works", () => {
+  it("says 'see how it works' once, as three staggered words", () => {
+    const { container } = render(<LoginPage />);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect([...heading.querySelectorAll("span")].map((s) => s.textContent)).toEqual(
+      ["See", "how", "it works"],
+    );
+    // The scroll cue under the form is an arrow only — no second copy.
+    expect(container.textContent?.match(/See how it works/g)).toBeNull();
+    expect(screen.getByRole("link", { name: "Scroll down" })).toBeTruthy();
+  });
+
+  it("drops the explanatory blurb under the heading", () => {
+    const { container } = render(<LoginPage />);
+    expect(container.textContent).not.toContain("Seven screens");
+    expect(container.textContent).not.toContain("open it full size and zoom");
+  });
+
   it("shows every screenshot with its own sentence", () => {
     render(<LoginPage />);
     const shots = screen.getAllByRole("button", { name: /^Open full size:/ });
@@ -58,6 +76,15 @@ describe("see how it works", () => {
     ).toBeTruthy();
   });
 
+  it("keeps the captions free of claims the builder does not make", () => {
+    const { container } = render(<LoginPage />);
+    const text = container.textContent ?? "";
+    expect(text).not.toContain("copy week 1");
+    expect(text).not.toContain("Thirteen");
+    expect(text).not.toContain("calendar");
+    expect(screen.getByText("Open THYMOS, run Sync, and train.")).toBeTruthy();
+  });
+
   it("renders each shot at display size and unique per step", () => {
     const { container } = render(<LoginPage />);
     const sources = [...container.querySelectorAll(".how__shot img")].map(
@@ -65,7 +92,15 @@ describe("see how it works", () => {
     );
     expect(new Set(sources).size).toBe(7);
     expect(sources.every((src) => src?.endsWith(".webp"))).toBe(true);
-    expect(sources.some((src) => src?.includes("@2x"))).toBe(false);
+    expect(sources.some((src) => src?.includes("-full"))).toBe(false);
+  });
+
+  it("hides every step until it is scrolled into view", () => {
+    const { container } = render(<LoginPage />);
+    // jsdom has no IntersectionObserver, so the fallback marks them visible.
+    // What matters is that the reveal opt-in exists on every step and heading.
+    expect(container.querySelectorAll(".how__step")).toHaveLength(7);
+    expect(container.querySelector(".how__title")).toBeTruthy();
   });
 });
 
@@ -83,7 +118,7 @@ describe("lightbox", () => {
     expect(dialog.getAttribute("aria-label")).toBe("Schedule the block");
     expect(
       dialog.querySelector("img")?.getAttribute("src"),
-    ).toContain("schedule@2x.webp");
+    ).toContain("schedule-full.webp");
     expect(screen.getByText("100%")).toBeTruthy();
     expect(screen.getByText("4 / 7")).toBeTruthy();
   });
