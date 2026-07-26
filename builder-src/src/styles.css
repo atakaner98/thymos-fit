@@ -129,6 +129,314 @@ button:focus-visible {
   }
 }
 
+/* ---------- login ---------- */
+
+.login {
+  position: relative;
+  flex: 1;
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  display: grid;
+  gap: 44px;
+  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  align-items: center;
+}
+
+/* Warm ambient wash so the near-black page has a light source. */
+.login::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 12% 8%, var(--accent-glow), transparent 60%),
+    radial-gradient(50rem 36rem at 92% 88%, var(--gold-dim), transparent 62%);
+}
+
+.login--backdrop {
+  grid-template-columns: minmax(0, 480px);
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+}
+
+/* The screenshot is texture here, not content — keep contrast on the card. */
+.login__backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    rgba(10, 10, 11, 0.94),
+    rgba(10, 10, 11, 0.72)
+  );
+}
+
+.login__panel {
+  padding: 34px 32px 30px;
+}
+
+.login--backdrop .login__panel {
+  background: rgba(22, 22, 24, 0.72);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+
+.login__headline {
+  font-size: 1.72rem;
+  line-height: 1.18;
+  margin: 0 0 10px;
+}
+
+.login__intro {
+  margin: 0 0 26px;
+  line-height: 1.55;
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.brand-lockup__mark {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  padding: 7px;
+  border-radius: 15px;
+  border: 1px solid var(--border-accent);
+  background: var(--bg-secondary);
+  box-shadow: 0 10px 28px var(--accent-glow);
+}
+
+.brand-lockup__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.brand-lockup__name {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+}
+
+.brand-lockup__sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+/* ---------- login showcase ---------- */
+
+.showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.showcase__caption h2 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.showcase__caption p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.showcase__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.showcase__dot {
+  width: 26px;
+  height: 4px;
+  padding: 0;
+  border: none;
+  border-radius: 100px;
+  background: var(--border-accent);
+  cursor: pointer;
+  transition: background 0.2s ease, width 0.2s ease;
+}
+
+.showcase__dot--on {
+  width: 40px;
+  background: var(--accent);
+}
+
+.frame {
+  border: 1px solid var(--border-accent);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+}
+
+.frame__bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.frame__light {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--border-accent);
+}
+
+.frame__url {
+  margin-left: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.frame__stage {
+  aspect-ratio: 1240 / 630;
+  background: var(--bg-primary);
+}
+
+.frame__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Frames have different capture heights — contain never crops a control
+     out of the shot the way cover would. */
+  object-fit: contain;
+  /* Centred, so the shorter captures letterbox evenly instead of leaving one
+     dead band under the shot. */
+  object-position: center;
+  animation: frame-in 0.45s ease both;
+}
+
+@keyframes frame-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.collage {
+  position: relative;
+  padding: 0 0 12px 0;
+}
+
+.collage__back {
+  transform: rotate(-2.4deg) scale(0.94);
+  transform-origin: top center;
+  opacity: 0.5;
+}
+
+.collage__front {
+  display: block;
+  width: 92%;
+  height: auto;
+  margin: -22% auto 0;
+  position: relative;
+  border-radius: 14px;
+  filter: drop-shadow(0 26px 46px rgba(0, 0, 0, 0.72));
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.steps__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.steps__arrow {
+  color: var(--accent);
+}
+
+.variant-switch {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 30;
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: rgba(10, 10, 11, 0.88);
+  backdrop-filter: blur(8px);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.variant-switch a {
+  padding: 4px 12px;
+  border-radius: 100px;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.variant-switch a:hover {
+  color: var(--text-primary);
+}
+
+.variant-switch__on {
+  background: var(--accent-glow);
+  color: var(--accent) !important;
+}
+
+@media (max-width: 940px) {
+  .login {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+    padding: 32px 18px 56px;
+  }
+  .login__headline {
+    font-size: 1.5rem;
+  }
+  /* On one column the screenshots are the supporting act — form comes first. */
+  .login__aside {
+    order: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame__img {
+    animation: none;
+  }
+}
+
 .topbar {
   position: sticky;
   top: 0;

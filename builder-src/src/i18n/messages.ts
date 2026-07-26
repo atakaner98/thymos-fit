@@ -13,6 +13,28 @@ const en = {
 
   // Login
   loginTitle: "Routine Builder",
+  loginHeadline: "Plan it here. Train it there.",
+  brandMarkAlt: "THYMOS logo",
+  showcaseRegionAria: "What the builder looks like",
+  showcaseDotAria: "Show screenshot {n}",
+  stepBuild: "Build",
+  stepPush: "Push",
+  stepTrain: "Train",
+  showTemplatesTitle: "Your whole plan, one list",
+  showTemplatesBody:
+    "Templates and multi-week programs side by side, each tagged with where it came from.",
+  showSetsTitle: "Set-by-set precision",
+  showSetsBody:
+    "Warm-ups, working sets, reps, weight, rest, RPE and RIR — typed, duplicated and reordered in seconds.",
+  showProgramTitle: "Multi-week programs",
+  showProgramBody:
+    "Drop templates onto a week × day grid, then copy week 1 across the whole block.",
+  showCatalogTitle: "The full exercise catalog",
+  showCatalogBody:
+    "Search or filter the built-in catalog by muscle and equipment, then add with one click.",
+  showDevicesTitle: "Built here. Trained there.",
+  showDevicesBody:
+    "Push your changes, run Sync in the app, and the plan lands on your phone's calendar.",
   loginIntro:
     "Build workout templates with a keyboard and mouse, then push them to your phone. Sign in with the same email you use for Cloud Sync in the THYMOS app (Pro).",
   emailLabel: "Email",
@@ -191,6 +213,28 @@ const tr: Record<MessageKey, string> = {
   signOut: "Çıkış yap",
 
   loginTitle: "Rutin Oluşturucu",
+  loginHeadline: "Burada planla. Orada antrenman yap.",
+  brandMarkAlt: "THYMOS logosu",
+  showcaseRegionAria: "Oluşturucu nasıl görünüyor",
+  showcaseDotAria: "{n}. ekran görüntüsünü göster",
+  stepBuild: "Oluştur",
+  stepPush: "Gönder",
+  stepTrain: "Antrenman",
+  showTemplatesTitle: "Tüm planın tek listede",
+  showTemplatesBody:
+    "Şablonlar ve çok haftalık programlar yan yana, her biri nereden geldiği etiketiyle.",
+  showSetsTitle: "Set set hassasiyet",
+  showSetsBody:
+    "Isınma, çalışma setleri, tekrar, ağırlık, dinlenme, RPE ve RIR — saniyeler içinde yaz, çoğalt, sırala.",
+  showProgramTitle: "Çok haftalık programlar",
+  showProgramBody:
+    "Şablonları hafta × gün takvimine yerleştir, sonra 1. haftayı tüm bloğa kopyala.",
+  showCatalogTitle: "Eksiksiz egzersiz kataloğu",
+  showCatalogBody:
+    "Yerleşik katalogda kasa ve ekipmana göre ara veya filtrele, tek tıkla ekle.",
+  showDevicesTitle: "Burada kur. Orada çalış.",
+  showDevicesBody:
+    "Değişikliklerini gönder, uygulamada Senkronizasyon'u çalıştır; plan telefonunun takvimine düşsün.",
   loginIntro:
     "Antrenman şablonlarını klavye ve fareyle oluştur, sonra telefonuna gönder. THYMOS uygulamasında Bulut Senkronizasyonu için kullandığın e-postayla giriş yap (Pro).",
   emailLabel: "E-posta",
