@@ -50,9 +50,9 @@ describe("see how it works", () => {
   it("says 'see how it works' once, as three staggered words", () => {
     const { container } = render(<LoginPage />);
     const heading = screen.getByRole("heading", { level: 2 });
-    expect([...heading.querySelectorAll("span")].map((s) => s.textContent)).toEqual(
-      ["See", "how", "it works"],
-    );
+    expect(
+      [...heading.querySelectorAll(":scope > span")].map((s) => s.textContent),
+    ).toEqual(["See", "how", "it works"]);
     // The scroll cue under the form is an arrow only — no second copy.
     expect(container.textContent?.match(/See how it works/g)).toBeNull();
     expect(screen.getByRole("link", { name: "Scroll down" })).toBeTruthy();

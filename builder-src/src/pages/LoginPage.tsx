@@ -1,8 +1,9 @@
-import { useState, type FormEvent } from "react";
+import { useCallback, useRef, useState, type FormEvent } from "react";
 import { getSupabase } from "../auth/supabaseClient";
 import { authCallbackUrl } from "../config";
 import { t } from "../i18n/locale";
 import HowItWorks from "../components/HowItWorks";
+import { prefersReducedMotion, useScrollFx } from "../components/motion";
 
 type SendState =
   | { kind: "idle" }
@@ -31,6 +32,18 @@ function friendlyAuthError(raw: string): string {
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<SendState>({ kind: "idle" });
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  // Reading-progress rail across the top of the page.
+  const onFrame = useCallback(() => {
+    const bar = progressRef.current;
+    if (!bar) return;
+    const scrollable =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+    bar.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
+  }, []);
+  useScrollFx(onFrame);
 
   async function sendLink(event: FormEvent) {
     event.preventDefault();
@@ -54,8 +67,13 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="landing">
+    <main className={prefersReducedMotion() ? "landing" : "landing landing--motion"}>
+      <div className="progress" aria-hidden="true">
+        <div className="progress__fill" ref={progressRef} />
+      </div>
+
       <header className="hero">
+        <div className="hero__grid" aria-hidden="true" />
         <div className="hero__brand">
           <img
             className="hero__mark"
@@ -69,10 +87,17 @@ export default function LoginPage() {
           </span>
         </div>
 
+        {/* Each word rides up out of its own clipped box, one after another. */}
         <h1 className="hero__headline">
-          <span>{t("heroBuild")}</span>{" "}
-          <span className="hero__accent">{t("heroSync")}</span>{" "}
-          <span>{t("heroTrain")}</span>
+          <span className="word">
+            <span>{t("heroBuild")}</span>
+          </span>{" "}
+          <span className="word word--accent">
+            <span>{t("heroSync")}</span>
+          </span>{" "}
+          <span className="word">
+            <span>{t("heroTrain")}</span>
+          </span>
         </h1>
         <p className="hero__sub">{t("heroSub")}</p>
 

@@ -8,6 +8,7 @@ import {
 } from "react";
 import { t } from "../i18n/locale";
 import type { MessageKey } from "../i18n/messages";
+import { prefersReducedMotion, useScrollFx } from "./motion";
 
 type Shot = {
   readonly id: string;
@@ -32,6 +33,8 @@ function asset(path: string): string {
 
 const MIN_SCALE = 1;
 const MAX_SCALE = 6;
+/** How far a screenshot drifts against the scroll, in px at the extremes. */
+const PARALLAX = 26;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -266,10 +269,7 @@ function useReveal(count: number) {
 
   useEffect(() => {
       const nodes = refs.current.filter((node): node is HTMLElement => !!node);
-    const reduced =
-      typeof window.matchMedia === "function" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || typeof IntersectionObserver !== "function") {
+    if (prefersReducedMotion() || typeof IntersectionObserver !== "function") {
       nodes.forEach((node) => node.classList.add("is-in"));
       return;
     }
@@ -296,6 +296,34 @@ export default function HowItWorks() {
   // Slot 0 is the heading; the shots follow. Nothing here is visible until it
   // is scrolled to — the heading's three words then stagger in on their own.
   const refs = useReveal(SHOTS.length + 1);
+  const stepsRef = useRef<HTMLOListElement>(null);
+  const still = prefersReducedMotion();
+
+  // One frame of work for the whole section: fill the timeline rail to the
+  // scroll position and drift each screenshot against the scroll.
+  const onFrame = useCallback(() => {
+    const list = stepsRef.current;
+    if (!list) return;
+    const viewport = window.innerHeight;
+    const box = list.getBoundingClientRect();
+    const travelled = (viewport * 0.62 - box.top) / box.height;
+    list.style.setProperty("--rail", `${clamp(travelled, 0, 1)}`);
+
+    for (const shot of list.querySelectorAll<HTMLElement>(".how__shot")) {
+      const rect = shot.getBoundingClientRect();
+      // -1 when entering from the bottom, +1 when leaving past the top.
+      const centred =
+        (viewport / 2 - (rect.top + rect.height / 2)) /
+        ((viewport + rect.height) / 2);
+      // A custom property rather than `transform`: the card itself drifts, so
+      // the screenshot inside is never scaled or clipped to make room.
+      shot.style.setProperty(
+        "--p",
+        `${(clamp(centred, -1, 1) * PARALLAX).toFixed(2)}px`,
+      );
+    }
+  }, []);
+  useScrollFx(onFrame, !still);
 
   return (
     <section className="how" id="how">
@@ -305,12 +333,18 @@ export default function HowItWorks() {
           refs.current[0] = node;
         }}
       >
-        <span>{t("howWord1")}</span>
-        <span>{t("howWord2")}</span>
-        <span>{t("howWord3")}</span>
+        <span>
+          <span>{t("howWord1")}</span>
+        </span>
+        <span>
+          <span>{t("howWord2")}</span>
+        </span>
+        <span>
+          <span>{t("howWord3")}</span>
+        </span>
       </h2>
 
-      <ol className="how__steps">
+      <ol className="how__steps" ref={stepsRef}>
         {SHOTS.map((shot, index) => (
           <li
             key={shot.id}
@@ -319,7 +353,9 @@ export default function HowItWorks() {
               refs.current[index + 1] = node;
             }}
           >
-            <p className="how__index">{String(index + 1).padStart(2, "0")}</p>
+            <p className="how__index">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+            </p>
             <div className="how__text">
               <h3>{t(shot.title)}</h3>
               <p className="muted">{t(shot.body)}</p>
@@ -330,12 +366,15 @@ export default function HowItWorks() {
               aria-label={t("shotOpenAria", { title: t(shot.title) })}
               onClick={() => setOpen(index)}
             >
-              <img
-                src={asset(`showcase/${shot.id}.webp`)}
-                alt=""
-                loading="lazy"
-                decoding="async"
-              />
+              <span className="how__frame">
+                <img
+                  src={asset(`showcase/${shot.id}.webp`)}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span className="how__sheen" aria-hidden="true" />
               <span className="how__zoom" aria-hidden="true">
                 ⤢
               </span>
