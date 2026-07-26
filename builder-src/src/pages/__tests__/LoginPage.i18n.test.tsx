@@ -1,17 +1,18 @@
 // @vitest-environment jsdom
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
-import LoginPage, { resolveShowcaseVariant } from "../LoginPage";
+import LoginPage from "../LoginPage";
+import { SHOTS } from "../../components/HowItWorks";
 import { setLocaleForTests } from "../../i18n/locale";
 
-function visit(search: string): void {
-  window.history.replaceState({}, "", `/${search}`);
-}
+beforeAll(() => {
+  // jsdom ships no IntersectionObserver; the reveal falls back to "show all".
+  expect(typeof IntersectionObserver).toBe("undefined");
+});
 
 afterEach(() => {
   cleanup();
   setLocaleForTests("en");
-  visit("");
 });
 
 describe("LoginPage localization", () => {
@@ -23,6 +24,8 @@ describe("LoginPage localization", () => {
       screen.getByRole("button", { name: "Giriş bağlantısı gönder" }),
     ).toBeTruthy();
     expect(screen.getByLabelText("E-posta")).toBeTruthy();
+    expect(screen.getByText("Senkronize et.")).toBeTruthy();
+    expect(screen.getByText("Çalışma alanın")).toBeTruthy();
   });
 
   it("renders English UI when the locale is en", () => {
@@ -35,57 +38,126 @@ describe("LoginPage localization", () => {
     expect(screen.getByLabelText("Email")).toBeTruthy();
   });
 
-  it("localizes the showcase caption, step strip and logo alt text", () => {
-    setLocaleForTests("tr");
+  it("leads with the build / sync / train headline", () => {
     render(<LoginPage />);
-    expect(screen.getByText("Tüm planın tek listede")).toBeTruthy();
-    expect(screen.getByText("Antrenman")).toBeTruthy();
-    expect(screen.getByAltText("THYMOS logosu")).toBeTruthy();
+    const headline = screen.getByRole("heading", { level: 1 });
+    expect(headline.textContent).toBe("Build. Sync. Train.");
   });
 });
 
-describe("showcase variant selection", () => {
-  it("defaults to the carousel and ignores unknown values", () => {
-    expect(resolveShowcaseVariant("")).toBe("carousel");
-    expect(resolveShowcaseVariant("?showcase=sparkles")).toBe("carousel");
-  });
-
-  it("reads the known variants from the query string", () => {
-    expect(resolveShowcaseVariant("?showcase=collage")).toBe("collage");
-    expect(resolveShowcaseVariant("?showcase=BACKDROP")).toBe("backdrop");
-  });
-
-  it("keeps the sign-in form in every variant", () => {
-    for (const variant of ["carousel", "collage", "backdrop"]) {
-      visit(`?showcase=${variant}`);
-      render(<LoginPage />);
-      expect(screen.getByLabelText("Email")).toBeTruthy();
-      expect(
-        screen.getByRole("button", { name: "Send magic link" }),
-      ).toBeTruthy();
-      cleanup();
-    }
-  });
-
-  it("drops the screenshot panel in the backdrop variant", () => {
-    visit("?showcase=backdrop");
+describe("see how it works", () => {
+  it("shows every screenshot with its own sentence", () => {
     render(<LoginPage />);
-    expect(screen.queryByLabelText("What the builder looks like")).toBeNull();
-    // The build -> push -> train story still ships without the panel.
-    expect(screen.getByText("Train")).toBeTruthy();
+    const shots = screen.getAllByRole("button", { name: /^Open full size:/ });
+    expect(shots).toHaveLength(7);
+    expect(SHOTS).toHaveLength(7);
+    // Each step carries a caption, so no screenshot ships unexplained.
+    expect(screen.getByText("Every set, spelled out")).toBeTruthy();
+    expect(
+      screen.getByText(/Warm-up or working, reps, weight, rest, RPE and RIR/),
+    ).toBeTruthy();
+  });
+
+  it("renders each shot at display size and unique per step", () => {
+    const { container } = render(<LoginPage />);
+    const sources = [...container.querySelectorAll(".how__shot img")].map(
+      (img) => img.getAttribute("src"),
+    );
+    expect(new Set(sources).size).toBe(7);
+    expect(sources.every((src) => src?.endsWith(".webp"))).toBe(true);
+    expect(sources.some((src) => src?.includes("@2x"))).toBe(false);
   });
 });
 
-describe("showcase carousel", () => {
-  it("shows the selected frame's caption when a dot is clicked", () => {
+describe("lightbox", () => {
+  function open(name: RegExp) {
     render(<LoginPage />);
-    expect(screen.getByText("Your whole plan, one list")).toBeTruthy();
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name }));
+    });
+    return screen.getByRole("dialog");
+  }
+
+  it("opens the clicked shot at full resolution and 100% zoom", () => {
+    const dialog = open(/^Open full size: Schedule the block/);
+    expect(dialog.getAttribute("aria-label")).toBe("Schedule the block");
+    expect(
+      dialog.querySelector("img")?.getAttribute("src"),
+    ).toContain("schedule@2x.webp");
+    expect(screen.getByText("100%")).toBeTruthy();
+    expect(screen.getByText("4 / 7")).toBeTruthy();
+  });
+
+  it("zooms in and out and resets to 100%", () => {
+    open(/^Open full size: Your workspace/);
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: "Zoom in" }));
+    });
+    expect(screen.getByText("140%")).toBeTruthy();
 
     act(() => {
-      fireEvent.click(screen.getByRole("button", { name: "Show screenshot 3" }));
+      fireEvent.click(screen.getByRole("button", { name: "Zoom out" }));
     });
+    expect(screen.getByText("100%")).toBeTruthy();
+  });
 
-    expect(screen.getByText("Multi-week programs")).toBeTruthy();
-    expect(screen.queryByText("Your whole plan, one list")).toBeNull();
+  it("never zooms below 100% or past the ceiling", () => {
+    open(/^Open full size: Your workspace/);
+    const out = screen.getByRole("button", { name: "Zoom out" });
+    const zoomIn = screen.getByRole("button", { name: "Zoom in" });
+    for (let i = 0; i < 5; i += 1) {
+      act(() => {
+        fireEvent.click(out);
+      });
+    }
+    expect(screen.getByText("100%")).toBeTruthy();
+    for (let i = 0; i < 20; i += 1) {
+      act(() => {
+        fireEvent.click(zoomIn);
+      });
+    }
+    expect(screen.getByText("600%")).toBeTruthy();
+  });
+
+  it("walks through the shots and wraps around", () => {
+    open(/^Open full size: Sync, schedule, train/); // last shot
+    expect(screen.getByText("7 / 7")).toBeTruthy();
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: "Next screenshot" }));
+    });
+    expect(screen.getByText("1 / 7")).toBeTruthy();
+    expect(screen.getByRole("dialog").getAttribute("aria-label")).toBe(
+      "Your workspace",
+    );
+  });
+
+  it("resets the zoom when moving to another shot", () => {
+    open(/^Open full size: Your workspace/);
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: "Zoom in" }));
+    });
+    expect(screen.getByText("140%")).toBeTruthy();
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: "Next screenshot" }));
+    });
+    expect(screen.getByText("100%")).toBeTruthy();
+  });
+
+  it("closes on Escape and restores page scrolling", () => {
+    open(/^Open full size: Your workspace/);
+    expect(document.body.style.overflow).toBe("hidden");
+    act(() => {
+      fireEvent.keyDown(window, { key: "Escape" });
+    });
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(document.body.style.overflow).not.toBe("hidden");
+  });
+
+  it("moves between shots with the arrow keys", () => {
+    open(/^Open full size: Your workspace/);
+    act(() => {
+      fireEvent.keyDown(window, { key: "ArrowLeft" });
+    });
+    expect(screen.getByText("7 / 7")).toBeTruthy();
   });
 });

@@ -13,28 +13,12 @@ const en = {
 
   // Login
   loginTitle: "Routine Builder",
-  loginHeadline: "Plan it here. Train it there.",
   brandMarkAlt: "THYMOS logo",
-  showcaseRegionAria: "What the builder looks like",
-  showcaseDotAria: "Show screenshot {n}",
-  stepBuild: "Build",
-  stepPush: "Push",
-  stepTrain: "Train",
-  showTemplatesTitle: "Your whole plan, one list",
-  showTemplatesBody:
-    "Templates and multi-week programs side by side, each tagged with where it came from.",
-  showSetsTitle: "Set-by-set precision",
-  showSetsBody:
-    "Warm-ups, working sets, reps, weight, rest, RPE and RIR — typed, duplicated and reordered in seconds.",
-  showProgramTitle: "Multi-week programs",
-  showProgramBody:
-    "Drop templates onto a week × day grid, then copy week 1 across the whole block.",
-  showCatalogTitle: "The full exercise catalog",
-  showCatalogBody:
-    "Search or filter the built-in catalog by muscle and equipment, then add with one click.",
-  showDevicesTitle: "Built here. Trained there.",
-  showDevicesBody:
-    "Push your changes, run Sync in the app, and the plan lands on your phone's calendar.",
+  heroBuild: "Build.",
+  heroSync: "Sync.",
+  heroTrain: "Train.",
+  heroSub:
+    "Plan your training on a real keyboard, push it to your phone, and train it anywhere.",
   loginIntro:
     "Build workout templates with a keyboard and mouse, then push them to your phone. Sign in with the same email you use for Cloud Sync in the THYMOS app (Pro).",
   emailLabel: "Email",
@@ -48,6 +32,44 @@ const en = {
     "No THYMOS account was found for this email. The web builder is available for Pro users — first enable Cloud Sync in the THYMOS app (Settings → Sync) with this email, then try again.",
   errRateLimit:
     "Too many attempts — please wait a minute before requesting another link.",
+
+  // "See how it works" — scroll-revealed screenshots + zoomable lightbox
+  howCue: "See how it works",
+  howTitle: "See how it works",
+  howSub:
+    "Seven screens from the builder. Click any of them to open it full size and zoom in.",
+  shotOpenAria: "Open full size: {title}",
+  shotWorkspaceTitle: "Your workspace",
+  shotWorkspaceBody:
+    "Templates on top, multi-week programs below — each tagged with where it came from.",
+  shotCatalogTitle: "The exercise catalog",
+  shotCatalogBody:
+    "Search or filter the built-in catalog by muscle and equipment, then add with one click.",
+  shotSetsTitle: "Every set, spelled out",
+  shotSetsBody:
+    "Warm-up or working, reps, weight, rest, RPE and RIR — typed, duplicated and reordered in seconds.",
+  shotScheduleTitle: "Schedule the block",
+  shotScheduleBody:
+    "Drop templates onto a week × day grid, then copy week 1 across the whole program.",
+  shotPushTitle: "Push to your phone",
+  shotPushBody:
+    "Saving queues your changes; one push sends them all and tells you exactly what landed.",
+  shotBlockTitle: "A whole block in one sitting",
+  shotBlockBody:
+    "Thirteen changes, one push — templates and programs travel together.",
+  shotDevicesTitle: "Sync, schedule, train",
+  shotDevicesBody:
+    "Open THYMOS, run Sync, and the plan is on your phone's calendar ready to start.",
+
+  // Lightbox
+  lbClose: "Close",
+  lbPrev: "Previous screenshot",
+  lbNext: "Next screenshot",
+  lbZoomIn: "Zoom in",
+  lbZoomOut: "Zoom out",
+  lbReset: "Reset zoom",
+  lbCounter: "{n} / {total}",
+  lbHint: "Scroll to zoom · drag to pan · Esc to close",
 
   // Auth callback
   signingIn: "Signing you in…",
@@ -213,28 +235,12 @@ const tr: Record<MessageKey, string> = {
   signOut: "Çıkış yap",
 
   loginTitle: "Rutin Oluşturucu",
-  loginHeadline: "Burada planla. Orada antrenman yap.",
   brandMarkAlt: "THYMOS logosu",
-  showcaseRegionAria: "Oluşturucu nasıl görünüyor",
-  showcaseDotAria: "{n}. ekran görüntüsünü göster",
-  stepBuild: "Oluştur",
-  stepPush: "Gönder",
-  stepTrain: "Antrenman",
-  showTemplatesTitle: "Tüm planın tek listede",
-  showTemplatesBody:
-    "Şablonlar ve çok haftalık programlar yan yana, her biri nereden geldiği etiketiyle.",
-  showSetsTitle: "Set set hassasiyet",
-  showSetsBody:
-    "Isınma, çalışma setleri, tekrar, ağırlık, dinlenme, RPE ve RIR — saniyeler içinde yaz, çoğalt, sırala.",
-  showProgramTitle: "Çok haftalık programlar",
-  showProgramBody:
-    "Şablonları hafta × gün takvimine yerleştir, sonra 1. haftayı tüm bloğa kopyala.",
-  showCatalogTitle: "Eksiksiz egzersiz kataloğu",
-  showCatalogBody:
-    "Yerleşik katalogda kasa ve ekipmana göre ara veya filtrele, tek tıkla ekle.",
-  showDevicesTitle: "Burada kur. Orada çalış.",
-  showDevicesBody:
-    "Değişikliklerini gönder, uygulamada Senkronizasyon'u çalıştır; plan telefonunun takvimine düşsün.",
+  heroBuild: "Oluştur.",
+  heroSync: "Senkronize et.",
+  heroTrain: "Antrenman yap.",
+  heroSub:
+    "Antrenmanını gerçek bir klavyeyle planla, telefonuna gönder ve her yerde çalış.",
   loginIntro:
     "Antrenman şablonlarını klavye ve fareyle oluştur, sonra telefonuna gönder. THYMOS uygulamasında Bulut Senkronizasyonu için kullandığın e-postayla giriş yap (Pro).",
   emailLabel: "E-posta",
@@ -248,6 +254,42 @@ const tr: Record<MessageKey, string> = {
     "Bu e-posta için THYMOS hesabı bulunamadı. Web oluşturucu Pro kullanıcılar içindir — önce THYMOS uygulamasında bu e-postayla Bulut Senkronizasyonu'nu aç (Ayarlar → Senkronizasyon), sonra tekrar dene.",
   errRateLimit:
     "Çok fazla deneme — yeni bir bağlantı istemeden önce bir dakika bekle.",
+
+  howCue: "Nasıl çalıştığını gör",
+  howTitle: "Nasıl çalıştığını gör",
+  howSub:
+    "Oluşturucudan yedi ekran. Tam boyutta açıp yakınlaştırmak için herhangi birine tıkla.",
+  shotOpenAria: "Tam boyutta aç: {title}",
+  shotWorkspaceTitle: "Çalışma alanın",
+  shotWorkspaceBody:
+    "Üstte şablonlar, altta çok haftalık programlar — her biri nereden geldiği etiketiyle.",
+  shotCatalogTitle: "Egzersiz kataloğu",
+  shotCatalogBody:
+    "Yerleşik katalogda kasa ve ekipmana göre ara veya filtrele, tek tıkla ekle.",
+  shotSetsTitle: "Her set açıkça",
+  shotSetsBody:
+    "Isınma ya da çalışma, tekrar, ağırlık, dinlenme, RPE ve RIR — saniyeler içinde yaz, çoğalt, sırala.",
+  shotScheduleTitle: "Bloğu planla",
+  shotScheduleBody:
+    "Şablonları hafta × gün takvimine yerleştir, sonra 1. haftayı tüm programa kopyala.",
+  shotPushTitle: "Telefonuna gönder",
+  shotPushBody:
+    "Kaydetmek değişiklikleri sıraya alır; tek gönderim hepsini yollar ve neyin ulaştığını söyler.",
+  shotBlockTitle: "Tek oturuşta koca bir blok",
+  shotBlockBody:
+    "On üç değişiklik, tek gönderim — şablonlar ve programlar birlikte gider.",
+  shotDevicesTitle: "Senkronize et, planla, çalış",
+  shotDevicesBody:
+    "THYMOS'u aç, Senkronizasyon'u çalıştır; plan telefonunun takviminde başlamaya hazır.",
+
+  lbClose: "Kapat",
+  lbPrev: "Önceki ekran görüntüsü",
+  lbNext: "Sonraki ekran görüntüsü",
+  lbZoomIn: "Yakınlaştır",
+  lbZoomOut: "Uzaklaştır",
+  lbReset: "Yakınlaştırmayı sıfırla",
+  lbCounter: "{n} / {total}",
+  lbHint: "Yakınlaştırmak için kaydır · sürükleyerek gez · kapatmak için Esc",
 
   signingIn: "Giriş yapılıyor…",
   completingAuth: "Kimlik doğrulama tamamlanıyor.",
